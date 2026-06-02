@@ -23,6 +23,7 @@
       document.getElementById("hero").classList.add("hero-in");
       startScramble();
       startTerminalType();
+      startSubtitleLoop();
       setTimeout(() => {
         if (window.scrollY > 80) navbar.classList.add("visible");
       }, 600);
@@ -31,7 +32,7 @@
 })();
 
 /* ══════════════════════════════════════════
-   CURSOR
+   CURSOR — hide on scroll, show on move
 ══════════════════════════════════════════ */
 const cur = document.getElementById("cursor");
 const ring = document.getElementById("cursor-ring");
@@ -39,12 +40,19 @@ let mx = 0,
   my = 0,
   rx = 0,
   ry = 0;
+let scrollTimer = null;
+let cursorVisible = true;
 
 document.addEventListener("mousemove", (e) => {
   mx = e.clientX;
   my = e.clientY;
   cur.style.left = mx + "px";
   cur.style.top = my + "px";
+  if (!cursorVisible) {
+    cursorVisible = true;
+    cur.classList.remove("hidden");
+    ring.classList.remove("hidden");
+  }
 });
 (function animRing() {
   rx += (mx - rx) * 0.1;
@@ -69,6 +77,18 @@ document
   });
 
 /* ══════════════════════════════════════════
+   SCROLL PROGRESS BAR
+══════════════════════════════════════════ */
+const progressBar = document.getElementById("scroll-progress");
+
+function updateScrollProgress() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = pct + "%";
+}
+
+/* ══════════════════════════════════════════
    NAV — visible on scroll + active section
 ══════════════════════════════════════════ */
 const navbar = document.getElementById("navbar");
@@ -79,6 +99,18 @@ window.addEventListener(
     navbar.classList.toggle("visible", window.scrollY > 80);
     updateActiveNav();
     updateBackToTop();
+    updateScrollProgress();
+
+    // hide cursor during fast scroll
+    cursorVisible = false;
+    cur.classList.add("hidden");
+    ring.classList.add("hidden");
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      cursorVisible = true;
+      cur.classList.remove("hidden");
+      ring.classList.remove("hidden");
+    }, 300);
   },
   { passive: true },
 );
@@ -97,6 +129,30 @@ function updateActiveNav() {
 }
 
 /* ══════════════════════════════════════════
+   HAMBURGER MOBILE MENU
+══════════════════════════════════════════ */
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobile-menu");
+
+hamburger.addEventListener("click", () => {
+  const isOpen = hamburger.classList.toggle("open");
+  hamburger.setAttribute("aria-expanded", isOpen);
+  mobileMenu.classList.toggle("open", isOpen);
+  mobileMenu.setAttribute("aria-hidden", !isOpen);
+  document.body.style.overflow = isOpen ? "hidden" : "";
+});
+
+document.querySelectorAll(".mobile-links a").forEach((a) => {
+  a.addEventListener("click", () => {
+    hamburger.classList.remove("open");
+    hamburger.setAttribute("aria-expanded", false);
+    mobileMenu.classList.remove("open");
+    mobileMenu.setAttribute("aria-hidden", true);
+    document.body.style.overflow = "";
+  });
+});
+
+/* ══════════════════════════════════════════
    BACK TO TOP
 ══════════════════════════════════════════ */
 const btt = document.getElementById("back-to-top");
@@ -108,7 +164,7 @@ function updateBackToTop() {
 }
 
 /* ══════════════════════════════════════════
-   HERO 3D CANVAS
+   HERO 3D CANVAS — disabled on mobile
 ══════════════════════════════════════════ */
 const canvas = document.getElementById("hero-canvas");
 const ctx = canvas.getContext("2d");
@@ -117,6 +173,7 @@ let W,
   t = 0,
   mouseX = 0,
   mouseY = 0;
+const isMobile = () => window.innerWidth < 768;
 
 function resize() {
   W = canvas.width = innerWidth;
@@ -144,6 +201,18 @@ function proj3D(x, y, z, rX, rY) {
 }
 
 function drawHero() {
+  if (isMobile()) {
+    // simple static glow on mobile — no heavy canvas loop
+    ctx.clearRect(0, 0, W, H);
+    const cx = W / 2,
+      cy = H / 2;
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 200);
+    grad.addColorStop(0, "rgba(74,144,217,0.12)");
+    grad.addColorStop(1, "transparent");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+    return;
+  }
   ctx.clearRect(0, 0, W, H);
   const cx = W / 2,
     cy = H / 2;
@@ -214,6 +283,56 @@ function drawHero() {
   requestAnimationFrame(drawHero);
 }
 drawHero();
+window.addEventListener("resize", () => {
+  if (!isMobile()) requestAnimationFrame(drawHero);
+});
+
+/* ══════════════════════════════════════════
+   HERO SUBTITLE LOOP (typewriter cycle)
+══════════════════════════════════════════ */
+const subtitles = [
+  "Building the web, one line at a time",
+  "Solving real problems with clean code",
+  "Full-stack · Flask · MySQL · JavaScript",
+  "Open to work — let's build together",
+];
+let subIdx = 0;
+
+function typeSubtitle(el, text, cb) {
+  el.textContent = "";
+  let i = 0;
+  const iv = setInterval(() => {
+    el.textContent += text[i];
+    i++;
+    if (i >= text.length) {
+      clearInterval(iv);
+      setTimeout(cb, 2200);
+    }
+  }, 38);
+}
+
+function eraseSubtitle(el, cb) {
+  const iv = setInterval(() => {
+    el.textContent = el.textContent.slice(0, -1);
+    if (el.textContent.length === 0) {
+      clearInterval(iv);
+      cb();
+    }
+  }, 22);
+}
+
+function startSubtitleLoop() {
+  const el = document.getElementById("hero-sub");
+  if (!el) return;
+  // start after first subtitle has faded in
+  setTimeout(() => {
+    function cycle() {
+      subIdx = (subIdx + 1) % subtitles.length;
+      eraseSubtitle(el, () => typeSubtitle(el, subtitles[subIdx], cycle));
+    }
+    typeSubtitle(el, subtitles[0], cycle);
+  }, 1800);
+}
 
 /* ══════════════════════════════════════════
    TEXT SCRAMBLE
@@ -254,7 +373,7 @@ function startScramble() {
 }
 
 /* ══════════════════════════════════════════
-   TERMINAL TYPING
+   TERMINAL TYPING — loops on re-entry
 ══════════════════════════════════════════ */
 const terminalLines = [
   { type: "prompt", text: "whoami" },
@@ -270,7 +389,7 @@ const terminalLines = [
   { type: "green", text: "● Open to work — let's build something" },
 ];
 
-function startTerminalType() {
+function runTerminal() {
   const body = document.getElementById("terminal-body");
   if (!body) return;
   body.innerHTML = "";
@@ -279,7 +398,11 @@ function startTerminalType() {
     currentLineEl = null;
 
   function tick() {
-    if (lineIdx >= terminalLines.length) return;
+    if (lineIdx >= terminalLines.length) {
+      // pause then loop
+      setTimeout(runTerminal, 3000);
+      return;
+    }
     const line = terminalLines[lineIdx];
 
     if (line.type === "blank") {
@@ -323,8 +446,27 @@ function startTerminalType() {
       setTimeout(tick, line.type === "prompt" ? 300 : 60);
     }
   }
-  setTimeout(tick, 800);
+  setTimeout(tick, 600);
 }
+
+function startTerminalType() {
+  runTerminal();
+}
+
+// re-trigger terminal when about section scrolls back into view
+const terminalObs = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const body = document.getElementById("terminal-body");
+        if (body && body.innerHTML === "") runTerminal();
+      }
+    });
+  },
+  { threshold: 0.3 },
+);
+const aboutSection = document.getElementById("about");
+if (aboutSection) terminalObs.observe(aboutSection);
 
 /* ══════════════════════════════════════════
    SCROLL REVEAL
@@ -356,10 +498,11 @@ const barObs = new IntersectionObserver(
 document.querySelectorAll(".skill-card").forEach((c) => barObs.observe(c));
 
 /* ══════════════════════════════════════════
-   3D CARD TILT
+   3D CARD TILT — disabled on mobile
 ══════════════════════════════════════════ */
 document.querySelectorAll(".project-card, .skill-card").forEach((card) => {
   card.addEventListener("mousemove", (e) => {
+    if (isMobile()) return;
     const r = card.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5;
     const y = (e.clientY - r.top) / r.height - 0.5;

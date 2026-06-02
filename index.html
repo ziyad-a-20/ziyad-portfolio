@@ -7,6 +7,13 @@
 <meta property="og:title" content="Ziyad A — Jr. Web Developer">
 <meta property="og:description" content="Building the web, one line at a time.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://your-domain.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ziyad A — Jr. Web Developer">
+<meta name="twitter:description" content="Building the web, one line at a time.">
+<meta name="twitter:image" content="https://your-domain.com/assets/og-image.png">
 <meta name="theme-color" content="#060608">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
@@ -21,6 +28,9 @@
 
 <!-- GRAIN OVERLAY -->
 <div class="grain" aria-hidden="true"></div>
+
+<!-- SCROLL PROGRESS BAR -->
+<div id="scroll-progress" aria-hidden="true"></div>
 
 <!-- BACK TO TOP -->
 <button id="back-to-top" aria-label="Back to top">
@@ -45,15 +55,31 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">ZA</a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="nav-links">
     <li><a href="#about" data-section="about">About</a></li>
     <li><a href="#skills" data-section="skills">Skills</a></li>
     <li><a href="#experience" data-section="experience">Journey</a></li>
     <li><a href="#projects" data-section="projects">Work</a></li>
     <li><a href="#contact" data-section="contact">Contact</a></li>
-    <li><a href="https://drive.google.com/file/d/1s2Ol0BmAmpE4RqKDq4JhxNHu7G0cDey8/view?usp=sharing" target="_blank" class="nav-resume">Resume ↗</a></li>
+    <li><a href="https://drive.google.com/file/d/1aNvUZmVZsilkJ9SRhvwWDe70eOfylo_m/view?usp=drive_link" target="_blank" class="nav-resume">Resume ↗</a></li>
   </ul>
+  <!-- HAMBURGER -->
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <ul class="mobile-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Journey</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://drive.google.com/file/d/1aNvUZmVZsilkJ9SRhvwWDe70eOfylo_m/view?usp=drive_link" target="_blank">Resume ↗</a></li>
+  </ul>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -65,10 +91,10 @@
       <span><em data-scramble="Ziyad">Ziyad</em></span>
       <span class="dim"><em data-scramble="A.">A.</em></span>
     </h1>
-    <p class="hero-sub">Building the web, one line at a time</p>
+    <p class="hero-sub" id="hero-sub">Building the web, one line at a time</p>
     <div class="hero-cta">
       <a href="#projects" class="btn-outline">View My Work</a>
-      <a href="https://drive.google.com/file/d/1s2Ol0BmAmpE4RqKDq4JhxNHu7G0cDey8/view?usp=sharing" target="_blank" class="btn-fill">Download Resume</a>
+      <a href="https://drive.google.com/file/d/1aNvUZmVZsilkJ9SRhvwWDe70eOfylo_m/view?usp=drive_link" target="_blank" class="btn-fill">Download Resume</a>
     </div>
   </div>
   <div class="scroll-hint">
@@ -237,7 +263,7 @@
       <div class="tl-card">
         <h3 class="tl-title">Library Management System</h3>
         <p class="tl-desc">Built a production-grade RBAC system with Flask &amp; MySQL — my most technically complex project to date.</p>
-        <div class="tl-tags"><span class="tag">Flask</span><span class="tag">MySQL</span></div>
+        <div class="tl-tags"><span class="tag">Flask</span><span class="tag">RBAC</span><span class="tag">MySQL</span></div>
       </div>
     </div>
     <div class="timeline-item sr sr-up sr-d4">
@@ -259,8 +285,22 @@
   <p class="section-label sr sr-up">Selected Work</p>
   <h2 class="section-title sr sr-up sr-d1">Three builds.<br>Real problems solved.</h2>
   <div class="bento">
+
     <div class="project-card large sr sr-up sr-d1">
       <div class="p-glow"></div>
+      <div class="p-mockup">
+        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-screen mockup-01">
+          <div class="mockup-line w80"></div>
+          <div class="mockup-line w60"></div>
+          <div class="mockup-grid">
+            <div class="mockup-block"></div>
+            <div class="mockup-block"></div>
+            <div class="mockup-block"></div>
+          </div>
+          <div class="mockup-line w40"></div>
+        </div>
+      </div>
       <div class="p-header">
         <span class="p-num">01 — Backend Heavy</span>
         <div class="p-icon">
@@ -270,7 +310,7 @@
       <h3 class="p-title">Library Management System</h3>
       <p class="p-desc">A full-stack web app where access is earned, not assumed. Built on Flask &amp; MySQL with role-based access control for two user roles, a normalised 5-table relational schema, and a real-time borrow/return tracking engine with live book search across the full catalogue.</p>
       <div class="p-tags">
-        <span class="tag">Flask</span><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+        <span class="tag">Flask</span><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">RBAC</span>
       </div>
       <div class="p-links">
         <a href="https://github.com/ziyad-a-20/Library-Management-System" class="p-link" target="_blank" rel="noopener">
@@ -279,8 +319,17 @@
         </a>
       </div>
     </div>
+
     <div class="project-card sr sr-up sr-d2">
       <div class="p-glow"></div>
+      <div class="p-mockup">
+        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-screen mockup-02">
+          <div class="mockup-hero-block"></div>
+          <div class="mockup-line w70"></div>
+          <div class="mockup-line w50"></div>
+        </div>
+      </div>
       <div class="p-header">
         <span class="p-num">02 — Frontend</span>
         <div class="p-icon">
@@ -288,9 +337,9 @@
         </div>
       </div>
       <h3 class="p-title">Himalaya Lip Balm<br>Showcase</h3>
-      <p class="p-desc">A product page that sells without saying a word. Scroll-triggered animations via AOS, an interactive cart drawer, animated order confirmation, and pixel-perfect responsiveness across every viewport.</p>
+      <p class="p-desc">A product page that sells without saying a word. Scroll-triggered animations, an interactive cart drawer, animated order confirmation, and pixel-perfect responsiveness.</p>
       <div class="p-tags">
-        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">AOS</span>
       </div>
       <div class="p-links">
         <a href="https://himalaya-lipbalm-showcase.vercel.app" class="p-link" target="_blank" rel="noopener">
@@ -299,8 +348,21 @@
         </a>
       </div>
     </div>
+
     <div class="project-card sr sr-up sr-d3">
       <div class="p-glow"></div>
+      <div class="p-mockup">
+        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-screen mockup-03">
+          <div class="mockup-cards-row">
+            <div class="mockup-card-sm"></div>
+            <div class="mockup-card-sm"></div>
+            <div class="mockup-card-sm"></div>
+          </div>
+          <div class="mockup-line w60"></div>
+          <div class="mockup-line w80"></div>
+        </div>
+      </div>
       <div class="p-header">
         <span class="p-num">03 — Full Stack</span>
         <div class="p-icon">
@@ -308,9 +370,9 @@
         </div>
       </div>
       <h3 class="p-title">Tokyo Revengers<br>Fan Portal</h3>
-      <p class="p-desc">A dark, cinematic fan portal for the Tokyo Revengers universe. Character cards with gang filtering, episode archives, CRUD-powered fan submissions, and interactive modals — wrapped in an AOS-animated UI with Flask &amp; MySQL under the hood.</p>
+      <p class="p-desc">A dark, cinematic fan portal. Character cards with gang filtering, episode archives, CRUD-powered fan submissions, and interactive modals — Flask &amp; MySQL under the hood.</p>
       <div class="p-tags">
-        <span class="tag">Flask</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+        <span class="tag">Flask</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">AOS</span><span class="tag">CRUD</span>
       </div>
       <div class="p-links">
         <a href="https://github.com/ziyad-a-20/Tokyo-Revengers-Gang-Character-Hub" class="p-link" target="_blank" rel="noopener">
@@ -319,6 +381,7 @@
         </a>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -338,16 +401,26 @@
       <svg class="stroke-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
       Email
     </a>
-    <a href="https://drive.google.com/file/d/1s2Ol0BmAmpE4RqKDq4JhxNHu7G0cDey8/view?usp=sharing" class="social-link" target="_blank" rel="noopener">
+    <a href="https://drive.google.com/file/d/1aNvUZmVZsilkJ9SRhvwWDe70eOfylo_m/view?usp=drive_link" class="social-link" target="_blank" rel="noopener">
       <svg class="stroke-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9,15 12,18 15,15"/></svg>
       Resume
     </a>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <span class="footer-text">Ziyad A — Jr. Web Developer</span>
-  <span class="footer-text">© 2025 · Crafted with intent</span>
+  <div class="footer-left">
+    <span class="footer-logo">ZA</span>
+    <span class="footer-text">Jr. Web Developer · Open to Work</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="footer-text footer-copy">© 2025 · Crafted with intent</span>
 </footer>
 
 <script src="script.js" defer></script>
