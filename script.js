@@ -32,8 +32,11 @@
 })();
 
 /* ══════════════════════════════════════════
-   CURSOR — hide on scroll, show on move
+   CURSOR — desktop only, hidden on touch
 ══════════════════════════════════════════ */
+const isTouchDevice = () =>
+  window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
 const cur = document.getElementById("cursor");
 const ring = document.getElementById("cursor-ring");
 let mx = 0,
@@ -41,40 +44,40 @@ let mx = 0,
   rx = 0,
   ry = 0;
 let scrollTimer = null;
-let cursorVisible = true;
 
-document.addEventListener("mousemove", (e) => {
-  mx = e.clientX;
-  my = e.clientY;
-  cur.style.left = mx + "px";
-  cur.style.top = my + "px";
-  if (!cursorVisible) {
-    cursorVisible = true;
+if (!isTouchDevice()) {
+  document.addEventListener("mousemove", (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    cur.style.left = mx + "px";
+    cur.style.top = my + "px";
     cur.classList.remove("hidden");
     ring.classList.remove("hidden");
-  }
-});
-(function animRing() {
-  rx += (mx - rx) * 0.1;
-  ry += (my - ry) * 0.1;
-  ring.style.left = rx + "px";
-  ring.style.top = ry + "px";
-  requestAnimationFrame(animRing);
-})();
-document
-  .querySelectorAll("a, button, .skill-card, .project-card")
-  .forEach((el) => {
-    el.addEventListener("mouseenter", () => {
-      ring.style.width = "56px";
-      ring.style.height = "56px";
-      ring.style.borderColor = "rgba(74,144,217,0.9)";
-    });
-    el.addEventListener("mouseleave", () => {
-      ring.style.width = "36px";
-      ring.style.height = "36px";
-      ring.style.borderColor = "rgba(255,255,255,0.4)";
-    });
   });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.1;
+    ry += (my - ry) * 0.1;
+    ring.style.left = rx + "px";
+    ring.style.top = ry + "px";
+    requestAnimationFrame(animRing);
+  })();
+
+  document
+    .querySelectorAll("a, button, .skill-card, .project-card")
+    .forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        ring.style.width = "56px";
+        ring.style.height = "56px";
+        ring.style.borderColor = "rgba(74,144,217,0.9)";
+      });
+      el.addEventListener("mouseleave", () => {
+        ring.style.width = "36px";
+        ring.style.height = "36px";
+        ring.style.borderColor = "rgba(255,255,255,0.4)";
+      });
+    });
+}
 
 /* ══════════════════════════════════════════
    SCROLL PROGRESS BAR
@@ -101,16 +104,15 @@ window.addEventListener(
     updateBackToTop();
     updateScrollProgress();
 
-    // hide cursor during fast scroll
-    cursorVisible = false;
-    cur.classList.add("hidden");
-    ring.classList.add("hidden");
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
-      cursorVisible = true;
-      cur.classList.remove("hidden");
-      ring.classList.remove("hidden");
-    }, 300);
+    if (!isTouchDevice()) {
+      cur.classList.add("hidden");
+      ring.classList.add("hidden");
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        cur.classList.remove("hidden");
+        ring.classList.remove("hidden");
+      }, 300);
+    }
   },
   { passive: true },
 );
@@ -164,7 +166,9 @@ function updateBackToTop() {
 }
 
 /* ══════════════════════════════════════════
-   HERO 3D CANVAS — disabled on mobile
+   HERO 3D CANVAS
+   — Full animation on desktop
+   — Animated globe on mobile (no mouse track)
 ══════════════════════════════════════════ */
 const canvas = document.getElementById("hero-canvas");
 const ctx = canvas.getContext("2d");
@@ -173,7 +177,6 @@ let W,
   t = 0,
   mouseX = 0,
   mouseY = 0;
-const isMobile = () => window.innerWidth < 768;
 
 function resize() {
   W = canvas.width = innerWidth;
@@ -181,6 +184,7 @@ function resize() {
 }
 resize();
 window.addEventListener("resize", resize);
+
 document.addEventListener("mousemove", (e) => {
   mouseX = (e.clientX / W - 0.5) * 2;
   mouseY = (e.clientY / H - 0.5) * 2;
@@ -200,25 +204,8 @@ function proj3D(x, y, z, rX, rY) {
   return { x: x3 * s, y: y2 * s, z: z3, s };
 }
 
-function drawHero() {
-  if (isMobile()) {
-    // simple static glow on mobile — no heavy canvas loop
-    ctx.clearRect(0, 0, W, H);
-    const cx = W / 2,
-      cy = H / 2;
-    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 200);
-    grad.addColorStop(0, "rgba(74,144,217,0.12)");
-    grad.addColorStop(1, "transparent");
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, W, H);
-    return;
-  }
-  ctx.clearRect(0, 0, W, H);
-  const cx = W / 2,
-    cy = H / 2;
-  const rY = t * 0.28 + mouseX * 0.38,
-    rX = t * 0.14 + mouseY * 0.22;
-  const R = 140;
+function drawGlobe(rX, rY, R, cx, cy, particleCount) {
+  // latitude rings
   for (let r = 0; r < 6; r++) {
     const lat = (r / 5 - 0.5) * Math.PI,
       cL = Math.cos(lat),
@@ -241,6 +228,7 @@ function drawHero() {
     ctx.lineWidth = 0.7;
     ctx.stroke();
   }
+  // meridian lines
   for (let m = 0; m < 14; m++) {
     const lng = (m / 14) * Math.PI * 2;
     ctx.beginPath();
@@ -263,7 +251,8 @@ function drawHero() {
     ctx.lineWidth = 0.5;
     ctx.stroke();
   }
-  for (let i = 0; i < 68; i++) {
+  // particles
+  for (let i = 0; i < particleCount; i++) {
     const a = i * 137.508 * (Math.PI / 180) + t * 0.04,
       rad = 38 + i * 2.6;
     const pt = proj3D(
@@ -279,16 +268,33 @@ function drawHero() {
     ctx.fillStyle = `rgba(190,215,255,${alpha})`;
     ctx.fill();
   }
+}
+
+function drawHero() {
+  ctx.clearRect(0, 0, W, H);
+  const cx = W / 2,
+    cy = H / 2;
+  const mobile = isTouchDevice() || W < 768;
+
+  if (mobile) {
+    // globe still animates on mobile — no mouse parallax, fewer particles
+    const rY = t * 0.28;
+    const rX = t * 0.14;
+    const R = Math.min(W, H) * 0.22; // responsive radius on mobile
+    drawGlobe(rX, rY, R, cx, cy, 30);
+  } else {
+    const rY = t * 0.28 + mouseX * 0.38;
+    const rX = t * 0.14 + mouseY * 0.22;
+    drawGlobe(rX, rY, 140, cx, cy, 68);
+  }
+
   t += 0.006;
   requestAnimationFrame(drawHero);
 }
 drawHero();
-window.addEventListener("resize", () => {
-  if (!isMobile()) requestAnimationFrame(drawHero);
-});
 
 /* ══════════════════════════════════════════
-   HERO SUBTITLE LOOP (typewriter cycle)
+   HERO SUBTITLE LOOP
 ══════════════════════════════════════════ */
 const subtitles = [
   "Building the web, one line at a time",
@@ -324,7 +330,6 @@ function eraseSubtitle(el, cb) {
 function startSubtitleLoop() {
   const el = document.getElementById("hero-sub");
   if (!el) return;
-  // start after first subtitle has faded in
   setTimeout(() => {
     function cycle() {
       subIdx = (subIdx + 1) % subtitles.length;
@@ -373,7 +378,7 @@ function startScramble() {
 }
 
 /* ══════════════════════════════════════════
-   TERMINAL TYPING — loops on re-entry
+   TERMINAL TYPING — loops
 ══════════════════════════════════════════ */
 const terminalLines = [
   { type: "prompt", text: "whoami" },
@@ -399,7 +404,6 @@ function runTerminal() {
 
   function tick() {
     if (lineIdx >= terminalLines.length) {
-      // pause then loop
       setTimeout(runTerminal, 3000);
       return;
     }
@@ -453,7 +457,6 @@ function startTerminalType() {
   runTerminal();
 }
 
-// re-trigger terminal when about section scrolls back into view
 const terminalObs = new IntersectionObserver(
   (entries) => {
     entries.forEach((e) => {
@@ -498,11 +501,11 @@ const barObs = new IntersectionObserver(
 document.querySelectorAll(".skill-card").forEach((c) => barObs.observe(c));
 
 /* ══════════════════════════════════════════
-   3D CARD TILT — disabled on mobile
+   3D CARD TILT — desktop only
 ══════════════════════════════════════════ */
 document.querySelectorAll(".project-card, .skill-card").forEach((card) => {
   card.addEventListener("mousemove", (e) => {
-    if (isMobile()) return;
+    if (isTouchDevice()) return;
     const r = card.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5;
     const y = (e.clientY - r.top) / r.height - 0.5;

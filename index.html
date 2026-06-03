@@ -26,33 +26,24 @@
 </head>
 <body class="loading">
 
-<!-- GRAIN OVERLAY -->
 <div class="grain" aria-hidden="true"></div>
-
-<!-- SCROLL PROGRESS BAR -->
 <div id="scroll-progress" aria-hidden="true"></div>
 
-<!-- BACK TO TOP -->
 <button id="back-to-top" aria-label="Back to top">
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
-<!-- LOADER -->
 <div id="loader">
   <div class="loader-name" aria-hidden="true">
     <span>Z</span><span>i</span><span>y</span><span>a</span><span>d</span><span>&nbsp;A</span>
   </div>
-  <div class="loader-bar-wrap">
-    <div class="loader-bar"></div>
-  </div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
   <div class="loader-pct" id="loader-pct">0%</div>
 </div>
 
-<!-- CURSOR -->
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
-<!-- NAV -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">ZA</a>
   <ul class="nav-links" id="nav-links">
@@ -63,13 +54,11 @@
     <li><a href="#contact" data-section="contact">Contact</a></li>
     <li><a href="https://drive.google.com/file/d/1aNvUZmVZsilkJ9SRhvwWDe70eOfylo_m/view?usp=drive_link" target="_blank" class="nav-resume">Resume ↗</a></li>
   </ul>
-  <!-- HAMBURGER -->
   <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- MOBILE MENU OVERLAY -->
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
   <ul class="mobile-links">
     <li><a href="#about">About</a></li>
@@ -81,7 +70,6 @@
   </ul>
 </div>
 
-<!-- HERO -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-glow"></div>
@@ -105,7 +93,6 @@
 
 <div class="divider" aria-hidden="true"></div>
 
-<!-- ABOUT -->
 <section id="about" class="section-wrap">
   <div class="about-grid">
     <div>
@@ -137,30 +124,42 @@
 
 <div class="divider" aria-hidden="true"></div>
 
-<!-- SKILLS -->
 <section id="skills" class="section-wrap">
   <p class="section-label sr sr-up">Skills</p>
   <h2 class="section-title sr sr-up sr-d1">The toolkit,<br>sharpened.</h2>
 
   <p class="skills-group-label sr sr-up sr-d2">Backend</p>
   <div class="skills-grid">
+
+    <!-- Python — real icon -->
     <div class="skill-card sr sr-up sr-d1">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24"><path d="M12 2C9.8 2 8 3.3 8 5v1H6C4.3 6 3 7.3 3 9v6c0 1.7 1.3 3 3 3h2v1c0 1.7 1.8 3 4 3s4-1.3 4-3v-1h2c1.7 0 3-1.3 3-3V9c0-1.7-1.3-3-3-3h-2V5c0-1.7-1.8-3-4-3zm0 2c1.1 0 2 .6 2 1v1h-4V5c0-.4.9-1 2-1zM8 8h8v8H8V8zm1 2v4h6v-4H9zm2 1h2v2h-2v-2z"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.887S0 5.789 0 11.969c0 6.18 3.403 5.963 3.403 5.963h2.031v-2.867s-.109-3.402 3.345-3.402h5.766s3.236.052 3.236-3.127V3.291S18.28 0 11.914 0zm-3.21 1.874a1.046 1.046 0 1 1 0 2.092 1.046 1.046 0 0 1 0-2.092z"/>
+          <path d="M12.086 24c6.094 0 5.714-2.656 5.714-2.656l-.007-2.752h-5.814v-.826h8.134S24 18.211 24 12.031c0-6.18-3.403-5.963-3.403-5.963h-2.031v2.867s.109 3.402-3.345 3.402H9.455s-3.236-.052-3.236 3.127v5.245S5.72 24 12.086 24zm3.21-1.874a1.046 1.046 0 1 1 0-2.092 1.046 1.046 0 0 1 0 2.092z"/>
+        </svg>
       </div>
       <div class="skill-name">Python</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="82"></div></div>
     </div>
+
+    <!-- Flask — real icon -->
     <div class="skill-card sr sr-up sr-d2">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-4M9 3l7 7m0 0l-5 5m5-5H9"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M3.7 21.2c.2.5.7.8 1.2.8h14.2c.5 0 1-.3 1.2-.8l3.5-9.2H.2l3.5 9.2zM23.8 10H.2C.1 10 0 10.1 0 10.2v.6c0 .1.1.2.2.2h23.6c.1 0 .2-.1.2-.2v-.6c0-.1-.1-.2-.2-.2zM7 8.5V3c0-.3.2-.5.5-.5h1c.3 0 .5.2.5.5v5.5H7zm4 0V1c0-.6.4-1 1-1s1 .4 1 1v7.5h-2zm4 0V4c0-.3.2-.5.5-.5h1c.3 0 .5.2.5.5v4.5h-2z"/>
+        </svg>
       </div>
       <div class="skill-name">Flask</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="78"></div></div>
     </div>
+
+    <!-- MySQL — real icon -->
     <div class="skill-card sr sr-up sr-d3">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v5c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 10v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5"/><path d="M4 15v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.1-.1-.182-.151zm-5.804.701c-.12 0-.215.014-.314.047l-.014.013c.04.013.067.013.08.027.067.04.12.1.18.153l.013.014c.054-.04.094-.08.127-.14.054-.08.094-.147.114-.22l-.013-.013c-.027.013-.04.013-.067.013l-.106.106zm14.145 6.497c-.04-.027-.08-.04-.12-.08-.12-.12-.24-.24-.36-.333-.12-.08-.253-.147-.373-.207-.133-.053-.267-.107-.373-.147-.04-.013-.08-.027-.107-.04l-.013.014c.04.04.067.08.1.107.147.107.28.24.413.36.12.106.24.213.36.32l-.013.026c.04.014.067.014.1.014.053 0 .12-.013.16-.04v-.013l-.027-.007c.013 0 .027-.007.04-.027l.013-.014c.013-.013.027-.027.027-.053zm.253 1.14l-.04-.027c-.027-.013-.04-.013-.08-.013-.04.013-.067.027-.12.027-.04.014-.08.027-.12.04l-.013.014c.04.027.093.04.133.08.04.027.067.054.107.08.027.04.04.067.08.08.013 0 .013-.013.027-.013.04-.04.053-.08.04-.12l-.027-.027c.013-.013.013-.027.013-.04v-.08zm-1.6 1.567l-.027-.027c-.027-.013-.04-.013-.08-.013l-.147.04-.013.014c.027.027.04.04.067.054l.12.08.08.053c.04.027.08.027.107.027.04-.014.067-.027.08-.067v-.027c0-.013-.013-.04-.04-.053l-.08-.08c-.013-.014-.04-.027-.067-.04v.04l-.013-.013.013.011zm-2.186 1.287l-.014-.027-.08-.08-.053-.04c-.027-.013-.04-.027-.08-.04l-.12-.04c-.053-.013-.093-.027-.12-.04-.04-.013-.067-.027-.093-.04h-.014v.013c.027.04.04.067.08.094.053.04.12.08.173.12l.133.08c.04.027.093.04.133.027.027-.014.053-.027.067-.054l-.013-.013zm-2.454.987l-.013-.027c-.027-.013-.04-.013-.067-.013-.04.013-.08.027-.12.04l-.013.013c.027.014.04.027.067.04.04.027.08.053.12.08.04.027.067.04.12.04.04 0 .08-.027.093-.054l-.013-.013c-.013-.014-.027-.027-.04-.04l-.067-.04-.067-.026zm-2.52.613c-.014-.014-.027-.027-.04-.04l-.054-.027-.053-.013h-.013v.013l.053.04.054.04.04.027c.013.013.027.013.04.013.013 0 .013-.013.013-.013v-.04zm-2.346.306c-.027-.013-.04-.013-.067-.013h-.027v.013c.027.014.054.027.08.04l.04.027c.013.014.027.014.04.014v-.014l-.013-.013c-.014-.014-.027-.027-.053-.054zM.4 16.774c.053.04.093.08.147.107.04.027.093.04.147.027.04-.014.067-.04.08-.08.013-.04 0-.08-.014-.12l-.027-.04c-.013-.013-.04-.027-.08-.04l-.107-.027c-.04-.013-.08-.013-.107-.013h-.04v.013c.04.027.067.054.107.08l.04.04c.014.014.014.027.027.04l-.013.013h-.013l.013.013-.013-.013.013.013zm23.2-5.04c-.027-.04-.053-.067-.08-.08-.04-.04-.08-.08-.12-.1-.053-.04-.12-.067-.173-.1-.04-.027-.08-.04-.12-.054l-.013.013c.013.04.027.067.04.107.027.08.053.147.08.227.04.093.067.187.107.28.013.04.027.067.04.107l.013-.013c.04-.04.054-.08.054-.12.013-.04.013-.08.013-.12.014-.04.014-.093 0-.12l-.014-.027c-.013-.027-.027-.04-.04-.08l.014.013.013-.013.027.027h-.041zm0 0"/>
+        </svg>
       </div>
       <div class="skill-name">MySQL</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="75"></div></div>
@@ -169,30 +168,46 @@
 
   <p class="skills-group-label sr sr-up sr-d1">Frontend</p>
   <div class="skills-grid">
+
+    <!-- HTML5 -->
     <div class="skill-card sr sr-up sr-d1">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24"><path d="M4 3l1.5 17L12 22l6.5-2L20 3H4zm13.1 5H8.9l.2 2.5h7.8l-.6 6.5L12 18.5l-4.3-1.5-.3-3.5h2.4l.2 1.7 2 .5 2-.5.2-2.7H7.7L7.2 8h9.5z"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/>
+        </svg>
       </div>
       <div class="skill-name">HTML5</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="90"></div></div>
     </div>
+
+    <!-- CSS3 -->
     <div class="skill-card sr sr-up sr-d2">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24"><path d="M4 3l1.5 17L12 22l6.5-2L20 3H4zm10.1 13L12 16.9l-2.1-.5-.1-2H8.4l.3 3.2L12 19l3.3-1.2.3-3.8h-4.8l-.2-1.9h5.2l.2-2.3H7.7l-.2-2.1h9.5z"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/>
+        </svg>
       </div>
       <div class="skill-name">CSS3</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="85"></div></div>
     </div>
+
+    <!-- JavaScript — real JS icon -->
     <div class="skill-card sr sr-up sr-d3">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 17v-6m4 6v-4a2 2 0 014 0v4m0-6v.5"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/>
+        </svg>
       </div>
       <div class="skill-name">JavaScript</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="80"></div></div>
     </div>
+
+    <!-- Tailwind -->
     <div class="skill-card sr sr-up sr-d4">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24"><path d="M6.5 10c.7-2.7 2.3-4 4.8-4C16 6 16 10 18.5 10c1.7 0 2.8-.7 3.5-2C21.3 10.7 19.7 12 17.2 12 12.5 12 12.5 8 10 8 8.3 8 7.2 8.7 6.5 10zM2 14c.7-2.7 2.3-4 4.8-4C11.5 10 11.5 14 14 14c1.7 0 2.8-.7 3.5-2C16.8 14.7 15.2 16 12.7 16 8 16 8 12 5.5 12 3.8 12 2.7 12.7 2 14z"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/>
+        </svg>
       </div>
       <div class="skill-name">Tailwind CSS</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="82"></div></div>
@@ -201,30 +216,46 @@
 
   <p class="skills-group-label sr sr-up sr-d1">Tools &amp; Deployment</p>
   <div class="skills-grid">
+
+    <!-- Git -->
     <div class="skill-card sr sr-up sr-d1">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><path d="M6 8v8m0-8a6 6 0 016 6h4"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M23.546 10.93L13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6-2.597L13.19 8.426v6.395a1.841 1.841 0 0 1 .482 3.568 1.84 1.84 0 0 1-2.292-1.807 1.837 1.837 0 0 1 1.109-1.686V8.205a1.837 1.837 0 0 1-.999-2.419L8.863 3.111 .454 11.52a1.55 1.55 0 0 0 0 2.187l10.48 10.478a1.55 1.55 0 0 0 2.187 0l10.425-10.426a1.55 1.55 0 0 0 0-2.828z"/>
+        </svg>
       </div>
       <div class="skill-name">Git</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="80"></div></div>
     </div>
+
+    <!-- GitHub -->
     <div class="skill-card sr sr-up sr-d2">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24" style="stroke:none;fill:var(--blue)"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+        </svg>
       </div>
       <div class="skill-name">GitHub</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="80"></div></div>
     </div>
+
+    <!-- Vercel -->
     <div class="skill-card sr sr-up sr-d3">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24" style="stroke:none;fill:var(--blue)"><path d="M12 2L2 19.5h20L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M24 22.525H0l12-21.05 12 21.05z"/>
+        </svg>
       </div>
       <div class="skill-name">Vercel</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="72"></div></div>
     </div>
+
+    <!-- Netlify -->
     <div class="skill-card sr sr-up sr-d4">
       <div class="skill-icon-wrap">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none">
+          <path d="M13.415 16.393c.061.028.123.057.187.08l.04.016a5.636 5.636 0 0 0 1.24.238V24l-5.02-2.68-.128-.96 3.68-3.967zm-2.83 0l3.68 3.967-.128.96L9.118 24v-7.273a5.636 5.636 0 0 0 1.24-.238l.04-.016c.064-.023.126-.052.187-.08zM0 12.828l2.122 2.121L0 17.07v-4.243zm24 0v4.243l-2.12-2.122L24 12.828zM9.118 0l5.764 3.077V4.64a5.636 5.636 0 0 0-1.427 1.74l-.04.075-.004.007-.005.01-.006.01-.004.009-.01.018-.004.008-.009.018-.004.008-.009.017-.004.008-.009.017-.003.007-.01.018-.003.007-.01.018-.003.007-.01.017-.003.007-.01.018-.003.006-.01.018-.003.006-.01.018-.003.006-.01.018-.003.005-.011.019-.002.005-.011.019-.002.005-.012.02-.002.004-.012.02-.002.004-.013.022-.001.003-.014.024-.001.002-.015.026L12 6.62c-.09.158-.181.314-.274.467L9.118 0zm5.764 0L18.999 3.4l-2.634 2.188a5.636 5.636 0 0 0-1.483-1.949V0zM5.001 3.4l4.117 3.457a5.636 5.636 0 0 0-.274.467L9 6.62c-.075.127-.148.257-.22.388L8.77 7.02l-.013.024-.014.026-.001.002-.015.028-.001.002-.014.027-.002.004-.013.025-.002.004-.012.023-.002.004-.012.023-.002.004-.012.023-.002.004-.011.022-.002.004-.011.021-.002.005-.011.02-.002.005-.011.02-.002.005L8.63 7.33l-.002.005-.01.019-.003.006-.01.018-.003.006-.01.018-.003.007-.01.018-.003.007-.01.018-.003.007-.01.017-.003.007-.01.018-.003.007-.01.017-.003.007-.01.018-.003.007-.01.017-.004.008-.009.017-.004.008-.009.017-.004.008-.009.017-.004.009-.005.01-.006.01-.004.009-.04.075A5.636 5.636 0 0 0 7.118 7.7L4.999 4.635 5.001 3.4zM0 6.93l4.243 4.243L0 15.415V6.93zm24 0v8.485l-4.243-4.242L24 6.929zM12 7.364a4.243 4.243 0 1 1 0 8.485 4.243 4.243 0 0 1 0-8.485z"/>
+        </svg>
       </div>
       <div class="skill-name">Netlify</div>
       <div class="skill-bar-wrap"><div class="skill-bar" data-w="70"></div></div>
@@ -234,7 +265,6 @@
 
 <div class="divider" aria-hidden="true"></div>
 
-<!-- EXPERIENCE / TIMELINE -->
 <section id="experience" class="section-wrap">
   <p class="section-label sr sr-up">Journey</p>
   <h2 class="section-title sr sr-up sr-d1">The road<br>so far.</h2>
@@ -262,8 +292,8 @@
       <div class="tl-date">2024</div>
       <div class="tl-card">
         <h3 class="tl-title">Library Management System</h3>
-        <p class="tl-desc">Built a production-grade RBAC system with Flask &amp; MySQL — my most technically complex project to date.</p>
-        <div class="tl-tags"><span class="tag">Flask</span><span class="tag">RBAC</span><span class="tag">MySQL</span></div>
+        <p class="tl-desc">Built a production-grade system with Flask &amp; MySQL — my most technically complex project to date.</p>
+        <div class="tl-tags"><span class="tag">Flask</span><span class="tag">MySQL</span></div>
       </div>
     </div>
     <div class="timeline-item sr sr-up sr-d4">
@@ -280,7 +310,6 @@
 
 <div class="divider" aria-hidden="true"></div>
 
-<!-- PROJECTS -->
 <section id="projects" class="section-wrap">
   <p class="section-label sr sr-up">Selected Work</p>
   <h2 class="section-title sr sr-up sr-d1">Three builds.<br>Real problems solved.</h2>
@@ -304,13 +333,13 @@
       <div class="p-header">
         <span class="p-num">01 — Backend Heavy</span>
         <div class="p-icon">
-          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v5c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 10v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5"/><path d="M4 15v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4"/></svg>
+          <svg viewBox="0 0 24 24" style="fill:var(--blue);stroke:none"><ellipse cx="12" cy="5" rx="8" ry="3" style="fill:none;stroke:var(--blue);stroke-width:1.5"/><path d="M4 5v5c0 1.66 3.58 3 8 3s8-1.34 8-3V5" style="fill:none;stroke:var(--blue);stroke-width:1.5"/><path d="M4 10v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5" style="fill:none;stroke:var(--blue);stroke-width:1.5"/><path d="M4 15v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4" style="fill:none;stroke:var(--blue);stroke-width:1.5"/></svg>
         </div>
       </div>
       <h3 class="p-title">Library Management System</h3>
       <p class="p-desc">A full-stack web app where access is earned, not assumed. Built on Flask &amp; MySQL with role-based access control for two user roles, a normalised 5-table relational schema, and a real-time borrow/return tracking engine with live book search across the full catalogue.</p>
       <div class="p-tags">
-        <span class="tag">Flask</span><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">RBAC</span>
+        <span class="tag">Flask</span><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
       </div>
       <div class="p-links">
         <a href="https://github.com/ziyad-a-20/Library-Management-System" class="p-link" target="_blank" rel="noopener">
@@ -333,17 +362,17 @@
       <div class="p-header">
         <span class="p-num">02 — Frontend</span>
         <div class="p-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          <svg viewBox="0 0 24 24" style="fill:none;stroke:var(--blue);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
         </div>
       </div>
       <h3 class="p-title">Himalaya Lip Balm<br>Showcase</h3>
       <p class="p-desc">A product page that sells without saying a word. Scroll-triggered animations, an interactive cart drawer, animated order confirmation, and pixel-perfect responsiveness.</p>
       <div class="p-tags">
-        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">AOS</span>
+        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
       </div>
       <div class="p-links">
         <a href="https://himalaya-lipbalm-showcase.vercel.app" class="p-link" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          <svg viewBox="0 0 24 24" style="fill:none;stroke:var(--blue);stroke-width:2;width:13px;height:13px"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
           Live Site ↗
         </a>
       </div>
@@ -366,13 +395,13 @@
       <div class="p-header">
         <span class="p-num">03 — Full Stack</span>
         <div class="p-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" style="fill:none;stroke:var(--blue);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
       </div>
       <h3 class="p-title">Tokyo Revengers<br>Fan Portal</h3>
-      <p class="p-desc">A dark, cinematic fan portal. Character cards with gang filtering, episode archives, CRUD-powered fan submissions, and interactive modals — Flask &amp; MySQL under the hood.</p>
+      <p class="p-desc">A dark, cinematic fan portal. Character cards with gang filtering, episode archives, fan submissions, and interactive modals — Flask &amp; MySQL under the hood.</p>
       <div class="p-tags">
-        <span class="tag">Flask</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">AOS</span><span class="tag">CRUD</span>
+        <span class="tag">Flask</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
       </div>
       <div class="p-links">
         <a href="https://github.com/ziyad-a-20/Tokyo-Revengers-Gang-Character-Hub" class="p-link" target="_blank" rel="noopener">
@@ -387,14 +416,13 @@
 
 <div class="divider" aria-hidden="true"></div>
 
-<!-- CONTACT -->
 <section id="contact" class="section-wrap" style="padding-bottom:160px;text-align:center">
   <p class="section-label sr sr-up" style="margin-bottom:24px">Get in Touch</p>
   <div class="contact-giant sr sr-up sr-d1">Let's<br>Build<br><em>Something.</em></div>
   <a href="mailto:ziyad.official.a@gmail.com" class="contact-email sr sr-up sr-d2">ziyad.official.a@gmail.com</a>
   <div class="socials sr sr-up sr-d3">
     <a href="https://github.com/ziyad-a-20" class="social-link" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      <svg viewBox="0 0 24 24" style="fill:currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
       GitHub
     </a>
     <a href="mailto:ziyad.official.a@gmail.com" class="social-link">
@@ -408,7 +436,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-left">
     <span class="footer-logo">ZA</span>
