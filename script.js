@@ -32,11 +32,14 @@
 })();
 
 /* ══════════════════════════════════════════
-   CURSOR — desktop only, hidden on touch
+   TOUCH DEVICE DETECTION
 ══════════════════════════════════════════ */
 const isTouchDevice = () =>
   window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
+/* ══════════════════════════════════════════
+   CURSOR — desktop only
+══════════════════════════════════════════ */
 const cur = document.getElementById("cursor");
 const ring = document.getElementById("cursor-ring");
 let mx = 0,
@@ -167,8 +170,10 @@ function updateBackToTop() {
 
 /* ══════════════════════════════════════════
    HERO 3D CANVAS
-   — Full animation on desktop
-   — Animated globe on mobile (no mouse track)
+   Desktop  — animated globe + mouse parallax
+   Mobile   — animated globe, no mouse, auto-rotates
+   Fix      — always uses requestAnimationFrame loop,
+              never stops on mobile
 ══════════════════════════════════════════ */
 const canvas = document.getElementById("hero-canvas");
 const ctx = canvas.getContext("2d");
@@ -177,38 +182,42 @@ let W,
   t = 0,
   mouseX = 0,
   mouseY = 0;
+let animRunning = false;
 
 function resize() {
-  W = canvas.width = innerWidth;
-  H = canvas.height = innerHeight;
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
 }
 resize();
 window.addEventListener("resize", resize);
 
-document.addEventListener("mousemove", (e) => {
-  mouseX = (e.clientX / W - 0.5) * 2;
-  mouseY = (e.clientY / H - 0.5) * 2;
-});
+/* track mouse only on desktop */
+if (!isTouchDevice()) {
+  document.addEventListener("mousemove", (e) => {
+    mouseX = (e.clientX / W - 0.5) * 2;
+    mouseY = (e.clientY / H - 0.5) * 2;
+  });
+}
 
 function proj3D(x, y, z, rX, rY) {
   const cX = Math.cos(rX),
-    sX = Math.sin(rX),
-    cY = Math.cos(rY),
+    sX = Math.sin(rX);
+  const cY = Math.cos(rY),
     sY = Math.sin(rY);
-  let y2 = y * cX - z * sX,
+  const y2 = y * cX - z * sX,
     z2 = y * sX + z * cX;
-  let x3 = x * cY + z2 * sY,
+  const x3 = x * cY + z2 * sY,
     z3 = -x * sY + z2 * cY;
   const f = 480,
     s = f / (f + z3);
   return { x: x3 * s, y: y2 * s, z: z3, s };
 }
 
-function drawGlobe(rX, rY, R, cx, cy, particleCount) {
-  // latitude rings
+function drawGlobe(rX, rY, R, cx, cy, numParticles) {
+  /* latitude rings */
   for (let r = 0; r < 6; r++) {
-    const lat = (r / 5 - 0.5) * Math.PI,
-      cL = Math.cos(lat),
+    const lat = (r / 5 - 0.5) * Math.PI;
+    const cL = Math.cos(lat),
       sL = Math.sin(lat);
     ctx.beginPath();
     for (let p = 0; p <= 50; p++) {
@@ -228,13 +237,13 @@ function drawGlobe(rX, rY, R, cx, cy, particleCount) {
     ctx.lineWidth = 0.7;
     ctx.stroke();
   }
-  // meridian lines
+  /* meridian lines */
   for (let m = 0; m < 14; m++) {
     const lng = (m / 14) * Math.PI * 2;
     ctx.beginPath();
     for (let p = 0; p <= 30; p++) {
-      const lat = (p / 30 - 0.5) * Math.PI,
-        cL = Math.cos(lat),
+      const lat = (p / 30 - 0.5) * Math.PI;
+      const cL = Math.cos(lat),
         sL = Math.sin(lat);
       const pt = proj3D(
         R * cL * Math.cos(lng),
@@ -251,10 +260,10 @@ function drawGlobe(rX, rY, R, cx, cy, particleCount) {
     ctx.lineWidth = 0.5;
     ctx.stroke();
   }
-  // particles
-  for (let i = 0; i < particleCount; i++) {
-    const a = i * 137.508 * (Math.PI / 180) + t * 0.04,
-      rad = 38 + i * 2.6;
+  /* floating particles */
+  for (let i = 0; i < numParticles; i++) {
+    const a = i * 137.508 * (Math.PI / 180) + t * 0.04;
+    const rad = 38 + i * 2.6;
     const pt = proj3D(
       rad * Math.cos(a) * 0.85,
       rad * Math.sin(a) * 0.5,
@@ -274,23 +283,31 @@ function drawHero() {
   ctx.clearRect(0, 0, W, H);
   const cx = W / 2,
     cy = H / 2;
-  const mobile = isTouchDevice() || W < 768;
+  const mobile = W < 768;
+
+  let rX, rY, R, particles;
 
   if (mobile) {
-    // globe still animates on mobile — no mouse parallax, fewer particles
-    const rY = t * 0.28;
-    const rX = t * 0.14;
-    const R = Math.min(W, H) * 0.22; // responsive radius on mobile
-    drawGlobe(rX, rY, R, cx, cy, 30);
+    /* mobile: auto-rotate only, no mouse influence, smaller radius */
+    rY = t * 0.3;
+    rX = t * 0.15;
+    R = Math.min(W, H) * 0.26;
+    particles = 28;
   } else {
-    const rY = t * 0.28 + mouseX * 0.38;
-    const rX = t * 0.14 + mouseY * 0.22;
-    drawGlobe(rX, rY, 140, cx, cy, 68);
+    /* desktop: mouse parallax + full particles */
+    rY = t * 0.28 + mouseX * 0.38;
+    rX = t * 0.14 + mouseY * 0.22;
+    R = 140;
+    particles = 68;
   }
 
+  drawGlobe(rX, rY, R, cx, cy, particles);
+
   t += 0.006;
-  requestAnimationFrame(drawHero);
+  requestAnimationFrame(drawHero); /* always keep looping */
 }
+
+/* start the loop once — never stop it */
 drawHero();
 
 /* ══════════════════════════════════════════
@@ -517,10 +534,22 @@ document.querySelectorAll(".project-card, .skill-card").forEach((card) => {
 });
 
 /* ══════════════════════════════════════════
+   FOOTER SCROLL LOOP FIX
+   The bounce/loop happens when the page
+   tries to scroll past the bottom on iOS/
+   Android due to overscroll behaviour.
+   Fix: set the footer's last child height
+   and use overscroll-behavior on body.
+══════════════════════════════════════════ */
+document.documentElement.style.overscrollBehaviorY = "none";
+document.body.style.overscrollBehaviorY = "none";
+
+/* ══════════════════════════════════════════
    HERO FADE IN
 ══════════════════════════════════════════ */
-document.getElementById("hero").style.opacity = "0";
-document.getElementById("hero").style.transition = "opacity .8s ease";
+const heroSection = document.getElementById("hero");
+heroSection.style.opacity = "0";
+heroSection.style.transition = "opacity .8s ease";
 setTimeout(() => {
-  document.getElementById("hero").style.opacity = "1";
+  heroSection.style.opacity = "1";
 }, 100);
