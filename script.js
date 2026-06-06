@@ -32,7 +32,7 @@
 })();
 
 /* ══════════════════════════════════════════
-   TOUCH DEVICE DETECTION
+   TOUCH DETECTION
 ══════════════════════════════════════════ */
 const isTouchDevice = () =>
   window.matchMedia("(hover: none) and (pointer: coarse)").matches;
@@ -90,12 +90,12 @@ const progressBar = document.getElementById("scroll-progress");
 function updateScrollProgress() {
   const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-  progressBar.style.width = pct + "%";
+  const p = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = p + "%";
 }
 
 /* ══════════════════════════════════════════
-   NAV — visible on scroll + active section
+   NAV
 ══════════════════════════════════════════ */
 const navbar = document.getElementById("navbar");
 
@@ -134,7 +134,7 @@ function updateActiveNav() {
 }
 
 /* ══════════════════════════════════════════
-   HAMBURGER MOBILE MENU
+   HAMBURGER
 ══════════════════════════════════════════ */
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobile-menu");
@@ -170,28 +170,31 @@ function updateBackToTop() {
 
 /* ══════════════════════════════════════════
    HERO 3D CANVAS
-   Desktop  — animated globe + mouse parallax
-   Mobile   — animated globe, no mouse, auto-rotates
-   Fix      — always uses requestAnimationFrame loop,
-              never stops on mobile
+   ─────────────────────────────────────────
+   KEY FIX: The globe loop is a single
+   requestAnimationFrame that NEVER stops.
+   On mobile  → auto-rotate only (no mouse)
+   On desktop → mouse parallax + more particles
+   The isTouchDevice() check only controls
+   whether mouseX/mouseY affect the rotation.
+   The draw loop itself is unconditional.
 ══════════════════════════════════════════ */
 const canvas = document.getElementById("hero-canvas");
 const ctx = canvas.getContext("2d");
 let W,
   H,
-  t = 0,
-  mouseX = 0,
+  t = 0;
+let mouseX = 0,
   mouseY = 0;
-let animRunning = false;
 
-function resize() {
+function resizeCanvas() {
   W = canvas.width = window.innerWidth;
   H = canvas.height = window.innerHeight;
 }
-resize();
-window.addEventListener("resize", resize);
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
-/* track mouse only on desktop */
+/* Only wire up mouse on desktop */
 if (!isTouchDevice()) {
   document.addEventListener("mousemove", (e) => {
     mouseX = (e.clientX / W - 0.5) * 2;
@@ -204,12 +207,12 @@ function proj3D(x, y, z, rX, rY) {
     sX = Math.sin(rX);
   const cY = Math.cos(rY),
     sY = Math.sin(rY);
-  const y2 = y * cX - z * sX,
-    z2 = y * sX + z * cX;
-  const x3 = x * cY + z2 * sY,
-    z3 = -x * sY + z2 * cY;
-  const f = 480,
-    s = f / (f + z3);
+  const y2 = y * cX - z * sX;
+  const z2 = y * sX + z * cX;
+  const x3 = x * cY + z2 * sY;
+  const z3 = -x * sY + z2 * cY;
+  const f = 480;
+  const s = f / (f + z3);
   return { x: x3 * s, y: y2 * s, z: z3, s };
 }
 
@@ -217,8 +220,8 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
   /* latitude rings */
   for (let r = 0; r < 6; r++) {
     const lat = (r / 5 - 0.5) * Math.PI;
-    const cL = Math.cos(lat),
-      sL = Math.sin(lat);
+    const cL = Math.cos(lat);
+    const sL = Math.sin(lat);
     ctx.beginPath();
     for (let p = 0; p <= 50; p++) {
       const lng = (p / 50) * Math.PI * 2;
@@ -243,8 +246,8 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
     ctx.beginPath();
     for (let p = 0; p <= 30; p++) {
       const lat = (p / 30 - 0.5) * Math.PI;
-      const cL = Math.cos(lat),
-        sL = Math.sin(lat);
+      const cL = Math.cos(lat);
+      const sL = Math.sin(lat);
       const pt = proj3D(
         R * cL * Math.cos(lng),
         R * sL,
@@ -260,7 +263,7 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
     ctx.lineWidth = 0.5;
     ctx.stroke();
   }
-  /* floating particles */
+  /* particles */
   for (let i = 0; i < numParticles; i++) {
     const a = i * 137.508 * (Math.PI / 180) + t * 0.04;
     const rad = 38 + i * 2.6;
@@ -279,24 +282,26 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
   }
 }
 
+/* ─── MAIN DRAW LOOP — runs forever, no conditions ─── */
 function drawHero() {
   ctx.clearRect(0, 0, W, H);
-  const cx = W / 2,
-    cy = H / 2;
+
+  const cx = W / 2;
+  const cy = H / 2;
   const mobile = W < 768;
 
   let rX, rY, R, particles;
 
   if (mobile) {
-    /* mobile: auto-rotate only, no mouse influence, smaller radius */
-    rY = t * 0.3;
+    /* Mobile: auto-rotate using only t, no mouse */
     rX = t * 0.15;
-    R = Math.min(W, H) * 0.26;
-    particles = 28;
+    rY = t * 0.3;
+    R = Math.min(W, H) * 0.28;
+    particles = 30;
   } else {
-    /* desktop: mouse parallax + full particles */
-    rY = t * 0.28 + mouseX * 0.38;
+    /* Desktop: mouse adds parallax on top of auto-rotate */
     rX = t * 0.14 + mouseY * 0.22;
+    rY = t * 0.28 + mouseX * 0.38;
     R = 140;
     particles = 68;
   }
@@ -304,14 +309,13 @@ function drawHero() {
   drawGlobe(rX, rY, R, cx, cy, particles);
 
   t += 0.006;
-  requestAnimationFrame(drawHero); /* always keep looping */
+  requestAnimationFrame(drawHero); /* unconditional — always loops */
 }
 
-/* start the loop once — never stop it */
-drawHero();
+drawHero(); /* start once, runs forever */
 
 /* ══════════════════════════════════════════
-   HERO SUBTITLE LOOP
+   SUBTITLE LOOP
 ══════════════════════════════════════════ */
 const subtitles = [
   "Building the web, one line at a time",
@@ -395,7 +399,7 @@ function startScramble() {
 }
 
 /* ══════════════════════════════════════════
-   TERMINAL TYPING — loops
+   TERMINAL — loops forever
 ══════════════════════════════════════════ */
 const terminalLines = [
   { type: "prompt", text: "whoami" },
@@ -490,16 +494,30 @@ if (aboutSection) terminalObs.observe(aboutSection);
 
 /* ══════════════════════════════════════════
    SCROLL REVEAL
+   ─────────────────────────────────────────
+   KEY FIX: Using only opacity (no transform).
+   translateY on mobile causes the browser to
+   recalculate layout during IntersectionObserver
+   callbacks, which triggers scroll position jumps.
+   Pure opacity fade has zero layout impact.
 ══════════════════════════════════════════ */
 const revObs = new IntersectionObserver(
   (entries) => {
     entries.forEach((e) => {
-      if (e.isIntersecting) e.target.classList.add("visible");
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        /* unobserve after reveal so it never fires again */
+        revObs.unobserve(e.target);
+      }
     });
   },
-  { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+  {
+    threshold: 0.08,
+    rootMargin: "0px 0px -20px 0px",
+  },
 );
-document.querySelectorAll(".sr").forEach((el) => revObs.observe(el));
+
+document.querySelectorAll(".reveal-item").forEach((el) => revObs.observe(el));
 
 /* ══════════════════════════════════════════
    SKILL BARS
@@ -509,7 +527,10 @@ const barObs = new IntersectionObserver(
     entries.forEach((e) => {
       if (e.isIntersecting) {
         const b = e.target.querySelector(".skill-bar");
-        if (b) b.style.width = b.dataset.w + "%";
+        if (b) {
+          b.style.width = b.dataset.w + "%";
+          barObs.unobserve(e.target);
+        }
       }
     });
   },
@@ -520,29 +541,19 @@ document.querySelectorAll(".skill-card").forEach((c) => barObs.observe(c));
 /* ══════════════════════════════════════════
    3D CARD TILT — desktop only
 ══════════════════════════════════════════ */
-document.querySelectorAll(".project-card, .skill-card").forEach((card) => {
-  card.addEventListener("mousemove", (e) => {
-    if (isTouchDevice()) return;
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-5px)`;
+if (!isTouchDevice()) {
+  document.querySelectorAll(".project-card, .skill-card").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-5px)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
   });
-  card.addEventListener("mouseleave", () => {
-    card.style.transform = "";
-  });
-});
-
-/* ══════════════════════════════════════════
-   FOOTER SCROLL LOOP FIX
-   The bounce/loop happens when the page
-   tries to scroll past the bottom on iOS/
-   Android due to overscroll behaviour.
-   Fix: set the footer's last child height
-   and use overscroll-behavior on body.
-══════════════════════════════════════════ */
-document.documentElement.style.overscrollBehaviorY = "none";
-document.body.style.overscrollBehaviorY = "none";
+}
 
 /* ══════════════════════════════════════════
    HERO FADE IN

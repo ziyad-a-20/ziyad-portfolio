@@ -20,7 +20,10 @@
 html {
   scroll-behavior: smooth;
   cursor: none;
+  /* CRITICAL: stops iOS/Android overscroll bounce that causes scroll loop */
+  overscroll-behavior: none;
 }
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -28,12 +31,15 @@ body {
   font-weight: 300;
   overflow-x: hidden;
   line-height: 1.6;
+  /* CRITICAL: prevents mobile bounce scroll loop */
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
 }
 body.loading {
   overflow: hidden;
 }
 
-/* on touch devices restore normal cursor */
+/* touch devices — restore normal cursor */
 @media (hover: none) and (pointer: coarse) {
   html {
     cursor: auto;
@@ -179,7 +185,7 @@ body.loading {
   color: var(--muted);
 }
 
-/* ── CURSOR — desktop only ── */
+/* ── CURSOR ── */
 #cursor {
   position: fixed;
   width: 8px;
@@ -623,6 +629,13 @@ button:focus-visible {
   max-width: 1160px;
   margin: 0 auto;
 }
+
+/* contact section — no extra bottom padding that pushes layout */
+.contact-section {
+  padding-bottom: 80px;
+  text-align: center;
+}
+
 .section-label {
   font-size: 10px;
   letter-spacing: 4px;
@@ -639,43 +652,14 @@ button:focus-visible {
   margin-bottom: 52px;
 }
 
-/* ── SCROLL REVEAL ── */
-.sr {
+/* ── SCROLL REVEAL — simple opacity only, NO transform ── */
+/* Using transform on mobile causes layout recalculation that triggers scroll jumps */
+.reveal-item {
   opacity: 0;
-  transition:
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.sr-up {
-  transform: translateY(48px);
-}
-.sr-left {
-  transform: translateX(-48px);
-}
-.sr-right {
-  transform: translateX(48px);
-}
-.sr-scale {
-  transform: scale(0.94);
-}
-.sr.visible {
+.reveal-item.visible {
   opacity: 1;
-  transform: none;
-}
-.sr-d1 {
-  transition-delay: 0.1s;
-}
-.sr-d2 {
-  transition-delay: 0.2s;
-}
-.sr-d3 {
-  transition-delay: 0.3s;
-}
-.sr-d4 {
-  transition-delay: 0.4s;
-}
-.sr-d5 {
-  transition-delay: 0.5s;
 }
 
 /* ── ABOUT ── */
@@ -788,8 +772,9 @@ button:focus-visible {
   border: 1px solid var(--border);
   padding: 28px 16px;
   text-align: center;
-  transition: all 0.4s;
-  transform-style: preserve-3d;
+  transition:
+    border-color 0.4s,
+    background 0.4s;
   position: relative;
   overflow: hidden;
 }
@@ -1096,8 +1081,9 @@ button:focus-visible {
   padding: 28px 28px;
   position: relative;
   overflow: hidden;
-  transition: all 0.4s;
-  transform-style: preserve-3d;
+  transition:
+    border-color 0.4s,
+    background 0.4s;
 }
 .project-card.large {
   grid-column: span 2;
@@ -1136,7 +1122,6 @@ button:focus-visible {
   border-color: rgba(74, 144, 217, 0.45);
 }
 .project-card:hover {
-  transform: translateY(-4px);
   background: rgba(255, 255, 255, 0.04);
 }
 .p-glow {
@@ -1511,9 +1496,6 @@ footer {
   .terminal {
     background: #f5f5f5 !important;
     border: 1px solid #ddd !important;
-  }
-  .terminal-body {
-    color: #333 !important;
   }
   .tp {
     color: #4a90d9 !important;
