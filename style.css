@@ -836,6 +836,30 @@ button:focus-visible {
   width: 20px;
   height: 20px;
 }
+/* ── SKILL ICON IMAGES ── */
+.skill-icon-wrap img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+/* Black icons — invert to white so they show on dark background */
+.skill-icon-wrap img[alt="Flask"],
+.skill-icon-wrap img[alt="GitHub"],
+.skill-icon-wrap img[alt="Vercel"] {
+  filter: invert(1) brightness(2);
+}
+
+/* MySQL uses inline SVG now — size it correctly */
+.skill-icon-wrap svg.mysql-svg {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  z-index: 1;
+}
 .skill-name {
   font-size: 12px;
   letter-spacing: 1px;
