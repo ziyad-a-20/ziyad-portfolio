@@ -32,6 +32,12 @@
 })();
 
 /* ══════════════════════════════════════════
+   FOOTER YEAR
+══════════════════════════════════════════ */
+const yearEl = document.getElementById("footer-year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+/* ══════════════════════════════════════════
    TOUCH DETECTION
 ══════════════════════════════════════════ */
 const isTouchDevice = () =>
@@ -169,15 +175,190 @@ function updateBackToTop() {
 }
 
 /* ══════════════════════════════════════════
+   COPY EMAIL BUTTON
+══════════════════════════════════════════ */
+const copyBtn = document.getElementById("copy-email-btn");
+if (copyBtn) {
+  copyBtn.addEventListener("click", () => {
+    const EMAIL = "ziyad.official.a@gmail.com";
+    const label = copyBtn.querySelector(".copy-label");
+
+    function onCopied() {
+      copyBtn.classList.add("copied");
+      label.textContent = "Copied!";
+      setTimeout(() => {
+        copyBtn.classList.remove("copied");
+        label.textContent = "Copy";
+      }, 2200);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(EMAIL)
+        .then(onCopied)
+        .catch(() => {
+          fallbackCopy(EMAIL, onCopied);
+        });
+    } else {
+      fallbackCopy(EMAIL, onCopied);
+    }
+  });
+}
+
+function fallbackCopy(text, cb) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.cssText = "position:fixed;opacity:0;pointer-events:none;";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try {
+    document.execCommand("copy");
+    cb();
+  } catch (e) {
+    console.warn("Copy failed:", e);
+  }
+  document.body.removeChild(ta);
+}
+
+/* ══════════════════════════════════════════
+   CONTACT FORM — Formspree
+══════════════════════════════════════════ */
+const FORMSPREE_URL = "https://formspree.io/f/xnjydrlk";
+
+const formSubmitBtn = document.getElementById("form-submit-btn");
+const formSuccess = document.getElementById("form-success");
+
+function getField(id) {
+  return document.getElementById(id);
+}
+function getError(id) {
+  return document.getElementById(id + "-err");
+}
+
+function setError(fieldId, msg) {
+  const input = getField(fieldId);
+  const err = getError(fieldId);
+  if (input) input.classList.toggle("error", !!msg);
+  if (err) err.textContent = msg || "";
+}
+
+function clearErrors() {
+  ["cf-name", "cf-email", "cf-subject", "cf-message"].forEach((id) =>
+    setError(id, ""),
+  );
+}
+
+function validateForm() {
+  let valid = true;
+  const name = getField("cf-name").value.trim();
+  const email = getField("cf-email").value.trim();
+  const subject = getField("cf-subject").value.trim();
+  const message = getField("cf-message").value.trim();
+
+  if (!name) {
+    setError("cf-name", "Name is required");
+    valid = false;
+  } else setError("cf-name", "");
+
+  if (!email) {
+    setError("cf-email", "Email is required");
+    valid = false;
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    setError("cf-email", "Enter a valid email");
+    valid = false;
+  } else setError("cf-email", "");
+
+  if (!subject) {
+    setError("cf-subject", "Subject is required");
+    valid = false;
+  } else setError("cf-subject", "");
+
+  if (!message) {
+    setError("cf-message", "Message is required");
+    valid = false;
+  } else if (message.length < 10) {
+    setError("cf-message", "Too short — say a little more");
+    valid = false;
+  } else setError("cf-message", "");
+
+  return valid;
+}
+
+/* Live clear errors on input */
+["cf-name", "cf-email", "cf-subject", "cf-message"].forEach((id) => {
+  const el = getField(id);
+  if (el) el.addEventListener("input", () => setError(id, ""));
+});
+
+if (formSubmitBtn) {
+  formSubmitBtn.addEventListener("click", async () => {
+    clearErrors();
+    if (!validateForm()) return;
+
+    /* Lock the button while sending */
+    formSubmitBtn.classList.add("sending");
+    formSubmitBtn.querySelector(".form-submit-text").textContent = "Sending…";
+
+    const payload = {
+      name: getField("cf-name").value.trim(),
+      email: getField("cf-email").value.trim(),
+      subject: getField("cf-subject").value.trim(),
+      message: getField("cf-message").value.trim(),
+    };
+
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        /* ── Success ── */
+        formSubmitBtn.style.display = "none";
+        formSuccess.classList.add("show");
+        /* Clear all fields */
+        ["cf-name", "cf-email", "cf-subject", "cf-message"].forEach((id) => {
+          const el = getField(id);
+          if (el) el.value = "";
+        });
+      } else {
+        /* ── Formspree returned an error (e.g. spam, domain mismatch) ── */
+        let errMsg = "Something went wrong. Please email me directly.";
+        try {
+          const json = await res.json();
+          if (json.errors && json.errors.length > 0) {
+            errMsg = json.errors.map((e) => e.message).join(" ");
+          }
+        } catch (_) {
+          /* ignore parse error */
+        }
+
+        /* Unlock button and show error under message field */
+        formSubmitBtn.classList.remove("sending");
+        formSubmitBtn.querySelector(".form-submit-text").textContent =
+          "Send Message";
+        setError("cf-message", errMsg);
+      }
+    } catch (networkErr) {
+      /* ── Network / fetch failure ── */
+      formSubmitBtn.classList.remove("sending");
+      formSubmitBtn.querySelector(".form-submit-text").textContent =
+        "Send Message";
+      setError(
+        "cf-message",
+        "Network error — please check your connection or email me directly.",
+      );
+    }
+  });
+}
+
+/* ══════════════════════════════════════════
    HERO 3D CANVAS
-   ─────────────────────────────────────────
-   KEY FIX: The globe loop is a single
-   requestAnimationFrame that NEVER stops.
-   On mobile  → auto-rotate only (no mouse)
-   On desktop → mouse parallax + more particles
-   The isTouchDevice() check only controls
-   whether mouseX/mouseY affect the rotation.
-   The draw loop itself is unconditional.
 ══════════════════════════════════════════ */
 const canvas = document.getElementById("hero-canvas");
 const ctx = canvas.getContext("2d");
@@ -194,7 +375,6 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-/* Only wire up mouse on desktop */
 if (!isTouchDevice()) {
   document.addEventListener("mousemove", (e) => {
     mouseX = (e.clientX / W - 0.5) * 2;
@@ -220,8 +400,8 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
   /* latitude rings */
   for (let r = 0; r < 6; r++) {
     const lat = (r / 5 - 0.5) * Math.PI;
-    const cL = Math.cos(lat);
-    const sL = Math.sin(lat);
+    const cL = Math.cos(lat),
+      sL = Math.sin(lat);
     ctx.beginPath();
     for (let p = 0; p <= 50; p++) {
       const lng = (p / 50) * Math.PI * 2;
@@ -246,8 +426,8 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
     ctx.beginPath();
     for (let p = 0; p <= 30; p++) {
       const lat = (p / 30 - 0.5) * Math.PI;
-      const cL = Math.cos(lat);
-      const sL = Math.sin(lat);
+      const cL = Math.cos(lat),
+        sL = Math.sin(lat);
       const pt = proj3D(
         R * cL * Math.cos(lng),
         R * sL,
@@ -282,37 +462,33 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
   }
 }
 
-/* ─── MAIN DRAW LOOP — runs forever, no conditions ─── */
 function drawHero() {
+  /* Skip draw when tab is hidden — saves battery */
+  if (document.hidden) {
+    requestAnimationFrame(drawHero);
+    return;
+  }
   ctx.clearRect(0, 0, W, H);
-
-  const cx = W / 2;
-  const cy = H / 2;
+  const cx = W / 2,
+    cy = H / 2;
   const mobile = W < 768;
-
   let rX, rY, R, particles;
-
   if (mobile) {
-    /* Mobile: auto-rotate using only t, no mouse */
     rX = t * 0.15;
     rY = t * 0.3;
     R = Math.min(W, H) * 0.28;
     particles = 30;
   } else {
-    /* Desktop: mouse adds parallax on top of auto-rotate */
     rX = t * 0.14 + mouseY * 0.22;
     rY = t * 0.28 + mouseX * 0.38;
     R = 140;
     particles = 68;
   }
-
   drawGlobe(rX, rY, R, cx, cy, particles);
-
   t += 0.006;
-  requestAnimationFrame(drawHero); /* unconditional — always loops */
+  requestAnimationFrame(drawHero);
 }
-
-drawHero(); /* start once, runs forever */
+drawHero();
 
 /* ══════════════════════════════════════════
    SUBTITLE LOOP
@@ -399,7 +575,7 @@ function startScramble() {
 }
 
 /* ══════════════════════════════════════════
-   TERMINAL — loops forever
+   TERMINAL — with double-trigger guard
 ══════════════════════════════════════════ */
 const terminalLines = [
   { type: "prompt", text: "whoami" },
@@ -415,9 +591,17 @@ const terminalLines = [
   { type: "green", text: "● Open to work — let's build something" },
 ];
 
+let terminalRunning = false;
+
 function runTerminal() {
+  if (terminalRunning) return;
+  terminalRunning = true;
+
   const body = document.getElementById("terminal-body");
-  if (!body) return;
+  if (!body) {
+    terminalRunning = false;
+    return;
+  }
   body.innerHTML = "";
   let lineIdx = 0,
     charIdx = 0,
@@ -425,7 +609,10 @@ function runTerminal() {
 
   function tick() {
     if (lineIdx >= terminalLines.length) {
-      setTimeout(runTerminal, 3000);
+      setTimeout(() => {
+        terminalRunning = false;
+        runTerminal();
+      }, 3000);
       return;
     }
     const line = terminalLines[lineIdx];
@@ -483,30 +670,24 @@ const terminalObs = new IntersectionObserver(
     entries.forEach((e) => {
       if (e.isIntersecting) {
         const body = document.getElementById("terminal-body");
-        if (body && body.innerHTML === "") runTerminal();
+        if (body && body.innerHTML === "" && !terminalRunning) runTerminal();
       }
     });
   },
   { threshold: 0.3 },
 );
+
 const aboutSection = document.getElementById("about");
 if (aboutSection) terminalObs.observe(aboutSection);
 
 /* ══════════════════════════════════════════
    SCROLL REVEAL
-   ─────────────────────────────────────────
-   KEY FIX: Using only opacity (no transform).
-   translateY on mobile causes the browser to
-   recalculate layout during IntersectionObserver
-   callbacks, which triggers scroll position jumps.
-   Pure opacity fade has zero layout impact.
 ══════════════════════════════════════════ */
 const revObs = new IntersectionObserver(
   (entries) => {
     entries.forEach((e) => {
       if (e.isIntersecting) {
         e.target.classList.add("visible");
-        /* unobserve after reveal so it never fires again */
         revObs.unobserve(e.target);
       }
     });
@@ -520,47 +701,27 @@ const revObs = new IntersectionObserver(
 document.querySelectorAll(".reveal-item").forEach((el) => revObs.observe(el));
 
 /* ══════════════════════════════════════════
-   SKILL BARS
-══════════════════════════════════════════ */
-const barObs = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        const b = e.target.querySelector(".skill-bar");
-        if (b) {
-          b.style.width = b.dataset.w + "%";
-          barObs.unobserve(e.target);
-        }
-      }
-    });
-  },
-  { threshold: 0.4 },
-);
-document.querySelectorAll(".skill-card").forEach((c) => barObs.observe(c));
-
-/* ══════════════════════════════════════════
-   3D CARD TILT — desktop only
+   3D CARD TILT — desktop only, RAF throttled
 ══════════════════════════════════════════ */
 if (!isTouchDevice()) {
   document.querySelectorAll(".project-card, .skill-card").forEach((card) => {
+    let tiltFrame = null;
     card.addEventListener("mousemove", (e) => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-5px)`;
+      if (tiltFrame) return;
+      tiltFrame = requestAnimationFrame(() => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-5px)`;
+        tiltFrame = null;
+      });
     });
     card.addEventListener("mouseleave", () => {
+      if (tiltFrame) {
+        cancelAnimationFrame(tiltFrame);
+        tiltFrame = null;
+      }
       card.style.transform = "";
     });
   });
 }
-
-/* ══════════════════════════════════════════
-   HERO FADE IN
-══════════════════════════════════════════ */
-const heroSection = document.getElementById("hero");
-heroSection.style.opacity = "0";
-heroSection.style.transition = "opacity .8s ease";
-setTimeout(() => {
-  heroSection.style.opacity = "1";
-}, 100);

@@ -4,23 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Ziyad A — Student & Jr. Web Developer. Full-stack portfolio showcasing Flask, Python, MySQL and front-end projects.">
-<meta property="og:title" content="Ziyad A — Jr. Web Developer">
+<meta name="author" content="Ziyad A">
+<meta property="og:title" content="Ziyad A | Jr. Web Developer · Flask · Python · MySQL">
 <meta property="og:description" content="Building the web, one line at a time.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://your-domain.com/assets/og-image.png">
+<meta property="og:url" content="https://ziyad-portfolio-nine.vercel.app/">
+<meta property="og:image" content="https://ziyad-portfolio-nine.vercel.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ziyad A — Jr. Web Developer">
+<meta name="twitter:title" content="Ziyad A | Jr. Web Developer · Flask · Python · MySQL">
 <meta name="twitter:description" content="Building the web, one line at a time.">
-<meta name="twitter:image" content="https://your-domain.com/assets/og-image.png">
+<meta name="twitter:image" content="https://ziyad-portfolio-nine.vercel.app/assets/og-image.png">
 <meta name="theme-color" content="#060608">
+<link rel="canonical" href="https://ziyad-portfolio-nine.vercel.app/">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
-<title>Ziyad A — Portfolio</title>
+<title>Ziyad A | Jr. Web Developer · Flask · Python · MySQL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,100;0,200;0,300;1,200&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -66,7 +71,7 @@
     <li><a href="#experience">Journey</a></li>
     <li><a href="#projects">Work</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="https://drive.google.com/file/d/1aNvUZmVZsilkJ9SRhvwWDe70eOfylo_m/view?usp=drive_link" target="_blank">Resume ↗</a></li>
+    <li><a href="https://www.dropbox.com/scl/fi/3r2evgkvyho0s8pgnl2rs/ziyad-resume.pdf?rlkey=i2k579y2b60du4okse057ijpa&st=gqwryl3x&dl=0" target="_blank">Resume ↗</a></li>
   </ul>
 </div>
 
@@ -74,7 +79,7 @@
   <canvas id="hero-canvas"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Student &nbsp;·&nbsp; Jr. Web Developer</p>
+    <p class="hero-eyebrow">Full-Stack Dev &nbsp;·&nbsp; Flask &amp; Python</p>
     <h1 class="hero-name">
       <span><em data-scramble="Ziyad">Ziyad</em></span>
       <span class="dim"><em data-scramble="A.">A.</em></span>
@@ -118,7 +123,7 @@
         <div class="t-dot t-green"></div>
         <span class="terminal-title">ziyad@dev ~ zsh</span>
       </div>
-      <div class="terminal-body" id="terminal-body"></div>
+      <div class="terminal-body" id="terminal-body" aria-live="polite" aria-label="Terminal output"></div>
     </div>
   </div>
 </section>
@@ -130,28 +135,23 @@
   <p class="section-label reveal-item">Skills</p>
   <h2 class="section-title reveal-item">The toolkit,<br>sharpened.</h2>
 
-  <p class="skills-group-label reveal-item">Backend</p>
+  <p class="skills-group-label skills-group-label--first reveal-item">Backend</p>
   <div class="skills-grid">
-
     <!-- Python -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <img src="assets/icons/python.png" alt="Python" width="24" height="24">
       </div>
       <div class="skill-name">Python</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="82"></div></div>
     </div>
-
     <!-- Flask -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <img src="assets/icons/flask.png" alt="Flask" width="24" height="24">
       </div>
       <div class="skill-name">Flask</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="78"></div></div>
     </div>
-
-    <!-- MySQL — inline SVG (official colors, no invert needed) -->
+    <!-- MySQL -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <svg class="mysql-svg" viewBox="-18.458 -22.75 191.151 191.151" xmlns="http://www.w3.org/2000/svg">
@@ -163,79 +163,62 @@
         </svg>
       </div>
       <div class="skill-name">MySQL</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="75"></div></div>
     </div>
   </div>
 
   <p class="skills-group-label reveal-item">Frontend</p>
   <div class="skills-grid">
-    <!-- HTML -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <img src="assets/icons/html.png" alt="HTML5" width="24" height="24">
       </div>
       <div class="skill-name">HTML5</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="90"></div></div>
     </div>
-    <!-- CSS -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <img src="assets/icons/css.png" alt="CSS3" width="24" height="24">
       </div>
       <div class="skill-name">CSS3</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="85"></div></div>
     </div>
-    <!-- JS -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <img src="assets/icons/js.png" alt="JavaScript" width="24" height="24">
       </div>
       <div class="skill-name">JavaScript</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="80"></div></div>
     </div>
-    <!-- Tailwind -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <img src="assets/icons/tailwind.png" alt="Tailwind CSS" width="24" height="24">
       </div>
       <div class="skill-name">Tailwind CSS</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="82"></div></div>
     </div>
   </div>
 
   <p class="skills-group-label reveal-item">Tools &amp; Deployment</p>
   <div class="skills-grid">
-    <!-- Git -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <img src="assets/icons/git.png" alt="Git" width="24" height="24">
       </div>
       <div class="skill-name">Git</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="80"></div></div>
     </div>
-    <!-- GitHub -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <img src="assets/icons/github.png" alt="GitHub" width="24" height="24">
       </div>
       <div class="skill-name">GitHub</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="80"></div></div>
     </div>
-    <!-- Vercel -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <img src="assets/icons/vercel.png" alt="Vercel" width="24" height="24">
       </div>
       <div class="skill-name">Vercel</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="72"></div></div>
     </div>
-    <!-- Netlify -->
     <div class="skill-card reveal-item">
       <div class="skill-icon-wrap">
         <img src="assets/icons/netlify.png" alt="Netlify" width="24" height="24">
       </div>
       <div class="skill-name">Netlify</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-w="70"></div></div>
     </div>
   </div>
 </section>
@@ -258,7 +241,7 @@
     </div>
     <div class="timeline-item reveal-item">
       <div class="tl-dot"></div>
-      <div class="tl-date">2024</div>
+      <div class="tl-date">Early 2024</div>
       <div class="tl-card">
         <h3 class="tl-title">Went Full Stack</h3>
         <p class="tl-desc">Picked up Python &amp; Flask, dived into MySQL databases, and built my first full-stack applications with real authentication and role-based access.</p>
@@ -267,7 +250,7 @@
     </div>
     <div class="timeline-item reveal-item">
       <div class="tl-dot"></div>
-      <div class="tl-date">2024</div>
+      <div class="tl-date">Late 2024</div>
       <div class="tl-card">
         <h3 class="tl-title">Library Management System</h3>
         <p class="tl-desc">Built a production-grade system with Flask &amp; MySQL — my most technically complex project to date.</p>
@@ -335,7 +318,7 @@
 
     <div class="project-card reveal-item">
       <div class="p-glow"></div>
-      <div class="p-mockup">
+      <div class="p-mockup mockup-product">
         <div class="mockup-bar"><span></span><span></span><span></span></div>
         <div class="mockup-screen mockup-02">
           <div class="mockup-hero-block"></div>
@@ -369,7 +352,7 @@
 
     <div class="project-card reveal-item">
       <div class="p-glow"></div>
-      <div class="p-mockup">
+      <div class="p-mockup mockup-dark-theme">
         <div class="mockup-bar"><span></span><span></span><span></span></div>
         <div class="mockup-screen mockup-03">
           <div class="mockup-cards-row">
@@ -411,7 +394,69 @@
 <section id="contact" class="section-wrap contact-section">
   <p class="section-label reveal-item" style="margin-bottom:24px">Get in Touch</p>
   <div class="contact-giant reveal-item">Let's<br>Build<br><em>Something.</em></div>
-  <a href="mailto:ziyad.official.a@gmail.com" class="contact-email reveal-item">ziyad.official.a@gmail.com</a>
+
+  <div class="contact-email-row reveal-item">
+    <a href="mailto:ziyad.official.a@gmail.com" class="contact-email">ziyad.official.a@gmail.com</a>
+    <button class="copy-email-btn" id="copy-email-btn" aria-label="Copy email address" title="Copy email">
+      <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2"/>
+        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+      </svg>
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      <span class="copy-label">Copy</span>
+    </button>
+  </div>
+
+  <!-- CONTACT FORM -->
+  <div class="contact-form-wrap reveal-item">
+    <div class="contact-form-inner">
+      <div class="form-header">
+        <span class="form-header-label">Send a message</span>
+        <div class="form-header-line"></div>
+      </div>
+      <div id="contact-form" class="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="cf-name" class="form-label">Name</label>
+            <input type="text" id="cf-name" name="name" class="form-input" placeholder="Your name" autocomplete="name">
+            <span class="form-error" id="cf-name-err"></span>
+          </div>
+          <div class="form-field">
+            <label for="cf-email" class="form-label">Email</label>
+            <input type="email" id="cf-email" name="email" class="form-input" placeholder="you@example.com" autocomplete="email">
+            <span class="form-error" id="cf-email-err"></span>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="cf-subject" class="form-label">Subject</label>
+          <input type="text" id="cf-subject" name="subject" class="form-input" placeholder="What's this about?">
+          <span class="form-error" id="cf-subject-err"></span>
+        </div>
+        <div class="form-field">
+          <label for="cf-message" class="form-label">Message</label>
+          <textarea id="cf-message" name="message" class="form-input form-textarea" placeholder="Tell me what you're building..." rows="5"></textarea>
+          <span class="form-error" id="cf-message-err"></span>
+        </div>
+        <button type="button" class="form-submit" id="form-submit-btn">
+          <span class="form-submit-text">Send Message</span>
+          <svg class="form-submit-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+        <div class="form-success" id="form-success" aria-live="polite">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <span>Message received — I'll be in touch soon.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="socials reveal-item">
     <a href="https://github.com/ziyad-a-20" class="social-link" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" style="fill:currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
@@ -440,7 +485,7 @@
     <li><a href="#projects">Work</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <span class="footer-text footer-copy">© 2025 · Crafted with intent</span>
+  <span class="footer-text footer-copy">© <span id="footer-year"></span> · Crafted with intent</span>
 </footer>
 
 <script src="script.js" defer></script>

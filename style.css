@@ -20,7 +20,6 @@
 html {
   scroll-behavior: smooth;
   cursor: none;
-  /* CRITICAL: stops iOS/Android overscroll bounce that causes scroll loop */
   overscroll-behavior: none;
 }
 
@@ -31,15 +30,11 @@ body {
   font-weight: 300;
   overflow-x: hidden;
   line-height: 1.6;
-  /* CRITICAL: prevents mobile bounce scroll loop */
-  overscroll-behavior: none;
-  overscroll-behavior-y: none;
 }
 body.loading {
   overflow: hidden;
 }
 
-/* touch devices — restore normal cursor */
 @media (hover: none) and (pointer: coarse) {
   html {
     cursor: auto;
@@ -629,13 +624,10 @@ button:focus-visible {
   max-width: 1160px;
   margin: 0 auto;
 }
-
-/* contact section — no extra bottom padding that pushes layout */
 .contact-section {
   padding-bottom: 80px;
   text-align: center;
 }
-
 .section-label {
   font-size: 10px;
   letter-spacing: 4px;
@@ -652,8 +644,7 @@ button:focus-visible {
   margin-bottom: 52px;
 }
 
-/* ── SCROLL REVEAL — simple opacity only, NO transform ── */
-/* Using transform on mobile causes layout recalculation that triggers scroll jumps */
+/* ── SCROLL REVEAL ── */
 .reveal-item {
   opacity: 0;
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -753,7 +744,7 @@ button:focus-visible {
   color: #28c840;
 }
 
-/* ── SKILLS ── */
+/* ── SKILLS — no bars ── */
 .skills-group-label {
   font-size: 10px;
   letter-spacing: 3px;
@@ -761,6 +752,9 @@ button:focus-visible {
   color: var(--muted);
   margin-bottom: 14px;
   margin-top: 36px;
+}
+.skills-group-label--first {
+  margin-top: 0;
 }
 .skills-grid {
   display: grid;
@@ -836,7 +830,6 @@ button:focus-visible {
   width: 20px;
   height: 20px;
 }
-/* ── SKILL ICON IMAGES ── */
 .skill-icon-wrap img {
   width: 24px;
   height: 24px;
@@ -845,15 +838,11 @@ button:focus-visible {
   z-index: 1;
   display: block;
 }
-
-/* Black icons — invert to white so they show on dark background */
 .skill-icon-wrap img[alt="Flask"],
 .skill-icon-wrap img[alt="GitHub"],
 .skill-icon-wrap img[alt="Vercel"] {
   filter: invert(1) brightness(2);
 }
-
-/* MySQL uses inline SVG now — size it correctly */
 .skill-icon-wrap svg.mysql-svg {
   width: 28px;
   height: 28px;
@@ -864,22 +853,8 @@ button:focus-visible {
   font-size: 12px;
   letter-spacing: 1px;
   color: var(--text);
-  margin-bottom: 10px;
   position: relative;
   z-index: 1;
-}
-.skill-bar-wrap {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.07);
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-}
-.skill-bar {
-  height: 100%;
-  background: linear-gradient(to right, var(--blue), rgba(74, 144, 217, 0.2));
-  width: 0;
-  transition: width 1.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* ── TIMELINE ── */
@@ -998,6 +973,40 @@ button:focus-visible {
   background: rgba(255, 255, 255, 0.02);
   position: relative;
   z-index: 1;
+}
+/* Product mockup — warm accent for project 02 */
+.p-mockup.mockup-product {
+  background: rgba(255, 180, 120, 0.03);
+  border-color: rgba(255, 160, 80, 0.12);
+}
+.mockup-product .mockup-hero-block {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 140, 60, 0.25),
+    rgba(255, 100, 40, 0.08)
+  );
+}
+.mockup-product .mockup-line {
+  background: rgba(255, 160, 80, 0.12);
+}
+/* Dark cinematic mockup for project 03 */
+.p-mockup.mockup-dark-theme {
+  background: rgba(10, 5, 20, 0.6);
+  border-color: rgba(120, 60, 200, 0.18);
+}
+.mockup-dark-theme .mockup-bar {
+  background: rgba(80, 20, 120, 0.3);
+  border-bottom-color: rgba(120, 60, 200, 0.15);
+}
+.mockup-dark-theme .mockup-bar span {
+  background: rgba(180, 100, 255, 0.2);
+}
+.mockup-dark-theme .mockup-card-sm {
+  background: rgba(120, 60, 200, 0.2);
+  border-color: rgba(150, 80, 255, 0.25);
+}
+.mockup-dark-theme .mockup-line {
+  background: rgba(150, 80, 255, 0.1);
 }
 .mockup-bar {
   background: rgba(255, 255, 255, 0.04);
@@ -1264,6 +1273,14 @@ button:focus-visible {
   font-style: normal;
   color: var(--blue);
 }
+
+/* ── EMAIL ROW + COPY BUTTON ── */
+.contact-email-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 52px;
+}
 .contact-email {
   font-size: 18px;
   color: var(--muted);
@@ -1278,6 +1295,256 @@ button:focus-visible {
   color: var(--text);
   border-color: rgba(255, 255, 255, 0.5);
 }
+.copy-email-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  transition:
+    border-color 0.3s,
+    color 0.3s,
+    background 0.3s;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.copy-email-btn:hover {
+  border-color: rgba(74, 144, 217, 0.5);
+  color: var(--text);
+  background: var(--blue-dim);
+}
+.copy-email-btn.copied {
+  border-color: rgba(40, 200, 64, 0.4);
+  color: #28c840;
+  background: rgba(40, 200, 64, 0.06);
+}
+.copy-email-btn svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+}
+.copy-email-btn .check-icon {
+  position: absolute;
+  left: 14px;
+  opacity: 0;
+  transform: scale(0.6);
+}
+.copy-email-btn.copied .copy-icon {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.copy-email-btn.copied .check-icon {
+  opacity: 1;
+  transform: scale(1);
+  position: relative;
+  left: auto;
+}
+.copy-label {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── CONTACT FORM ── */
+.contact-form-wrap {
+  max-width: 600px;
+  margin: 0 auto 56px;
+  text-align: left;
+}
+.contact-form-inner {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.015);
+  padding: 36px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.contact-form-inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--blue) 40%,
+    var(--blue) 60%,
+    transparent
+  );
+  opacity: 0.35;
+}
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.form-header-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--blue);
+  white-space: nowrap;
+}
+.form-header-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.form-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  padding: 12px 16px;
+  outline: none;
+  transition:
+    border-color 0.3s,
+    background 0.3s,
+    box-shadow 0.3s;
+  width: 100%;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.form-input::placeholder {
+  color: rgba(245, 245, 247, 0.2);
+}
+.form-input:focus {
+  border-color: rgba(74, 144, 217, 0.5);
+  background: rgba(74, 144, 217, 0.04);
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.06);
+}
+.form-input.error {
+  border-color: rgba(255, 80, 80, 0.5);
+}
+.form-textarea {
+  resize: none;
+  min-height: 120px;
+  line-height: 1.7;
+}
+.form-error {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgba(255, 80, 80, 0.8);
+  min-height: 14px;
+  display: block;
+}
+.form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 36px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text);
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.form-submit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(74, 144, 217, 0.08) 40%,
+    rgba(74, 144, 217, 0.15) 50%,
+    rgba(74, 144, 217, 0.08) 60%,
+    transparent 80%
+  );
+  transition: left 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.form-submit:hover::before {
+  left: 100%;
+}
+.form-submit:hover {
+  border-color: var(--blue);
+  background: var(--blue-dim);
+}
+.form-submit-arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.form-submit:hover .form-submit-arrow {
+  transform: translateX(4px);
+}
+.form-submit.sending {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.form-success {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border: 1px solid rgba(40, 200, 64, 0.25);
+  background: rgba(40, 200, 64, 0.05);
+  color: #28c840;
+  font-size: 12px;
+  letter-spacing: 1px;
+  animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.form-success.show {
+  display: flex;
+}
+.form-success svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke: #28c840;
+}
+
+/* ── SOCIALS ── */
 .socials {
   display: flex;
   justify-content: center;
@@ -1470,7 +1737,9 @@ footer {
   #hero-canvas,
   .hero-glow,
   .scroll-hint,
-  .p-glow {
+  .p-glow,
+  .copy-email-btn,
+  .contact-form-wrap {
     display: none !important;
   }
   body {
@@ -1540,12 +1809,6 @@ footer {
   }
   .skill-name {
     color: #111 !important;
-  }
-  .skill-bar {
-    background: #4a90d9 !important;
-  }
-  .skill-bar-wrap {
-    background: #ddd !important;
   }
   .tl-card {
     background: #f9f9f9 !important;
@@ -1664,6 +1927,12 @@ footer {
     grid-template-columns: 60px 1fr;
     gap: 16px;
   }
+  .contact-form-inner {
+    padding: 28px 24px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
 @media (max-width: 768px) {
   .nav-links {
@@ -1696,5 +1965,17 @@ footer {
   #back-to-top {
     bottom: 20px;
     right: 20px;
+  }
+  .contact-email-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .contact-form-inner {
+    padding: 24px 16px;
+  }
+  .form-submit {
+    width: 100%;
+    justify-content: center;
   }
 }
