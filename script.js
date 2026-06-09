@@ -316,16 +316,26 @@ if (formSubmitBtn) {
         },
         body: JSON.stringify(payload),
       });
-
       if (res.ok) {
-        /* ── Success ── */
+        // Show success message
         formSubmitBtn.style.display = "none";
         formSuccess.classList.add("show");
-        /* Clear all fields */
+
+        // Clear form fields
         ["cf-name", "cf-email", "cf-subject", "cf-message"].forEach((id) => {
           const el = getField(id);
           if (el) el.value = "";
         });
+
+        // After 4 seconds, restore button and hide success message
+        setTimeout(() => {
+          formSuccess.classList.remove("show");
+
+          formSubmitBtn.style.display = "";
+          formSubmitBtn.classList.remove("sending");
+          formSubmitBtn.querySelector(".form-submit-text").textContent =
+            "Send Message";
+        }, 4000);
       } else {
         /* ── Formspree returned an error (e.g. spam, domain mismatch) ── */
         let errMsg = "Something went wrong. Please email me directly.";
