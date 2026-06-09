@@ -21,7 +21,18 @@
       loader.classList.add("hide");
       document.body.classList.remove("loading");
       document.getElementById("hero").classList.add("hero-in");
-      startScramble();
+
+      /* Scramble fires after slide-up animation ends (~900ms) */
+      const nameEms = document.querySelectorAll(".hero-name span em");
+      if (nameEms.length > 0) {
+        const lastEm = nameEms[nameEms.length - 1];
+        lastEm.addEventListener("animationend", startScramble, { once: true });
+        /* Fallback if animationend never fires */
+        setTimeout(startScramble, 1100);
+      } else {
+        startScramble();
+      }
+
       startTerminalType();
       startSubtitleLoop();
       setTimeout(() => {
@@ -40,8 +51,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 /* ══════════════════════════════════════════
    TOUCH DETECTION
 ══════════════════════════════════════════ */
-const isTouchDevice = () =>
-  window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+const isTouchDevice = () => window.matchMedia("(pointer: coarse)").matches;
 
 /* ══════════════════════════════════════════
    CURSOR — desktop only
@@ -54,7 +64,20 @@ let mx = 0,
   ry = 0;
 let scrollTimer = null;
 
+/* ── Cursor trail ── */
+const TRAIL_COUNT = 5;
+const trailDots = [];
+const trailPos = [];
+
 if (!isTouchDevice()) {
+  for (let i = 0; i < TRAIL_COUNT; i++) {
+    const dot = document.createElement("div");
+    dot.className = "trail-dot";
+    document.body.appendChild(dot);
+    trailDots.push(dot);
+    trailPos.push({ x: 0, y: 0 });
+  }
+
   document.addEventListener("mousemove", (e) => {
     mx = e.clientX;
     my = e.clientY;
@@ -69,6 +92,24 @@ if (!isTouchDevice()) {
     ry += (my - ry) * 0.1;
     ring.style.left = rx + "px";
     ring.style.top = ry + "px";
+
+    /* Trail: each dot chases the one ahead of it */
+    trailPos[0].x += (mx - trailPos[0].x) * 0.28;
+    trailPos[0].y += (my - trailPos[0].y) * 0.28;
+    for (let i = 1; i < TRAIL_COUNT; i++) {
+      trailPos[i].x += (trailPos[i - 1].x - trailPos[i].x) * 0.32;
+      trailPos[i].y += (trailPos[i - 1].y - trailPos[i].y) * 0.32;
+    }
+    trailDots.forEach((dot, i) => {
+      const alpha = (1 - i / TRAIL_COUNT) * 0.35;
+      const size = 4 - i * 0.5;
+      dot.style.left = trailPos[i].x + "px";
+      dot.style.top = trailPos[i].y + "px";
+      dot.style.width = size + "px";
+      dot.style.height = size + "px";
+      dot.style.opacity = alpha;
+    });
+
     requestAnimationFrame(animRing);
   })();
 
@@ -92,7 +133,6 @@ if (!isTouchDevice()) {
    SCROLL PROGRESS BAR
 ══════════════════════════════════════════ */
 const progressBar = document.getElementById("scroll-progress");
-
 function updateScrollProgress() {
   const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -112,6 +152,7 @@ window.addEventListener(
     updateActiveNav();
     updateBackToTop();
     updateScrollProgress();
+    updateTimelineHighlight();
 
     if (!isTouchDevice()) {
       cur.classList.add("hidden");
@@ -136,6 +177,20 @@ function updateActiveNav() {
   });
   document.querySelectorAll(".nav-links a[data-section]").forEach((a) => {
     a.classList.toggle("active", a.dataset.section === current);
+  });
+}
+
+/* ══════════════════════════════════════════
+   TIMELINE ACTIVE HIGHLIGHT (subtle)
+══════════════════════════════════════════ */
+function updateTimelineHighlight() {
+  const items = document.querySelectorAll(".timeline-item");
+  items.forEach((item) => {
+    const rect = item.getBoundingClientRect();
+    const inView =
+      rect.top < window.innerHeight * 0.65 &&
+      rect.bottom > window.innerHeight * 0.2;
+    item.classList.toggle("tl-active", inView);
   });
 }
 
@@ -175,6 +230,26 @@ function updateBackToTop() {
 }
 
 /* ══════════════════════════════════════════
+   SMOOTH HASH NAVIGATION — section label flash
+══════════════════════════════════════════ */
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener("click", (e) => {
+    const targetId = link.getAttribute("href").slice(1);
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    /* Flash the section-label of the target section */
+    const label = target.querySelector(".section-label");
+    if (label) {
+      label.classList.remove("flash");
+      void label.offsetWidth; /* reflow to re-trigger */
+      label.classList.add("flash");
+      setTimeout(() => label.classList.remove("flash"), 800);
+    }
+  });
+});
+
+/* ══════════════════════════════════════════
    COPY EMAIL BUTTON
 ══════════════════════════════════════════ */
 const copyBtn = document.getElementById("copy-email-btn");
@@ -196,9 +271,7 @@ if (copyBtn) {
       navigator.clipboard
         .writeText(EMAIL)
         .then(onCopied)
-        .catch(() => {
-          fallbackCopy(EMAIL, onCopied);
-        });
+        .catch(() => fallbackCopy(EMAIL, onCopied));
     } else {
       fallbackCopy(EMAIL, onCopied);
     }
@@ -212,14 +285,167 @@ function fallbackCopy(text, cb) {
   document.body.appendChild(ta);
   ta.focus();
   ta.select();
+  let success = false;
   try {
-    document.execCommand("copy");
-    cb();
+    success = document.execCommand("copy");
   } catch (e) {
-    console.warn("Copy failed:", e);
+    /* ignore */
   }
   document.body.removeChild(ta);
+  if (success) {
+    cb();
+  } else {
+    /* Surface a non-intrusive notice if both methods fail */
+    const label = copyBtn.querySelector(".copy-label");
+    if (label) {
+      label.textContent = "Failed";
+      setTimeout(() => {
+        label.textContent = "Copy";
+      }, 2000);
+    }
+  }
 }
+
+/* ══════════════════════════════════════════
+   RESUME MODAL
+══════════════════════════════════════════ */
+const resumeModal = document.getElementById("resume-modal");
+const resumeIframe = document.getElementById("resume-iframe");
+const resumeClose = document.getElementById("resume-close");
+const RESUME_URL =
+  "https://www.dropbox.com/scl/fi/3r2evgkvyho0s8pgnl2rs/ziyad-resume.pdf?rlkey=i2k579y2b60du4okse057ijpa&st=gqwryl3x&dl=0";
+
+function openResumeModal() {
+  if (
+    !resumeIframe.src ||
+    resumeIframe.src === "about:blank" ||
+    resumeIframe.src === ""
+  ) {
+    resumeIframe.src = RESUME_URL;
+  }
+  resumeModal.classList.add("open");
+  resumeModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  resumeClose.focus();
+}
+function closeResumeModal() {
+  resumeModal.classList.remove("open");
+  resumeModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+document
+  .getElementById("hero-resume-btn")
+  .addEventListener("click", openResumeModal);
+document
+  .getElementById("nav-resume-btn")
+  .addEventListener("click", openResumeModal);
+document
+  .getElementById("footer-resume-btn")
+  .addEventListener("click", openResumeModal);
+document.getElementById("mobile-resume-btn").addEventListener("click", () => {
+  /* Close mobile menu first */
+  hamburger.classList.remove("open");
+  hamburger.setAttribute("aria-expanded", false);
+  mobileMenu.classList.remove("open");
+  mobileMenu.setAttribute("aria-hidden", true);
+  document.body.style.overflow = "";
+  openResumeModal();
+});
+resumeClose.addEventListener("click", closeResumeModal);
+resumeModal.addEventListener("click", (e) => {
+  if (e.target === resumeModal) closeResumeModal();
+});
+
+/* ══════════════════════════════════════════
+   KEYBOARD SHORTCUTS MODAL
+══════════════════════════════════════════ */
+const shortcutsModal = document.getElementById("shortcuts-modal");
+const shortcutsClose = document.getElementById("shortcuts-close");
+const shortcutsHintBtn = document.getElementById("shortcuts-hint-btn");
+
+function openShortcutsModal() {
+  shortcutsModal.classList.add("open");
+  shortcutsModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  shortcutsClose.focus();
+}
+function closeShortcutsModal() {
+  shortcutsModal.classList.remove("open");
+  shortcutsModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+shortcutsHintBtn.addEventListener("click", openShortcutsModal);
+shortcutsClose.addEventListener("click", closeShortcutsModal);
+shortcutsModal.addEventListener("click", (e) => {
+  if (e.target === shortcutsModal) closeShortcutsModal();
+});
+
+/* ══════════════════════════════════════════
+   KEYBOARD SHORTCUTS HANDLER
+══════════════════════════════════════════ */
+const SECTION_KEYS = {
+  1: "about",
+  2: "skills",
+  3: "experience",
+  4: "projects",
+  5: "contact",
+};
+
+document.addEventListener("keydown", (e) => {
+  /* Ignore when typing in form inputs */
+  const tag = document.activeElement.tagName;
+  const isInput = tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT";
+
+  /* Escape closes any open modal, or scrolls to top */
+  if (e.key === "Escape") {
+    if (shortcutsModal.classList.contains("open")) {
+      closeShortcutsModal();
+      return;
+    }
+    if (resumeModal.classList.contains("open")) {
+      closeResumeModal();
+      return;
+    }
+    if (!isInput) window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
+  if (isInput) return;
+
+  /* / — focus first nav link */
+  if (e.key === "/") {
+    e.preventDefault();
+    const firstNavLink = document.querySelector(".nav-links a");
+    if (firstNavLink) firstNavLink.focus();
+    return;
+  }
+
+  /* ? — show shortcuts */
+  if (e.key === "?") {
+    e.preventDefault();
+    openShortcutsModal();
+    return;
+  }
+
+  /* 1–5 — jump to sections */
+  if (SECTION_KEYS[e.key]) {
+    e.preventDefault();
+    const target = document.getElementById(SECTION_KEYS[e.key]);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+      /* Flash the section label */
+      const label = target.querySelector(".section-label");
+      if (label) {
+        label.classList.remove("flash");
+        void label.offsetWidth;
+        label.classList.add("flash");
+        setTimeout(() => label.classList.remove("flash"), 800);
+      }
+    }
+  }
+});
 
 /* ══════════════════════════════════════════
    CONTACT FORM — Formspree
@@ -228,6 +454,20 @@ const FORMSPREE_URL = "https://formspree.io/f/xnjydrlk";
 
 const formSubmitBtn = document.getElementById("form-submit-btn");
 const formSuccess = document.getElementById("form-success");
+const charCount = document.getElementById("cf-char-count");
+const messageField = document.getElementById("cf-message");
+
+/* Character counter */
+if (messageField && charCount) {
+  messageField.addEventListener("input", () => {
+    const len = messageField.value.length;
+    const max = parseInt(messageField.getAttribute("maxlength")) || 500;
+    charCount.textContent = len + " / " + max;
+    charCount.classList.remove("warn", "danger");
+    if (len >= max * 0.9) charCount.classList.add("danger");
+    else if (len >= max * 0.75) charCount.classList.add("warn");
+  });
+}
 
 function getField(id) {
   return document.getElementById(id);
@@ -285,7 +525,7 @@ function validateForm() {
   return valid;
 }
 
-/* Live clear errors on input */
+/* Live error clearing */
 ["cf-name", "cf-email", "cf-subject", "cf-message"].forEach((id) => {
   const el = getField(id);
   if (el) el.addEventListener("input", () => setError(id, ""));
@@ -296,7 +536,8 @@ if (formSubmitBtn) {
     clearErrors();
     if (!validateForm()) return;
 
-    /* Lock the button while sending */
+    /* Prevent double-submit immediately */
+    formSubmitBtn.disabled = true;
     formSubmitBtn.classList.add("sending");
     formSubmitBtn.querySelector(".form-submit-text").textContent = "Sending…";
 
@@ -316,46 +557,77 @@ if (formSubmitBtn) {
         },
         body: JSON.stringify(payload),
       });
-      if (res.ok) {
-        // Show success message
-        formSubmitBtn.style.display = "none";
-        formSuccess.classList.add("show");
 
-        // Clear form fields
+      if (res.ok) {
         ["cf-name", "cf-email", "cf-subject", "cf-message"].forEach((id) => {
           const el = getField(id);
           if (el) el.value = "";
         });
+        if (charCount) {
+          charCount.textContent = "0 / 500";
+          charCount.classList.remove("warn", "danger");
+        }
 
-        // After 4 seconds, restore button and hide success message
+        formSubmitBtn.style.transition =
+          "opacity 0.4s ease, transform 0.4s ease";
+        formSubmitBtn.style.opacity = "0";
+        formSubmitBtn.style.transform = "translateY(6px)";
+
         setTimeout(() => {
-          formSuccess.classList.remove("show");
+          formSubmitBtn.style.display = "none";
+          formSuccess.classList.add("show");
+        }, 400);
 
-          formSubmitBtn.style.display = "";
-          formSubmitBtn.classList.remove("sending");
-          formSubmitBtn.querySelector(".form-submit-text").textContent =
-            "Send Message";
+        setTimeout(() => {
+          formSuccess.style.transition =
+            "opacity 0.5s ease, transform 0.5s ease";
+          formSuccess.style.opacity = "0";
+          formSuccess.style.transform = "translateY(-6px)";
+
+          setTimeout(() => {
+            formSuccess.classList.remove("show");
+            formSuccess.style.opacity = "";
+            formSuccess.style.transform = "";
+            formSuccess.style.transition = "";
+
+            formSubmitBtn.disabled = false;
+            formSubmitBtn.classList.remove("sending");
+            formSubmitBtn.querySelector(".form-submit-text").textContent =
+              "Send Message";
+            formSubmitBtn.style.display = "";
+            formSubmitBtn.style.opacity = "0";
+            formSubmitBtn.style.transform = "translateY(6px)";
+
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                formSubmitBtn.style.opacity = "1";
+                formSubmitBtn.style.transform = "translateY(0)";
+                setTimeout(() => {
+                  formSubmitBtn.style.transition = "";
+                  formSubmitBtn.style.opacity = "";
+                  formSubmitBtn.style.transform = "";
+                }, 450);
+              });
+            });
+          }, 500);
         }, 4000);
       } else {
-        /* ── Formspree returned an error (e.g. spam, domain mismatch) ── */
         let errMsg = "Something went wrong. Please email me directly.";
         try {
           const json = await res.json();
-          if (json.errors && json.errors.length > 0) {
+          if (json.errors && json.errors.length > 0)
             errMsg = json.errors.map((e) => e.message).join(" ");
-          }
         } catch (_) {
-          /* ignore parse error */
+          /* ignore */
         }
-
-        /* Unlock button and show error under message field */
+        formSubmitBtn.disabled = false;
         formSubmitBtn.classList.remove("sending");
         formSubmitBtn.querySelector(".form-submit-text").textContent =
           "Send Message";
         setError("cf-message", errMsg);
       }
     } catch (networkErr) {
-      /* ── Network / fetch failure ── */
+      formSubmitBtn.disabled = false;
       formSubmitBtn.classList.remove("sending");
       formSubmitBtn.querySelector(".form-submit-text").textContent =
         "Send Message";
@@ -369,6 +641,7 @@ if (formSubmitBtn) {
 
 /* ══════════════════════════════════════════
    HERO 3D CANVAS
+   Paused via IntersectionObserver when hero is off-screen
 ══════════════════════════════════════════ */
 const canvas = document.getElementById("hero-canvas");
 const ctx = canvas.getContext("2d");
@@ -377,6 +650,7 @@ let W,
   t = 0;
 let mouseX = 0,
   mouseY = 0;
+let heroVisible = true;
 
 function resizeCanvas() {
   W = canvas.width = window.innerWidth;
@@ -391,6 +665,15 @@ if (!isTouchDevice()) {
     mouseY = (e.clientY / H - 0.5) * 2;
   });
 }
+
+/* Pause globe RAF when hero is not visible */
+const heroObs = new IntersectionObserver(
+  (entries) => {
+    heroVisible = entries[0].isIntersecting;
+  },
+  { threshold: 0.01 },
+);
+heroObs.observe(document.getElementById("hero"));
 
 function proj3D(x, y, z, rX, rY) {
   const cX = Math.cos(rX),
@@ -407,7 +690,6 @@ function proj3D(x, y, z, rX, rY) {
 }
 
 function drawGlobe(rX, rY, R, cx, cy, numParticles) {
-  /* latitude rings */
   for (let r = 0; r < 6; r++) {
     const lat = (r / 5 - 0.5) * Math.PI;
     const cL = Math.cos(lat),
@@ -430,7 +712,6 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
     ctx.lineWidth = 0.7;
     ctx.stroke();
   }
-  /* meridian lines */
   for (let m = 0; m < 14; m++) {
     const lng = (m / 14) * Math.PI * 2;
     ctx.beginPath();
@@ -453,7 +734,6 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
     ctx.lineWidth = 0.5;
     ctx.stroke();
   }
-  /* particles */
   for (let i = 0; i < numParticles; i++) {
     const a = i * 137.508 * (Math.PI / 180) + t * 0.04;
     const rad = 38 + i * 2.6;
@@ -473,8 +753,8 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
 }
 
 function drawHero() {
-  /* Skip draw when tab is hidden — saves battery */
-  if (document.hidden) {
+  if (!heroVisible || document.hidden) {
+    t += 0; /* freeze time */
     requestAnimationFrame(drawHero);
     return;
   }
@@ -523,7 +803,6 @@ function typeSubtitle(el, text, cb) {
     }
   }, 38);
 }
-
 function eraseSubtitle(el, cb) {
   const iv = setInterval(() => {
     el.textContent = el.textContent.slice(0, -1);
@@ -533,7 +812,6 @@ function eraseSubtitle(el, cb) {
     }
   }, 22);
 }
-
 function startSubtitleLoop() {
   const el = document.getElementById("hero-sub");
   if (!el) return;
@@ -551,6 +829,7 @@ function startSubtitleLoop() {
 ══════════════════════════════════════════ */
 const CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
+let scrambleStarted = false;
 
 function scrambleText(el, finalText, duration) {
   const totalFrames = Math.round(duration / 16);
@@ -578,6 +857,8 @@ function scrambleText(el, finalText, duration) {
 }
 
 function startScramble() {
+  if (scrambleStarted) return;
+  scrambleStarted = true;
   document.querySelectorAll("[data-scramble]").forEach((el) => {
     const final = el.dataset.scramble;
     setTimeout(() => scrambleText(el, final, 1000), 300);
@@ -585,7 +866,7 @@ function startScramble() {
 }
 
 /* ══════════════════════════════════════════
-   TERMINAL — with double-trigger guard
+   TERMINAL
 ══════════════════════════════════════════ */
 const terminalLines = [
   { type: "prompt", text: "whoami" },
@@ -602,6 +883,7 @@ const terminalLines = [
 ];
 
 let terminalRunning = false;
+let terminalCycleCount = 0;
 
 function runTerminal() {
   if (terminalRunning) return;
@@ -613,12 +895,17 @@ function runTerminal() {
     return;
   }
   body.innerHTML = "";
+
+  /* Silence aria-live after first two cycles */
+  if (terminalCycleCount >= 2) body.setAttribute("aria-live", "off");
+
   let lineIdx = 0,
     charIdx = 0,
     currentLineEl = null;
 
   function tick() {
     if (lineIdx >= terminalLines.length) {
+      terminalCycleCount++;
       setTimeout(() => {
         terminalRunning = false;
         runTerminal();
@@ -675,23 +962,8 @@ function startTerminalType() {
   runTerminal();
 }
 
-const terminalObs = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        const body = document.getElementById("terminal-body");
-        if (body && body.innerHTML === "" && !terminalRunning) runTerminal();
-      }
-    });
-  },
-  { threshold: 0.3 },
-);
-
-const aboutSection = document.getElementById("about");
-if (aboutSection) terminalObs.observe(aboutSection);
-
 /* ══════════════════════════════════════════
-   SCROLL REVEAL
+   SCROLL REVEAL — shared observer
 ══════════════════════════════════════════ */
 const revObs = new IntersectionObserver(
   (entries) => {
@@ -702,13 +974,58 @@ const revObs = new IntersectionObserver(
       }
     });
   },
-  {
-    threshold: 0.08,
-    rootMargin: "0px 0px -20px 0px",
-  },
+  { threshold: 0.08, rootMargin: "0px 0px -20px 0px" },
 );
 
 document.querySelectorAll(".reveal-item").forEach((el) => revObs.observe(el));
+
+/* Section title underline: triggered by reveal observer — no extra JS needed
+   because .section-title::after transitions on .reveal-item.visible.
+   But .section-title is a child of .reveal-item, so we need to handle it directly. */
+const titleObs = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        titleObs.unobserve(e.target);
+      }
+    });
+  },
+  { threshold: 0.1 },
+);
+document
+  .querySelectorAll(".section-title")
+  .forEach((el) => titleObs.observe(el));
+
+/* ══════════════════════════════════════════
+   COUNTER ANIMATION
+══════════════════════════════════════════ */
+const counterObs = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.target, 10);
+      const duration = 1200;
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        /* Ease out cubic */
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(step);
+      counterObs.unobserve(el);
+    });
+  },
+  { threshold: 0.5 },
+);
+document
+  .querySelectorAll(".stat-num[data-target]")
+  .forEach((el) => counterObs.observe(el));
 
 /* ══════════════════════════════════════════
    3D CARD TILT — desktop only, RAF throttled
