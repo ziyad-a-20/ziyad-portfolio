@@ -5,6 +5,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 
 :root {
   --bg: #060608;
@@ -876,17 +880,21 @@ button:focus-visible {
   outline-offset: 4px;
 }
 
+
 .scroll-hint {
   position: absolute;
   bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
   opacity: 0;
+  transform: translateY(20px);
 }
 .scroll-line {
   width: 1px;
@@ -2563,5 +2571,350 @@ footer {
   }
   .shortcuts-inner {
     padding: 28px 24px;
+  }
+}
+@media (max-width: 480px) {
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+  }
+  .hero-name {
+    font-size: clamp(52px, 16vw, 80px);
+    letter-spacing: -1.5px;
+  }
+  .hero-sub {
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-top: 16px;
+  }
+  .hero-cta {
+    margin-top: 36px;
+    gap: 10px;
+  }
+  .btn-outline,
+  .btn-fill {
+    padding: 12px 28px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+    justify-content: center;
+  }
+  .scroll-hint {
+    bottom: 24px;
+  }
+  .scroll-line {
+    height: 32px;
+  }
+}
+
+/* ── Mobile section padding ── */
+@media (max-width: 480px) {
+  .section-wrap {
+    padding: 60px 18px;
+  }
+  .section-title {
+    font-size: clamp(28px, 8vw, 44px);
+    margin-bottom: 36px;
+  }
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+  }
+}
+
+/* ── Mobile about ── */
+@media (max-width: 480px) {
+  .about-text {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .about-stats {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .stat-num {
+    font-size: 28px;
+  }
+  .stat-label {
+    font-size: 9px;
+  }
+  .about-badge {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    padding: 7px 14px;
+    margin-top: 20px;
+  }
+  .terminal-body {
+    font-size: 11px;
+    padding: 14px 16px;
+    line-height: 1.9;
+    min-height: 180px;
+  }
+}
+
+/* ── Mobile skills ── */
+@media (max-width: 480px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .skill-card {
+    padding: 20px 10px;
+  }
+  .skill-icon-wrap {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 10px;
+  }
+  .skill-icon-wrap img {
+    width: 18px;
+    height: 18px;
+  }
+  .skill-name {
+    font-size: 10px;
+  }
+  .skills-group-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-top: 28px;
+  }
+}
+
+/* ── Mobile timeline ── */
+@media (max-width: 480px) {
+  .timeline {
+    padding-left: 24px;
+  }
+  .timeline-item {
+    grid-template-columns: 52px 1fr;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .tl-dot {
+    left: -24px;
+    width: 10px;
+    height: 10px;
+    top: 8px;
+  }
+  .tl-date {
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding-top: 8px;
+  }
+  .tl-card {
+    padding: 18px 16px;
+  }
+  .tl-title {
+    font-size: 16px;
+  }
+  .tl-desc {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  .tag {
+    font-size: 9px;
+    padding: 3px 8px;
+  }
+}
+
+/* ── Mobile projects ── */
+@media (max-width: 480px) {
+  .bento {
+    gap: 10px;
+  }
+  .project-card {
+    padding: 20px 16px;
+  }
+  .p-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .p-desc {
+    font-size: 12px;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .p-num {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+  .p-tags {
+    gap: 5px;
+    margin-bottom: 16px;
+  }
+  .mockup-screen {
+    min-height: 60px;
+    padding: 10px;
+    gap: 6px;
+  }
+  .mockup-block {
+    height: 20px;
+  }
+  .mockup-hero-block {
+    height: 28px;
+  }
+  .mockup-card-sm {
+    height: 26px;
+  }
+  .wip-badge {
+    font-size: 9px;
+    padding: 4px 9px;
+    letter-spacing: 1.5px;
+  }
+}
+
+/* ── Mobile contact ── */
+@media (max-width: 480px) {
+  .contact-giant {
+    font-size: clamp(36px, 12vw, 64px);
+    margin-bottom: 28px;
+  }
+  .contact-email {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  .contact-email-row {
+    width: 100%;
+    justify-content: center;
+  }
+  .copy-email-btn {
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+  .contact-form-inner {
+    padding: 20px 14px;
+  }
+  .form-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+  .form-input {
+    font-size: 14px; /* Prevents iOS zoom on focus */
+    padding: 11px 12px;
+  }
+  .form-submit {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 13px 24px;
+  }
+  .socials {
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .social-link {
+    padding: 9px 14px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+}
+
+/* ── Mobile footer ── */
+@media (max-width: 480px) {
+  footer {
+    padding: 20px 18px;
+    gap: 10px;
+  }
+  .footer-logo {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+  .footer-text {
+    font-size: 10px;
+  }
+}
+
+/* ── Mobile resume modal ── */
+@media (max-width: 640px) {
+  .resume-modal {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .resume-modal-inner {
+    max-width: 100%;
+    width: 100%;
+    height: 92vh;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    transform: translateY(40px);
+  }
+  .resume-modal.open .resume-modal-inner {
+    transform: translateY(0);
+  }
+  .resume-modal-header {
+    padding: 14px 16px;
+  }
+  .resume-download-btn {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+}
+
+/* ── Mobile shortcuts modal ── */
+@media (max-width: 480px) {
+  .shortcuts-inner {
+    padding: 24px 20px;
+    min-width: unset;
+  }
+  .shortcuts-list {
+    gap: 12px;
+  }
+  .shortcuts-list span {
+    font-size: 12px;
+  }
+  .shortcuts-hint {
+    margin-top: 28px;
+  }
+}
+
+/* ── Mobile back to top ── */
+@media (max-width: 480px) {
+  #back-to-top {
+    bottom: 16px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* ── Prevent iOS input zoom (font-size must be >= 16px on inputs) ── */
+@media (max-width: 768px) {
+  .form-input,
+  .form-textarea {
+    font-size: 16px;
+  }
+}
+
+/* ── Mobile: reduce grain opacity slightly for perf ── */
+@media (max-width: 640px) {
+  .grain {
+    opacity: 0.022;
+  }
+}
+
+/* ── Mobile: touch-friendly tap targets ── */
+@media (pointer: coarse) {
+  .p-link {
+    padding: 8px 0;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .nav-resume,
+  .social-link,
+  .copy-email-btn {
+    min-height: 44px;
+  }
+  .about-badge {
+    min-height: 44px;
+  }
+  /* No tilt on touch */
+  .project-card,
+  .skill-card {
+    transform: none !important;
   }
 }

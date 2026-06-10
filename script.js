@@ -312,50 +312,41 @@ function fallbackCopy(text, cb) {
 const resumeModal = document.getElementById("resume-modal");
 const resumeIframe = document.getElementById("resume-iframe");
 const resumeClose = document.getElementById("resume-close");
-const RESUME_URL =
-  "https://www.dropbox.com/scl/fi/3r2evgkvyho0s8pgnl2rs/ziyad-resume.pdf?rlkey=i2k579y2b60du4okse057ijpa&st=gqwryl3x&dl=0";
+
+/* Direct PDF download link (dl=1 forces download) */
+const RESUME_DOWNLOAD_URL =
+  "https://www.dropbox.com/scl/fi/3r2evgkvyho0s8pgnl2rs/ziyad-resume.pdf?rlkey=i2k579y2b60du4okse057ijpa&st=gqwryl3x&dl=1";
+
+/* Google Docs viewer can embed any publicly accessible PDF */
+const RESUME_PDF_DIRECT =
+  "https://www.dropbox.com/scl/fi/3r2evgkvyho0s8pgnl2rs/ziyad-resume.pdf?rlkey=i2k579y2b60du4okse057ijpa&st=gqwryl3x&raw=1";
+const RESUME_VIEWER_URL =
+  "https://docs.google.com/viewer?url=" +
+  encodeURIComponent(RESUME_PDF_DIRECT) +
+  "&embedded=true";
+
+/* Update download button href dynamically */
+const resumeDownloadBtn = document.querySelector(".resume-download-btn");
+if (resumeDownloadBtn) resumeDownloadBtn.href = RESUME_DOWNLOAD_URL;
+
+let iframeLoaded = false;
 
 function openResumeModal() {
-  if (
-    !resumeIframe.src ||
-    resumeIframe.src === "about:blank" ||
-    resumeIframe.src === ""
-  ) {
-    resumeIframe.src = RESUME_URL;
+  if (!iframeLoaded) {
+    resumeIframe.src = RESUME_VIEWER_URL;
+    iframeLoaded = true;
   }
   resumeModal.classList.add("open");
   resumeModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   resumeClose.focus();
 }
+
 function closeResumeModal() {
   resumeModal.classList.remove("open");
   resumeModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
 }
-
-document
-  .getElementById("hero-resume-btn")
-  .addEventListener("click", openResumeModal);
-document
-  .getElementById("nav-resume-btn")
-  .addEventListener("click", openResumeModal);
-document
-  .getElementById("footer-resume-btn")
-  .addEventListener("click", openResumeModal);
-document.getElementById("mobile-resume-btn").addEventListener("click", () => {
-  /* Close mobile menu first */
-  hamburger.classList.remove("open");
-  hamburger.setAttribute("aria-expanded", false);
-  mobileMenu.classList.remove("open");
-  mobileMenu.setAttribute("aria-hidden", true);
-  document.body.style.overflow = "";
-  openResumeModal();
-});
-resumeClose.addEventListener("click", closeResumeModal);
-resumeModal.addEventListener("click", (e) => {
-  if (e.target === resumeModal) closeResumeModal();
-});
 
 /* ══════════════════════════════════════════
    KEYBOARD SHORTCUTS MODAL
