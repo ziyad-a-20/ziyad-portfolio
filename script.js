@@ -315,11 +315,10 @@ const resumeClose = document.getElementById("resume-close");
 
 /* Direct PDF download link (dl=1 forces download) */
 const RESUME_DOWNLOAD_URL =
-  "https://www.dropbox.com/scl/fi/3r2evgkvyho0s8pgnl2rs/ziyad-resume.pdf?rlkey=i2k579y2b60du4okse057ijpa&st=gqwryl3x&dl=1";
+  "https://www.dropbox.com/scl/fi/tx5bahwrs4xzsmofb6xyk/ziyad-resume.pdf?rlkey=5up0dw63amdlqkgx957fblytk&st=xud27njm&dl=1";
 
-/* Google Docs viewer can embed any publicly accessible PDF */
 const RESUME_PDF_DIRECT =
-  "https://www.dropbox.com/scl/fi/3r2evgkvyho0s8pgnl2rs/ziyad-resume.pdf?rlkey=i2k579y2b60du4okse057ijpa&st=gqwryl3x&raw=1";
+  "https://www.dropbox.com/scl/fi/tx5bahwrs4xzsmofb6xyk/ziyad-resume.pdf?rlkey=5up0dw63amdlqkgx957fblytk&st=xud27njm&dl=1";
 const RESUME_VIEWER_URL =
   "https://docs.google.com/viewer?url=" +
   encodeURIComponent(RESUME_PDF_DIRECT) +
@@ -347,6 +346,22 @@ function closeResumeModal() {
   resumeModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
 }
+
+const resumeTriggers = [
+  "nav-resume-btn",
+  "hero-resume-btn",
+  "mobile-resume-btn",
+  "footer-resume-btn",
+];
+resumeTriggers.forEach((id) => {
+  const btn = document.getElementById(id);
+  if (btn) btn.addEventListener("click", openResumeModal);
+});
+
+resumeClose.addEventListener("click", closeResumeModal);
+resumeModal.addEventListener("click", (e) => {
+  if (e.target === resumeModal) closeResumeModal();
+});
 
 /* ══════════════════════════════════════════
    KEYBOARD SHORTCUTS MODAL
