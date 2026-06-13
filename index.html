@@ -144,6 +144,7 @@ content="Python, Flask, MySQL and modern web development portfolio">
     <li><a href="#projects">Work</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><button class="mobile-resume-btn" id="mobile-resume-btn">Resume ↗</button></li>
+    <li><a href="#contact" class="hire-me-btn">Hire Me</a></li>
   </ul>
 </div>
 
@@ -192,15 +193,18 @@ content="Python, Flask, MySQL and modern web development portfolio">
         Available for opportunities
       </span>
     </div>
-    <div class="terminal reveal-item" role="region" aria-label="Developer terminal">
-      <div class="terminal-bar" aria-hidden="true">
-        <div class="t-dot t-red"></div>
-        <div class="t-dot t-yellow"></div>
-        <div class="t-dot t-green"></div>
-        <span class="terminal-title">ziyad@dev ~ zsh</span>
-      </div>
-      <div class="terminal-body" id="terminal-body" aria-live="polite" aria-label="Terminal output"></div>
-    </div>
+   <div class="terminal reveal-item" role="region" aria-label="Developer terminal">
+  <div class="terminal-bar" aria-hidden="true">
+    <div class="t-dot t-red"></div>
+    <div class="t-dot t-yellow"></div>
+    <div class="t-dot t-green"></div>
+    <span class="terminal-title">ziyad@dev ~ zsh</span>
+    <button class="terminal-toggle" id="terminal-toggle" aria-label="Expand terminal" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+  <div class="terminal-body" id="terminal-body" aria-live="polite" aria-label="Terminal output"></div>
+</div>
   </div>
 </section>
 
@@ -348,6 +352,11 @@ content="Python, Flask, MySQL and modern web development portfolio">
 <section id="projects" class="section-wrap">
   <p class="section-label reveal-item">Selected Work</p>
   <h2 class="section-title reveal-item">Four builds.<br>Real problems solved.</h2>
+
+  <button class="tldr-toggle" id="tldr-toggle" aria-pressed="false">
+    <span class="tldr-icon" aria-hidden="true">⚡</span>
+    <span class="tldr-text">TL;DR Mode</span>
+  </button>
   <div class="bento">
 
     <div class="project-card large reveal-item">
@@ -458,6 +467,9 @@ content="Python, Flask, MySQL and modern web development portfolio">
           GitHub ↗
         </a>
       </div>
+    </div>
+    <div class="bento-hint" aria-hidden="true">
+    <span class="active"></span><span></span><span></span><span></span>
     </div>
 
     <div class="project-card large reveal-item project-wip">
@@ -620,5 +632,10 @@ content="Python, Flask, MySQL and modern web development portfolio">
 <script src="js/modals.js" defer></script>
 <script src="js/contact-form.js" defer></script>
 <script src="js/reveal-animations.js" defer></script>
+<script src="js/parallax.js" defer></script>
+<script src="js/terminal-toggle.js" defer></script>
+<script src="js/bento-swipe.js" defer></script>
+<script src="js/tldr.js" defer></script>
+<script src="js/tab-title.js" defer></script>
 </body>
 </html>

@@ -689,6 +689,24 @@ nav.visible {
   color: var(--text);
 }
 
+/* ── HIRE ME BUTTON (mobile menu) ── */
+.hire-me-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 12px 32px;
+  background: var(--blue);
+  color: #fff !important;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  text-decoration: none;
+}
+
 /* ── DIVIDER ── */
 .divider {
   max-width: 1160px;
@@ -1058,6 +1076,58 @@ button:focus-visible {
 }
 .t-green {
   background: #28c840;
+}
+/* ── TERMINAL TOGGLE ── */
+.terminal-toggle {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+  align-items: center;
+  transition: color 0.3s;
+}
+.terminal-toggle:hover {
+  color: var(--text);
+}
+.terminal-toggle svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+.terminal-title {
+  margin: 0 auto;
+}
+.terminal.collapsed .terminal-body {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s;
+}
+/* ── BENTO GRID — tablet refinement ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .bento {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .project-card.large {
+    grid-column: span 1;
+  }
+  .project-card {
+    padding: 24px;
+  }
+  .p-title {
+    font-size: 22px;
+  }
+  .p-desc {
+    font-size: 13px;
+  }
+}
+.terminal-body {
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s;
 }
 .terminal-title {
   font-size: 11px;
@@ -1581,6 +1651,62 @@ button:focus-visible {
 }
 
 /* ── PROJECTS ── */
+/* ── TL;DR TOGGLE — mobile only ── */
+.tldr-toggle {
+  display: none;
+}
+@media (max-width: 768px) {
+  .tldr-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 8px 16px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: "DM Sans", sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+  }
+  .tldr-toggle.active {
+    border-color: rgba(74, 144, 217, 0.5);
+    color: var(--blue);
+    background: var(--blue-dim);
+  }
+  .tldr-icon {
+    font-size: 13px;
+  }
+}
+
+/* ── TL;DR MODE — hides non-essential content ── */
+body.tldr-mode .p-mockup,
+body.tldr-mode .p-desc,
+body.tldr-mode .p-tags,
+body.tldr-mode .p-glow,
+body.tldr-mode .wip-badge {
+  display: none !important;
+}
+body.tldr-mode .project-card {
+  padding: 18px 16px;
+}
+body.tldr-mode .p-header {
+  margin-bottom: 8px;
+}
+body.tldr-mode .p-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+body.tldr-mode .p-links {
+  margin-top: 4px;
+}
+body.tldr-mode .project-card,
+body.tldr-mode .project-card.large {
+  flex: 0 0 92%;
+}
 .bento {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2483,6 +2609,81 @@ footer {
   }
   nav {
     padding: 16px 24px;
+  }
+   .bento {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .bento::-webkit-scrollbar {
+    display: none;
+  }
+  .project-card,
+  .project-card.large {
+    flex: 0 0 88%;
+    scroll-snap-align: center;
+    grid-column: unset;
+  }
+  .bento-hint {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .bento-hint span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s, transform 0.3s;
+  }
+  .bento-hint span.active {
+    background: var(--blue);
+    transform: scale(1.3);
+  }
+  .bento {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .bento::-webkit-scrollbar {
+    display: none;
+  }
+  .project-card,
+  .project-card.large {
+    flex: 0 0 88%;
+    scroll-snap-align: center;
+    grid-column: unset;
+  }
+  .bento-hint {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .bento-hint span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s, transform 0.3s;
+  }
+  .bento-hint span.active {
+    background: var(--blue);
+    transform: scale(1.3);
+  }
+}
+@media (min-width: 769px) {
+  .bento-hint {
+    display: none;
   }
 }
 @media (max-width: 640px) {
