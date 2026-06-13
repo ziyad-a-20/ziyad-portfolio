@@ -9,7 +9,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-
 :root {
   --bg: #060608;
   --surface: rgba(255, 255, 255, 0.03);
@@ -39,7 +38,6 @@ body.loading {
   overflow: hidden;
 }
 
-/* Restore cursor for pointer-fine keyboard users without hover */
 @media (pointer: fine) {
   html {
     cursor: none;
@@ -225,7 +223,6 @@ body.loading {
   opacity: 0;
 }
 
-/* ── CURSOR TRAIL ── */
 .trail-dot {
   position: fixed;
   width: 4px;
@@ -238,6 +235,46 @@ body.loading {
   mix-blend-mode: screen;
   transition: opacity 0.4s ease;
   opacity: 0;
+}
+
+/* ── KEYBOARD SHORTCUTS TOAST — appears briefly after load ── */
+.shortcuts-toast {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: rgba(6, 6, 8, 0.92);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  white-space: nowrap;
+}
+.shortcuts-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.shortcuts-toast kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  font-size: 10px;
+  color: var(--text);
 }
 
 /* ── KEYBOARD SHORTCUTS MODAL ── */
@@ -715,6 +752,13 @@ nav.visible {
   justify-content: center;
   overflow: hidden;
 }
+
+/* Hero canvas — now draws subtle scrolling code lines instead of globe */
+.hero-code-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
 #hero-canvas {
   position: absolute;
   inset: 0;
@@ -722,8 +766,8 @@ nav.visible {
 }
 .hero-glow {
   position: absolute;
-  width: 700px;
-  height: 700px;
+  width: 600px;
+  height: 600px;
   background: radial-gradient(circle, var(--blue-glow) 0%, transparent 68%);
   top: 50%;
   left: 50%;
@@ -887,7 +931,6 @@ button:focus-visible {
   outline-offset: 4px;
 }
 
-
 .scroll-hint {
   position: absolute;
   bottom: 36px;
@@ -942,6 +985,8 @@ button:focus-visible {
   position: relative;
   display: inline-block;
 }
+
+/* FIXED: section title underline — proportional to content, not fixed 40px */
 .section-title::after {
   content: "";
   position: absolute;
@@ -950,12 +995,12 @@ button:focus-visible {
   width: 0;
   height: 1px;
   background: var(--blue);
-  transition: width 0.6s 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: width 0.7s 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   opacity: 0.5;
 }
 .reveal-item.visible .section-title::after,
 .section-title.visible::after {
-  width: 40px;
+  width: 100%;
 }
 
 /* ── SCROLL REVEAL ── */
@@ -967,7 +1012,6 @@ button:focus-visible {
   opacity: 1;
 }
 
-/* ── SECTION FLASH on hash navigation ── */
 @keyframes sectionFlash {
   0% {
     opacity: 1;
@@ -1007,37 +1051,7 @@ button:focus-visible {
   color: var(--text);
 }
 
-/* ── STATS ── */
-.about-stats {
-  display: flex;
-  gap: 36px;
-  margin-top: 32px;
-  margin-bottom: 4px;
-}
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.stat-num {
-  font-family: "Playfair Display", serif;
-  font-weight: 100;
-  font-size: 36px;
-  color: var(--text);
-  line-height: 1;
-}
-.stat-num::after {
-  content: "+";
-  font-size: 20px;
-  color: var(--blue);
-  vertical-align: super;
-}
-.stat-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--muted);
-}
+/* Stats block fully removed */
 
 .about-badge {
   display: inline-flex;
@@ -1101,6 +1115,9 @@ button:focus-visible {
   font-size: 13px;
   line-height: 2.1;
   min-height: 220px;
+  /* Mobile: prevent terminal from running excessively tall */
+  max-height: 320px;
+  overflow-y: auto;
 }
 .tp {
   color: var(--blue);
@@ -1151,8 +1168,6 @@ button:focus-visible {
   opacity: 1;
   transform: translateY(0);
 }
-
-/* stagger delays for skill cards per grid */
 .skills-grid .skill-card:nth-child(1) {
   transition-delay: 0ms;
 }
@@ -1165,7 +1180,6 @@ button:focus-visible {
 .skills-grid .skill-card:nth-child(4) {
   transition-delay: 210ms;
 }
-
 .skill-card::after {
   content: "";
   position: absolute;
@@ -1201,8 +1215,6 @@ button:focus-visible {
 .skill-card:hover {
   border-color: rgba(74, 144, 217, 0.4);
 }
-
-/* Skill tooltip */
 .skill-icon-wrap {
   width: 44px;
   height: 44px;
@@ -1297,8 +1309,6 @@ button:focus-visible {
 .stagger-4 {
   transition-delay: 360ms;
 }
-
-/* Active section timeline highlight */
 .timeline-item.tl-active .tl-card {
   border-color: rgba(74, 144, 217, 0.45);
   background: rgba(74, 144, 217, 0.04);
@@ -1307,7 +1317,6 @@ button:focus-visible {
   background: var(--blue);
   box-shadow: 0 0 10px var(--blue-glow);
 }
-
 .tl-dot {
   position: absolute;
   left: -40px;
@@ -1394,7 +1403,7 @@ button:focus-visible {
   z-index: 1;
 }
 
-/* ── PROJECT MOCKUP ── */
+/* ── PROJECT MOCKUPS ── */
 .p-mockup {
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -1436,8 +1445,6 @@ button:focus-visible {
 .mockup-dark-theme .mockup-line {
   background: rgba(150, 80, 255, 0.1);
 }
-
-/* SafeRoute mockup — safety/teal accent */
 .p-mockup.mockup-saferoute {
   background: rgba(5, 20, 20, 0.7);
   border-color: rgba(20, 184, 166, 0.2);
@@ -1493,7 +1500,6 @@ button:focus-visible {
 .mockup-saferoute .mockup-line {
   background: rgba(20, 184, 166, 0.1);
 }
-
 .mockup-bar {
   background: rgba(255, 255, 255, 0.04);
   padding: 8px 12px;
@@ -1681,6 +1687,18 @@ button:focus-visible {
   border-color: rgba(20, 184, 166, 0.45) !important;
 }
 
+/* FIXED: large card on single-column — distinct background so it stands out */
+@media (max-width: 900px) {
+  .project-card.large {
+    background: rgba(74, 144, 217, 0.04);
+    border-color: rgba(74, 144, 217, 0.18);
+  }
+  .project-card.large.project-wip {
+    background: rgba(20, 184, 166, 0.04);
+    border-color: rgba(20, 184, 166, 0.18);
+  }
+}
+
 .p-glow {
   position: absolute;
   width: 320px;
@@ -1796,7 +1814,7 @@ button:focus-visible {
   line-height: 0.88;
   letter-spacing: -2px;
   color: var(--text);
-  margin-bottom: 44px;
+  margin-bottom: 52px; /* INCREASED from 44px for breathing room */
 }
 .contact-giant em {
   font-style: normal;
@@ -1808,7 +1826,7 @@ button:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 52px;
+  margin-bottom: 60px; /* INCREASED from 52px */
 }
 .contact-email {
   font-size: 18px;
@@ -1885,10 +1903,12 @@ button:focus-visible {
 }
 
 /* ── CONTACT FORM ── */
+/* FIXED: extra top margin to separate giant text from form */
 .contact-form-wrap {
   max-width: 600px;
   margin: 0 auto 56px;
   text-align: left;
+  margin-top: 16px; /* added breathing room */
 }
 .contact-form-inner {
   border: 1px solid var(--border);
@@ -1936,11 +1956,19 @@ button:focus-visible {
   flex-direction: column;
   gap: 20px;
 }
+
+/* FIXED: form-row — collapses at 560px instead of 900px, matching form max-width */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
+@media (max-width: 560px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .form-field {
   display: flex;
   flex-direction: column;
@@ -2286,7 +2314,7 @@ footer {
 }
 @keyframes sectionTitleLine {
   to {
-    width: 40px;
+    width: 100%;
   }
 }
 
@@ -2313,7 +2341,8 @@ footer {
   .contact-form-wrap,
   .shortcuts-modal,
   .resume-modal,
-  .shortcuts-hint {
+  .shortcuts-hint,
+  .shortcuts-toast {
     display: none !important;
   }
   body {
@@ -2446,9 +2475,6 @@ footer {
   .divider {
     background: #ddd !important;
   }
-  .stat-num {
-    color: #111 !important;
-  }
   * {
     animation: none !important;
     transition: none !important;
@@ -2478,6 +2504,14 @@ footer {
     grid-template-columns: 1fr;
     gap: 36px;
   }
+  /* FIXED: terminal gets max-height on single-column so it doesn't dominate */
+  .terminal {
+    max-height: 280px;
+  }
+  .terminal-body {
+    min-height: 160px;
+    max-height: 220px;
+  }
   .bento {
     grid-template-columns: 1fr;
   }
@@ -2493,9 +2527,6 @@ footer {
   }
   .contact-form-inner {
     padding: 28px 24px;
-  }
-  .form-row {
-    grid-template-columns: 1fr;
   }
   .about-stats {
     gap: 24px;
@@ -2545,12 +2576,13 @@ footer {
     width: 100%;
     justify-content: center;
   }
-  .about-stats {
-    flex-wrap: wrap;
-    gap: 20px;
-  }
   .shortcuts-inner {
     padding: 28px 24px;
+  }
+  .shortcuts-toast {
+    bottom: 20px;
+    font-size: 10px;
+    padding: 8px 14px;
   }
 }
 @media (max-width: 480px) {
@@ -2588,10 +2620,6 @@ footer {
   .scroll-line {
     height: 32px;
   }
-}
-
-/* ── Mobile section padding ── */
-@media (max-width: 480px) {
   .section-wrap {
     padding: 60px 18px;
   }
@@ -2603,23 +2631,9 @@ footer {
     font-size: 9px;
     letter-spacing: 3px;
   }
-}
-
-/* ── Mobile about ── */
-@media (max-width: 480px) {
   .about-text {
     font-size: 14px;
     line-height: 1.75;
-  }
-  .about-stats {
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .stat-num {
-    font-size: 28px;
-  }
-  .stat-label {
-    font-size: 9px;
   }
   .about-badge {
     font-size: 9px;
@@ -2631,12 +2645,8 @@ footer {
     font-size: 11px;
     padding: 14px 16px;
     line-height: 1.9;
-    min-height: 180px;
+    min-height: 160px;
   }
-}
-
-/* ── Mobile skills ── */
-@media (max-width: 480px) {
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
@@ -2661,10 +2671,6 @@ footer {
     letter-spacing: 2px;
     margin-top: 28px;
   }
-}
-
-/* ── Mobile timeline ── */
-@media (max-width: 480px) {
   .timeline {
     padding-left: 24px;
   }
@@ -2698,10 +2704,6 @@ footer {
     font-size: 9px;
     padding: 3px 8px;
   }
-}
-
-/* ── Mobile projects ── */
-@media (max-width: 480px) {
   .bento {
     gap: 10px;
   }
@@ -2744,13 +2746,9 @@ footer {
     padding: 4px 9px;
     letter-spacing: 1.5px;
   }
-}
-
-/* ── Mobile contact ── */
-@media (max-width: 480px) {
   .contact-giant {
     font-size: clamp(36px, 12vw, 64px);
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
   .contact-email {
     font-size: 13px;
@@ -2772,7 +2770,7 @@ footer {
     letter-spacing: 1.5px;
   }
   .form-input {
-    font-size: 14px; /* Prevents iOS zoom on focus */
+    font-size: 14px;
     padding: 11px 12px;
   }
   .form-submit {
@@ -2789,10 +2787,6 @@ footer {
     font-size: 10px;
     letter-spacing: 1.5px;
   }
-}
-
-/* ── Mobile footer ── */
-@media (max-width: 480px) {
   footer {
     padding: 20px 18px;
     gap: 10px;
@@ -2804,9 +2798,65 @@ footer {
   .footer-text {
     font-size: 10px;
   }
+  .shortcuts-inner {
+    padding: 24px 20px;
+    min-width: unset;
+  }
+  .shortcuts-list {
+    gap: 12px;
+  }
+  .shortcuts-list span {
+    font-size: 12px;
+  }
+  .shortcuts-hint {
+    margin-top: 28px;
+  }
+  #back-to-top {
+    bottom: 16px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+  }
 }
 
-/* ── Mobile resume modal ── */
+/* Prevent iOS input zoom */
+@media (max-width: 768px) {
+  .form-input,
+  .form-textarea {
+    font-size: 16px;
+  }
+}
+
+/* Mobile grain */
+@media (max-width: 640px) {
+  .grain {
+    opacity: 0.022;
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (pointer: coarse) {
+  .p-link {
+    padding: 8px 0;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .nav-resume,
+  .social-link,
+  .copy-email-btn {
+    min-height: 44px;
+  }
+  .about-badge {
+    min-height: 44px;
+  }
+  .project-card,
+  .skill-card {
+    transform: none !important;
+  }
+}
+
+/* Resume modal mobile */
 @media (max-width: 640px) {
   .resume-modal {
     padding: 0;
@@ -2831,70 +2881,5 @@ footer {
   .resume-download-btn {
     padding: 6px 12px;
     font-size: 10px;
-  }
-}
-
-/* ── Mobile shortcuts modal ── */
-@media (max-width: 480px) {
-  .shortcuts-inner {
-    padding: 24px 20px;
-    min-width: unset;
-  }
-  .shortcuts-list {
-    gap: 12px;
-  }
-  .shortcuts-list span {
-    font-size: 12px;
-  }
-  .shortcuts-hint {
-    margin-top: 28px;
-  }
-}
-
-/* ── Mobile back to top ── */
-@media (max-width: 480px) {
-  #back-to-top {
-    bottom: 16px;
-    right: 16px;
-    width: 38px;
-    height: 38px;
-  }
-}
-
-/* ── Prevent iOS input zoom (font-size must be >= 16px on inputs) ── */
-@media (max-width: 768px) {
-  .form-input,
-  .form-textarea {
-    font-size: 16px;
-  }
-}
-
-/* ── Mobile: reduce grain opacity slightly for perf ── */
-@media (max-width: 640px) {
-  .grain {
-    opacity: 0.022;
-  }
-}
-
-/* ── Mobile: touch-friendly tap targets ── */
-@media (pointer: coarse) {
-  .p-link {
-    padding: 8px 0;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-  }
-  .nav-resume,
-  .social-link,
-  .copy-email-btn {
-    min-height: 44px;
-  }
-  .about-badge {
-    min-height: 44px;
-  }
-  /* No tilt on touch */
-  .project-card,
-  .skill-card {
-    transform: none !important;
   }
 }

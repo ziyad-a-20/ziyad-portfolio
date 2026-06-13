@@ -58,6 +58,12 @@
 <div id="cursor-ring" aria-hidden="true"></div>
 <div id="cursor-trail" aria-hidden="true"></div>
 
+<!-- KEYBOARD SHORTCUTS HINT TOAST -->
+<div id="shortcuts-toast" class="shortcuts-toast" aria-hidden="true">
+  <kbd>?</kbd>
+  <span>Press for keyboard shortcuts</span>
+</div>
+
 <!-- KEYBOARD SHORTCUTS MODAL -->
 <div id="shortcuts-modal" class="shortcuts-modal" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" aria-hidden="true">
   <div class="shortcuts-inner">
@@ -129,8 +135,11 @@
   </ul>
 </div>
 
+<!-- HERO — canvas removed, replaced with subtle animated code lines -->
 <section id="hero">
-  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-code-bg" aria-hidden="true">
+    <canvas id="hero-canvas"></canvas>
+  </div>
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">Full-Stack Dev &nbsp;·&nbsp; Flask &amp; Python</p>
@@ -152,7 +161,7 @@
 
 <div class="divider" aria-hidden="true"></div>
 
-<!-- ABOUT -->
+<!-- ABOUT — stats removed, collaboration line added -->
 <section id="about" class="section-wrap">
   <div class="about-grid">
     <div>
@@ -163,21 +172,8 @@
       <div class="about-text reveal-item">
         <p>I'm Ziyad — a student and Jr. Web Developer who bridges the gap between back-end logic and front-end aesthetics. I build full-stack web apps that are clean under the hood and sharp on the surface.</p>
         <p>From normalised database schemas to animated UIs, I obsess over every layer of the stack — because great software isn't just functional, it's <em>felt</em>.</p>
+        <p>I work well async, document as I go, and iterate quickly on feedback — comfortable collaborating with designers, other devs, or directly with clients.</p>
         <p>Currently levelling up and actively seeking opportunities to grow and ship real-world products.</p>
-      </div>
-      <div class="about-stats reveal-item">
-        <div class="stat-item">
-          <span class="stat-num" data-target="3">0</span>
-          <span class="stat-label">Projects Built</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num" data-target="2">0</span>
-          <span class="stat-label">Years Learning</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num" data-target="8">0</span>
-          <span class="stat-label">Technologies</span>
-        </div>
       </div>
       <span class="about-badge reveal-item">
         <span class="about-badge-dot" aria-hidden="true"></span>
@@ -290,7 +286,7 @@
 
 <div class="divider" aria-hidden="true"></div>
 
-<!-- EXPERIENCE -->
+<!-- EXPERIENCE — last card reframed to active/in-motion -->
 <section id="experience" class="section-wrap">
   <p class="section-label reveal-item">Journey</p>
   <h2 class="section-title reveal-item">The road<br>so far.</h2>
@@ -326,9 +322,9 @@
       <div class="tl-dot active" aria-hidden="true"></div>
       <div class="tl-date">2025 →</div>
       <div class="tl-card active">
-        <h3 class="tl-title">Seeking First Role</h3>
-        <p class="tl-desc">Actively building, learning, and looking for my first professional opportunity as a Jr. Web Developer.</p>
-        <div class="tl-tags"><span class="tag">Open to Work</span><span class="tag">Jr. Developer</span></div>
+        <h3 class="tl-title">Shipping SafeRoute &amp; Growing</h3>
+        <p class="tl-desc">Currently building SafeRoute — a full-stack women's safety platform — while deepening my understanding of system design, background scheduling, and API architecture. Actively looking for a first role where I can contribute and keep learning fast.</p>
+        <div class="tl-tags"><span class="tag">In Progress</span><span class="tag">Open to Work</span><span class="tag">Jr. Developer</span></div>
       </div>
     </div>
   </div>
@@ -336,7 +332,7 @@
 
 <div class="divider" aria-hidden="true"></div>
 
-<!-- PROJECTS -->
+<!-- PROJECTS — descriptions more outcome-focused -->
 <section id="projects" class="section-wrap">
   <p class="section-label reveal-item">Selected Work</p>
   <h2 class="section-title reveal-item">Four builds.<br>Real problems solved.</h2>
@@ -369,7 +365,7 @@
         </div>
       </div>
       <h3 class="p-title">Library Management System</h3>
-      <p class="p-desc">A full-stack web app where access is earned, not assumed. Built on Flask &amp; MySQL with role-based access control for two user roles, a normalised 5-table relational schema, and a real-time borrow/return tracking engine with live book search across the full catalogue.</p>
+      <p class="p-desc">A full-stack web app with role-based access control for two user types — member and librarian — eliminating manual record-keeping entirely. A normalised 5-table schema keeps queries fast and data consistent, while a real-time borrow/return engine with live book search lets librarians manage the full catalogue without page reloads.</p>
       <div class="p-tags">
         <span class="tag">Flask</span><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
       </div>
@@ -401,7 +397,7 @@
         </div>
       </div>
       <h3 class="p-title">Himalaya Lip Balm<br>Showcase</h3>
-      <p class="p-desc">A product page that sells without saying a word. Scroll-triggered animations, an interactive cart drawer, animated order confirmation, and pixel-perfect responsiveness.</p>
+      <p class="p-desc">A product page engineered to convert — scroll-triggered animations guide the user's eye to the CTA, an interactive cart drawer reduces friction at purchase, and pixel-perfect responsiveness ensures zero layout breakage across all viewports.</p>
       <div class="p-tags">
         <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
       </div>
@@ -438,7 +434,7 @@
         </div>
       </div>
       <h3 class="p-title">Tokyo Revengers<br>Fan Portal</h3>
-      <p class="p-desc">A dark, cinematic fan portal. Character cards with gang filtering, episode archives, fan submissions, and interactive modals — Flask &amp; MySQL under the hood.</p>
+      <p class="p-desc">A dark, cinematic fan portal that handles dynamic content at scale — gang-based character filtering cuts browse time, fan submissions feed directly into a moderated MySQL table, and interactive modals surface episode detail without leaving the page.</p>
       <div class="p-tags">
         <span class="tag">Flask</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
       </div>
@@ -450,7 +446,6 @@
       </div>
     </div>
 
-    <!-- PROJECT 04 — SafeRoute (Currently Building) -->
     <div class="project-card large reveal-item project-wip">
       <div class="p-glow" aria-hidden="true"></div>
       <div class="p-mockup mockup-saferoute">
@@ -476,7 +471,7 @@
         </div>
       </div>
       <h3 class="p-title">SafeRoute — Women's Safety<br>Check-in &amp; Alert System</h3>
-      <p class="p-desc">A full-stack women's safety platform that auto-alerts trusted contacts if a user fails to check in after a journey. Background scheduling with APScheduler, SMS via Twilio, live GPS tracking, a community safety map, and an admin analytics dashboard — built with Flask &amp; MySQL under a premium glassmorphism UI.</p>
+      <p class="p-desc">A full-stack safety platform that auto-alerts trusted contacts when a user fails to check in after a journey — turning a gap in personal safety tools into a working product. Background scheduling via APScheduler fires SMS alerts through Twilio so no check-in is silently missed. Live GPS tracking feeds a community safety map, giving users crowd-sourced route intelligence, while an admin analytics dashboard surfaces incident patterns across the platform. Built on Flask &amp; MySQL under a glassmorphism UI.</p>
       <div class="p-tags">
         <span class="tag">Flask</span><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">Tailwind CSS</span><span class="tag">JavaScript</span>
       </div>
@@ -493,13 +488,13 @@
 
 <div class="divider" aria-hidden="true"></div>
 
-<!-- CONTACT -->
+<!-- CONTACT — updated email, more breathing room -->
 <section id="contact" class="section-wrap contact-section">
   <p class="section-label reveal-item" style="margin-bottom:24px">Get in Touch</p>
   <div class="contact-giant reveal-item">Let's<br>Build<br><em>Something.</em></div>
 
   <div class="contact-email-row reveal-item">
-    <a href="mailto:ziyad.official.a@gmail.com" class="contact-email">ziyad.official.a@gmail.com</a>
+    <a href="mailto:ziyad-a-tech@gmail.com" class="contact-email">ziyad-a-tech@gmail.com</a>
     <button class="copy-email-btn" id="copy-email-btn" aria-label="Copy email address" title="Copy email">
       <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <rect x="9" y="9" width="13" height="13" rx="2"/>
@@ -512,7 +507,7 @@
     </button>
   </div>
 
-  <!-- CONTACT FORM -->
+  <!-- CONTACT FORM — extra top margin for breathing room -->
   <div class="contact-form-wrap reveal-item">
     <div class="contact-form-inner">
       <div class="form-header">
@@ -568,7 +563,7 @@
       <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
       GitHub
     </a>
-    <a href="mailto:ziyad.official.a@gmail.com" class="social-link" aria-label="Send email">
+    <a href="mailto:ziyad-a-tech@gmail.com" class="social-link" aria-label="Send email">
       <svg class="stroke-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
       Email
     </a>
