@@ -237,46 +237,6 @@ body.loading {
   opacity: 0;
 }
 
-/* ── KEYBOARD SHORTCUTS TOAST — appears briefly after load ── */
-.shortcuts-toast {
-  position: fixed;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  z-index: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  background: rgba(6, 6, 8, 0.92);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(12px);
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  color: var(--muted);
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
-  white-space: nowrap;
-}
-.shortcuts-toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-.shortcuts-toast kbd {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 18px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border);
-  font-size: 10px;
-  color: var(--text);
-}
-
 /* ── KEYBOARD SHORTCUTS MODAL ── */
 .shortcuts-modal {
   position: fixed;
@@ -753,7 +713,6 @@ nav.visible {
   overflow: hidden;
 }
 
-/* Hero canvas — now draws subtle scrolling code lines instead of globe */
 .hero-code-bg {
   position: absolute;
   inset: 0;
@@ -986,7 +945,6 @@ button:focus-visible {
   display: inline-block;
 }
 
-/* FIXED: section title underline — proportional to content, not fixed 40px */
 .section-title::after {
   content: "";
   position: absolute;
@@ -1051,8 +1009,6 @@ button:focus-visible {
   color: var(--text);
 }
 
-/* Stats block fully removed */
-
 .about-badge {
   display: inline-flex;
   align-items: center;
@@ -1115,7 +1071,6 @@ button:focus-visible {
   font-size: 13px;
   line-height: 2.1;
   min-height: 220px;
-  /* Mobile: prevent terminal from running excessively tall */
   max-height: 320px;
   overflow-y: auto;
 }
@@ -1687,7 +1642,6 @@ button:focus-visible {
   border-color: rgba(20, 184, 166, 0.45) !important;
 }
 
-/* FIXED: large card on single-column — distinct background so it stands out */
 @media (max-width: 900px) {
   .project-card.large {
     background: rgba(74, 144, 217, 0.04);
@@ -1814,7 +1768,7 @@ button:focus-visible {
   line-height: 0.88;
   letter-spacing: -2px;
   color: var(--text);
-  margin-bottom: 52px; /* INCREASED from 44px for breathing room */
+  margin-bottom: 52px;
 }
 .contact-giant em {
   font-style: normal;
@@ -1826,7 +1780,7 @@ button:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 60px; /* INCREASED from 52px */
+  margin-bottom: 60px;
 }
 .contact-email {
   font-size: 18px;
@@ -1903,12 +1857,11 @@ button:focus-visible {
 }
 
 /* ── CONTACT FORM ── */
-/* FIXED: extra top margin to separate giant text from form */
 .contact-form-wrap {
   max-width: 600px;
   margin: 0 auto 56px;
   text-align: left;
-  margin-top: 16px; /* added breathing room */
+  margin-top: 16px;
 }
 .contact-form-inner {
   border: 1px solid var(--border);
@@ -1957,7 +1910,6 @@ button:focus-visible {
   gap: 20px;
 }
 
-/* FIXED: form-row — collapses at 560px instead of 900px, matching form max-width */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2312,11 +2264,6 @@ footer {
     transform: translate(-50%, -50%) scale(2.5);
   }
 }
-@keyframes sectionTitleLine {
-  to {
-    width: 100%;
-  }
-}
 
 /* ── PRINT ── */
 @media print {
@@ -2341,8 +2288,7 @@ footer {
   .contact-form-wrap,
   .shortcuts-modal,
   .resume-modal,
-  .shortcuts-hint,
-  .shortcuts-toast {
+  .shortcuts-hint {
     display: none !important;
   }
   body {
@@ -2504,7 +2450,6 @@ footer {
     grid-template-columns: 1fr;
     gap: 36px;
   }
-  /* FIXED: terminal gets max-height on single-column so it doesn't dominate */
   .terminal {
     max-height: 280px;
   }
@@ -2527,9 +2472,6 @@ footer {
   }
   .contact-form-inner {
     padding: 28px 24px;
-  }
-  .about-stats {
-    gap: 24px;
   }
 }
 @media (max-width: 768px) {
@@ -2578,11 +2520,6 @@ footer {
   }
   .shortcuts-inner {
     padding: 28px 24px;
-  }
-  .shortcuts-toast {
-    bottom: 20px;
-    font-size: 10px;
-    padding: 8px 14px;
   }
 }
 @media (max-width: 480px) {
@@ -2819,7 +2756,6 @@ footer {
   }
 }
 
-/* Prevent iOS input zoom */
 @media (max-width: 768px) {
   .form-input,
   .form-textarea {
@@ -2827,14 +2763,12 @@ footer {
   }
 }
 
-/* Mobile grain */
 @media (max-width: 640px) {
   .grain {
     opacity: 0.022;
   }
 }
 
-/* Touch-friendly tap targets */
 @media (pointer: coarse) {
   .p-link {
     padding: 8px 0;
@@ -2856,7 +2790,6 @@ footer {
   }
 }
 
-/* Resume modal mobile */
 @media (max-width: 640px) {
   .resume-modal {
     padding: 0;

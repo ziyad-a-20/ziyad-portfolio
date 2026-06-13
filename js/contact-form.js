@@ -4,7 +4,7 @@
 const copyBtn = document.getElementById("copy-email-btn");
 if (copyBtn) {
   copyBtn.addEventListener("click", () => {
-    const EMAIL = "ziyad.official.a@gmail.com";
+    const EMAIL = "ziyad-a-tech@gmail.com";
     const label = copyBtn.querySelector(".copy-label");
 
     function onCopied() {

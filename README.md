@@ -1,19 +1,19 @@
 # Ziyad A — Personal Portfolio
 
-A modern, responsive personal portfolio website built with HTML, CSS, and JavaScript. Designed to showcase my projects, technical skills, experience, and journey as a Full-Stack Web Developer through an engaging and interactive user experience.
+A modern, responsive personal portfolio website built with HTML, CSS, and JavaScript. Designed to showcase my projects, technical skills, experience, and journey as a Full Stack Developer through an engaging and interactive user experience.
 
 ## 🚀 Features
 
 - Responsive design for mobile, tablet, and desktop devices
-- Interactive hero section with Canvas-based 3D animation
+- Interactive hero section with Canvas-based animation
 - Custom animated loading screen
 - Smooth scrolling navigation
 - Scroll-triggered reveal animations
 - Dynamic text scrambling effects
 - Terminal-style typing animation
-- Interactive skill progress indicators
 - Custom cursor and hover effects
-- SEO-friendly configuration
+- SEO-friendly configuration with JSON-LD structured data
+- Open Graph & Twitter Card meta tags for rich social previews
 - Progressive Web App (PWA) support
 - Sitemap and robots.txt integration
 
@@ -21,7 +21,7 @@ A modern, responsive personal portfolio website built with HTML, CSS, and JavaSc
 
 - HTML5
 - CSS3
-- JavaScript (Vanilla JS)
+- JavaScript (Vanilla JS, modular architecture)
 - Canvas API
 - Git & GitHub
 - Vercel
@@ -32,11 +32,22 @@ A modern, responsive personal portfolio website built with HTML, CSS, and JavaSc
 portfolio/
 │
 ├── assets/
-│   └── favicons/
+│   ├── favicons/
+│   └── icons/
+│
+├── js/
+│   ├── utils.js
+│   ├── cursor.js
+│   ├── nav.js
+│   ├── loader.js
+│   ├── hero.js
+│   ├── about.js
+│   ├── modals.js
+│   ├── contact-form.js
+│   └── reveal-animations.js
 │
 ├── index.html
 ├── style.css
-├── script.js
 ├── manifest.json
 ├── robots.txt
 ├── sitemap.xml
@@ -51,17 +62,17 @@ https://ziyad-portfolio-nine.vercel.app/
 ## 📸 Highlights
 
 - Modern dark-themed UI
-- Performance-focused frontend architecture
+- Performance-focused, modular frontend architecture
 - Smooth micro-interactions and animations
 - Fully responsive layout
-- SEO and accessibility considerations
+- SEO and accessibility considerations baked in from the start
 
 ## 📈 Future Improvements
 
 - Blog section
 - Project filtering and search
 - Dark/Light theme toggle
-- Backend-powered contact form
+- Backend-powered contact form analytics
 - Analytics integration
 
 ## 👨‍💻 Author
@@ -69,8 +80,8 @@ https://ziyad-portfolio-nine.vercel.app/
 **Ziyad A**
 
 - GitHub: https://github.com/ziyad-a-20
-- LinkedIn: https://linkedin.com/in/ziyad-a-324171366
-- Email: ziyad.official.a@gmail.com
+- LinkedIn: https://www.linkedin.com/in/ziyad-a-tech/
+- Email: ziyad-a-tech@gmail.com
 
 ---
 
