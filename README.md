@@ -51,8 +51,7 @@ portfolio/
 ├── manifest.json
 ├── robots.txt
 ├── sitemap.xml
-├── README.md
-└── favicon.ico
+└── README.md
 ```
 
 ## 🌐 Live Demo
@@ -66,14 +65,6 @@ https://ziyad-portfolio-nine.vercel.app/
 - Smooth micro-interactions and animations
 - Fully responsive layout
 - SEO and accessibility considerations baked in from the start
-
-## 📈 Future Improvements
-
-- Blog section
-- Project filtering and search
-- Dark/Light theme toggle
-- Backend-powered contact form analytics
-- Analytics integration
 
 ## 👨‍💻 Author
 
