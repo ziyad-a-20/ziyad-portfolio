@@ -2,6 +2,7 @@
    SCROLL PROGRESS BAR
 ══════════════════════════════════════════ */
 const progressBar = document.getElementById("scroll-progress");
+
 function updateScrollProgress() {
   const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -22,16 +23,6 @@ window.addEventListener(
     updateBackToTop();
     updateScrollProgress();
     updateTimelineHighlight();
-
-    if (!isTouchDevice()) {
-      cur.classList.add("hidden");
-      ring.classList.add("hidden");
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        cur.classList.remove("hidden");
-        ring.classList.remove("hidden");
-      }, 300);
-    }
   },
   { passive: true },
 );
@@ -50,7 +41,7 @@ function updateActiveNav() {
 }
 
 /* ══════════════════════════════════════════
-   TIMELINE ACTIVE HIGHLIGHT (subtle)
+   TIMELINE ACTIVE HIGHLIGHT
 ══════════════════════════════════════════ */
 function updateTimelineHighlight() {
   const items = document.querySelectorAll(".timeline-item");
@@ -91,21 +82,32 @@ document.querySelectorAll(".mobile-links a").forEach((a) => {
    BACK TO TOP
 ══════════════════════════════════════════ */
 const btt = document.getElementById("back-to-top");
-btt.addEventListener("click", () =>
-  window.scrollTo({ top: 0, behavior: "smooth" }),
-);
+btt.addEventListener("click", () => {
+  if (window.__lenis) {
+    window.__lenis.scrollTo(0);
+  } else {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+});
 function updateBackToTop() {
   btt.classList.toggle("visible", window.scrollY > 400);
 }
 
 /* ══════════════════════════════════════════
-   SMOOTH HASH NAVIGATION — section label flash
+   SMOOTH HASH NAVIGATION via Lenis
 ══════════════════════════════════════════ */
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (e) => {
     const targetId = link.getAttribute("href").slice(1);
     const target = document.getElementById(targetId);
     if (!target) return;
+    e.preventDefault();
+
+    if (window.__lenis) {
+      window.__lenis.scrollTo(target, { offset: -80 });
+    } else {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
 
     const label = target.querySelector(".section-label");
     if (label) {

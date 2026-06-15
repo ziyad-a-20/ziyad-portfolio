@@ -8,7 +8,7 @@ if (bento && dots.length) {
   bento.addEventListener(
     "scroll",
     () => {
-      const cardWidth = bento.children[0].offsetWidth + 14; /* gap */
+      const cardWidth = bento.children[0].offsetWidth + 14;
       const index = Math.round(bento.scrollLeft / cardWidth);
       dots.forEach((d, i) => d.classList.toggle("active", i === index));
     },

@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════
-   TERMINAL
+   TERMINAL — loop with proper cleanup
 ══════════════════════════════════════════ */
 const terminalLines = [
   { type: "prompt", text: "whoami" },
@@ -17,6 +17,7 @@ const terminalLines = [
 
 let terminalRunning = false;
 let terminalCycleCount = 0;
+let _terminalRecycleTimer = null; /* stored so we can cancel it */
 
 function runTerminal() {
   if (terminalRunning) return;
@@ -29,6 +30,7 @@ function runTerminal() {
   }
   body.innerHTML = "";
 
+  /* Stop announcing to screen readers after 2 full cycles */
   if (terminalCycleCount >= 2) body.setAttribute("aria-live", "off");
 
   let lineIdx = 0,
@@ -38,12 +40,15 @@ function runTerminal() {
   function tick() {
     if (lineIdx >= terminalLines.length) {
       terminalCycleCount++;
-      setTimeout(() => {
+      /* Store the timeout ID so visibility change can cancel it */
+      _terminalRecycleTimer = setTimeout(() => {
         terminalRunning = false;
+        _terminalRecycleTimer = null;
         runTerminal();
       }, 3000);
       return;
     }
+
     const line = terminalLines[lineIdx];
 
     if (line.type === "blank") {
@@ -87,8 +92,22 @@ function runTerminal() {
       setTimeout(tick, line.type === "prompt" ? 300 : 60);
     }
   }
+
   setTimeout(tick, 600);
 }
+
+/* Cancel pending recycle when the tab is hidden; restart when visible again */
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    if (_terminalRecycleTimer !== null) {
+      clearTimeout(_terminalRecycleTimer);
+      _terminalRecycleTimer = null;
+      terminalRunning = false;
+    }
+  } else {
+    if (!terminalRunning) runTerminal();
+  }
+});
 
 function startTerminalType() {
   runTerminal();

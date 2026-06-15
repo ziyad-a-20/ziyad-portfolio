@@ -7,9 +7,10 @@ let mx = 0,
   my = 0,
   rx = 0,
   ry = 0;
-let scrollTimer = null;
 
-/* ── Cursor trail ── */
+/* scrollTimer is local to cursor.js only — decoupled from nav.js */
+let _cursorScrollTimer = null;
+
 const TRAIL_COUNT = 5;
 const trailDots = [];
 const trailPos = [];
@@ -38,7 +39,6 @@ if (!isTouchDevice()) {
     ring.style.left = rx + "px";
     ring.style.top = ry + "px";
 
-    /* Trail: each dot chases the one ahead of it */
     trailPos[0].x += (mx - trailPos[0].x) * 0.28;
     trailPos[0].y += (my - trailPos[0].y) * 0.28;
     for (let i = 1; i < TRAIL_COUNT; i++) {
@@ -72,4 +72,19 @@ if (!isTouchDevice()) {
         ring.style.borderColor = "rgba(255,255,255,0.4)";
       });
     });
+
+  /* Hide cursor during scroll, restore after */
+  window.addEventListener(
+    "scroll",
+    () => {
+      cur.classList.add("hidden");
+      ring.classList.add("hidden");
+      clearTimeout(_cursorScrollTimer);
+      _cursorScrollTimer = setTimeout(() => {
+        cur.classList.remove("hidden");
+        ring.classList.remove("hidden");
+      }, 300);
+    },
+    { passive: true },
+  );
 }

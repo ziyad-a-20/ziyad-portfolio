@@ -1,22 +1,25 @@
 /* ══════════════════════════════════════════
-   LOADER
+   LOADER — bar width synced with JS counter
 ══════════════════════════════════════════ */
 (function () {
   const loader = document.getElementById("loader");
   const pctEl = document.getElementById("loader-pct");
+  const barEl = document.getElementById("loader-bar");
   let pct = 0;
-  const iv = setInterval(() => {
-    pct += Math.floor(Math.random() * 12) + 4;
-    if (pct >= 100) {
-      pct = 100;
-      clearInterval(iv);
-    }
+
+  function setPct(val) {
+    pct = Math.min(val, 100);
     pctEl.textContent = pct + "%";
+    barEl.style.width = pct + "%"; /* bar always matches the number */
+  }
+
+  const iv = setInterval(() => {
+    setPct(pct + Math.floor(Math.random() * 12) + 4);
+    if (pct >= 100) clearInterval(iv);
   }, 80);
 
   window.addEventListener("load", () => {
-    pct = 100;
-    pctEl.textContent = "100%";
+    setPct(100);
     setTimeout(() => {
       loader.classList.add("hide");
       document.body.classList.remove("loading");

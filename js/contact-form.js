@@ -2,6 +2,35 @@
    COPY EMAIL BUTTON
 ══════════════════════════════════════════ */
 const copyBtn = document.getElementById("copy-email-btn");
+
+function fallbackCopy(text, btn, cb) {
+  /* btn is now a parameter — no hidden closure over outer copyBtn */
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.cssText = "position:fixed;opacity:0;pointer-events:none;";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  let success = false;
+  try {
+    success = document.execCommand("copy");
+  } catch (e) {
+    /* ignore */
+  }
+  document.body.removeChild(ta);
+  if (success) {
+    cb();
+  } else {
+    const label = btn.querySelector(".copy-label");
+    if (label) {
+      label.textContent = "Failed";
+      setTimeout(() => {
+        label.textContent = "Copy";
+      }, 2000);
+    }
+  }
+}
+
 if (copyBtn) {
   copyBtn.addEventListener("click", () => {
     const EMAIL = "ziyad-a-tech@gmail.com";
@@ -20,38 +49,11 @@ if (copyBtn) {
       navigator.clipboard
         .writeText(EMAIL)
         .then(onCopied)
-        .catch(() => fallbackCopy(EMAIL, onCopied));
+        .catch(() => fallbackCopy(EMAIL, copyBtn, onCopied));
     } else {
-      fallbackCopy(EMAIL, onCopied);
+      fallbackCopy(EMAIL, copyBtn, onCopied);
     }
   });
-}
-
-function fallbackCopy(text, cb) {
-  const ta = document.createElement("textarea");
-  ta.value = text;
-  ta.style.cssText = "position:fixed;opacity:0;pointer-events:none;";
-  document.body.appendChild(ta);
-  ta.focus();
-  ta.select();
-  let success = false;
-  try {
-    success = document.execCommand("copy");
-  } catch (e) {
-    /* ignore */
-  }
-  document.body.removeChild(ta);
-  if (success) {
-    cb();
-  } else {
-    const label = copyBtn.querySelector(".copy-label");
-    if (label) {
-      label.textContent = "Failed";
-      setTimeout(() => {
-        label.textContent = "Copy";
-      }, 2000);
-    }
-  }
 }
 
 /* ══════════════════════════════════════════

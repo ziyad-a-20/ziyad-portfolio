@@ -21,7 +21,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
   cursor: none;
   overscroll-behavior: none;
 }
@@ -176,11 +176,12 @@ body.loading {
   background: rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
+/* loader-bar width is now driven by JS, not CSS animation */
 .loader-bar {
   height: 100%;
   width: 0;
   background: var(--blue);
-  animation: loadProgress 1.8s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards;
+  transition: width 0.12s ease-out;
 }
 .loader-pct {
   font-size: 11px;
@@ -689,7 +690,7 @@ nav.visible {
   color: var(--text);
 }
 
-/* ── HIRE ME BUTTON (mobile menu) ── */
+/* ── HIRE ME BUTTON ── */
 .hire-me-btn {
   display: inline-flex;
   align-items: center;
@@ -730,7 +731,6 @@ nav.visible {
   justify-content: center;
   overflow: hidden;
 }
-
 .hero-code-bg {
   position: absolute;
   inset: 0;
@@ -962,7 +962,6 @@ button:focus-visible {
   position: relative;
   display: inline-block;
 }
-
 .section-title::after {
   content: "";
   position: absolute;
@@ -989,14 +988,8 @@ button:focus-visible {
 }
 
 @keyframes sectionFlash {
-  0% {
-    opacity: 1;
-    color: var(--blue);
-  }
-  60% {
-    opacity: 1;
-    color: var(--blue);
-  }
+  0%,
+  60%,
   100% {
     opacity: 1;
     color: var(--blue);
@@ -1026,7 +1019,6 @@ button:focus-visible {
   font-style: italic;
   color: var(--text);
 }
-
 .about-badge {
   display: inline-flex;
   align-items: center;
@@ -1048,7 +1040,7 @@ button:focus-visible {
   flex-shrink: 0;
 }
 
-/* ── TERMINAL ── */
+/* ── TERMINAL — always fully expanded, no toggle, no scrollbar ── */
 .terminal {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border);
@@ -1077,58 +1069,6 @@ button:focus-visible {
 .t-green {
   background: #28c840;
 }
-/* ── TERMINAL TOGGLE ── */
-.terminal-toggle {
-  display: none;
-  margin-left: auto;
-  background: none;
-  border: none;
-  color: var(--muted);
-  cursor: pointer;
-  padding: 4px;
-  align-items: center;
-  transition: color 0.3s;
-}
-.terminal-toggle:hover {
-  color: var(--text);
-}
-.terminal-toggle svg {
-  width: 14px;
-  height: 14px;
-  transition: transform 0.3s ease;
-}
-.terminal-title {
-  margin: 0 auto;
-}
-.terminal.collapsed .terminal-body {
-  max-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s;
-}
-/* ── BENTO GRID — tablet refinement ── */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .bento {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .project-card.large {
-    grid-column: span 1;
-  }
-  .project-card {
-    padding: 24px;
-  }
-  .p-title {
-    font-size: 22px;
-  }
-  .p-desc {
-    font-size: 13px;
-  }
-}
-.terminal-body {
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s;
-}
 .terminal-title {
   font-size: 11px;
   color: var(--muted);
@@ -1140,9 +1080,7 @@ button:focus-visible {
   font-family: "SF Mono", "Fira Code", monospace;
   font-size: 13px;
   line-height: 2.1;
-  min-height: 220px;
-  max-height: 320px;
-  overflow-y: auto;
+  /* No max-height, no overflow-y, no scrollbar — always full height */
 }
 .tp {
   color: var(--blue);
@@ -1650,7 +1588,6 @@ button:focus-visible {
   flex-shrink: 0;
 }
 
-/* ── PROJECTS ── */
 /* ── TL;DR TOGGLE — mobile only ── */
 .tldr-toggle {
   display: none;
@@ -1670,7 +1607,10 @@ button:focus-visible {
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
-    transition: border-color 0.3s, color 0.3s, background 0.3s;
+    transition:
+      border-color 0.3s,
+      color 0.3s,
+      background 0.3s;
   }
   .tldr-toggle.active {
     border-color: rgba(74, 144, 217, 0.5);
@@ -1682,7 +1622,7 @@ button:focus-visible {
   }
 }
 
-/* ── TL;DR MODE — hides non-essential content ── */
+/* ── TL;DR MODE ── */
 body.tldr-mode .p-mockup,
 body.tldr-mode .p-desc,
 body.tldr-mode .p-tags,
@@ -1707,6 +1647,8 @@ body.tldr-mode .project-card,
 body.tldr-mode .project-card.large {
   flex: 0 0 92%;
 }
+
+/* ── BENTO ── */
 .bento {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1766,17 +1708,6 @@ body.tldr-mode .project-card.large {
 }
 .project-wip:hover::after {
   border-color: rgba(20, 184, 166, 0.45) !important;
-}
-
-@media (max-width: 900px) {
-  .project-card.large {
-    background: rgba(74, 144, 217, 0.04);
-    border-color: rgba(74, 144, 217, 0.18);
-  }
-  .project-card.large.project-wip {
-    background: rgba(20, 184, 166, 0.04);
-    border-color: rgba(20, 184, 166, 0.18);
-  }
 }
 
 .p-glow {
@@ -1886,6 +1817,27 @@ body.tldr-mode .project-card.large {
   opacity: 0.6;
 }
 
+/* ── BENTO HINT DOTS — outside .bento, always below cards ── */
+.bento-hint {
+  display: none; /* hidden on desktop */
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+}
+.bento-hint span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  transition:
+    background 0.3s,
+    transform 0.3s;
+}
+.bento-hint span.active {
+  background: var(--blue);
+  transform: scale(1.3);
+}
+
 /* ── CONTACT ── */
 .contact-giant {
   font-family: "Playfair Display", serif;
@@ -1901,7 +1853,6 @@ body.tldr-mode .project-card.large {
   color: var(--blue);
 }
 
-/* ── EMAIL ROW + COPY BUTTON ── */
 .contact-email-row {
   display: inline-flex;
   align-items: center;
@@ -1985,9 +1936,8 @@ body.tldr-mode .project-card.large {
 /* ── CONTACT FORM ── */
 .contact-form-wrap {
   max-width: 600px;
-  margin: 0 auto 56px;
+  margin: 16px auto 56px;
   text-align: left;
-  margin-top: 16px;
 }
 .contact-form-inner {
   border: 1px solid var(--border);
@@ -2035,18 +1985,11 @@ body.tldr-mode .project-card.large {
   flex-direction: column;
   gap: 20px;
 }
-
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
-@media (max-width: 560px) {
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-}
-
 .form-field {
   display: flex;
   flex-direction: column;
@@ -2324,11 +2267,6 @@ footer {
     transform: translateY(0);
   }
 }
-@keyframes loadProgress {
-  to {
-    width: 100%;
-  }
-}
 @keyframes fadeUp {
   to {
     opacity: 1;
@@ -2576,13 +2514,6 @@ footer {
     grid-template-columns: 1fr;
     gap: 36px;
   }
-  .terminal {
-    max-height: 280px;
-  }
-  .terminal-body {
-    min-height: 160px;
-    max-height: 220px;
-  }
   .bento {
     grid-template-columns: 1fr;
   }
@@ -2600,6 +2531,26 @@ footer {
     padding: 28px 24px;
   }
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .bento {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .project-card.large {
+    grid-column: span 1;
+  }
+  .project-card {
+    padding: 24px;
+  }
+  .p-title {
+    font-size: 22px;
+  }
+  .p-desc {
+    font-size: 13px;
+  }
+}
+
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -2610,41 +2561,8 @@ footer {
   nav {
     padding: 16px 24px;
   }
-   .bento {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 14px;
-    padding-bottom: 8px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .bento::-webkit-scrollbar {
-    display: none;
-  }
-  .project-card,
-  .project-card.large {
-    flex: 0 0 88%;
-    scroll-snap-align: center;
-    grid-column: unset;
-  }
-  .bento-hint {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 16px;
-  }
-  .bento-hint span {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--border);
-    transition: background 0.3s, transform 0.3s;
-  }
-  .bento-hint span.active {
-    background: var(--blue);
-    transform: scale(1.3);
-  }
+
+  /* Mobile bento: horizontal scroll snap */
   .bento {
     display: flex;
     overflow-x: auto;
@@ -2663,29 +2581,30 @@ footer {
     scroll-snap-align: center;
     grid-column: unset;
   }
+
+  /* Dots are outside .bento, shown only on mobile */
   .bento-hint {
     display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 16px;
-  }
-  .bento-hint span {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--border);
-    transition: background 0.3s, transform 0.3s;
-  }
-  .bento-hint span.active {
-    background: var(--blue);
-    transform: scale(1.3);
   }
 }
+
 @media (min-width: 769px) {
   .bento-hint {
     display: none;
   }
 }
+
+@media (max-width: 900px) {
+  .project-card.large {
+    background: rgba(74, 144, 217, 0.04);
+    border-color: rgba(74, 144, 217, 0.18);
+  }
+  .project-card.large.project-wip {
+    background: rgba(20, 184, 166, 0.04);
+    border-color: rgba(20, 184, 166, 0.18);
+  }
+}
+
 @media (max-width: 640px) {
   .section-wrap {
     padding: 72px 20px;
@@ -2722,7 +2641,11 @@ footer {
   .shortcuts-inner {
     padding: 28px 24px;
   }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
+
 @media (max-width: 480px) {
   .hero-eyebrow {
     font-size: 10px;
@@ -2783,7 +2706,6 @@ footer {
     font-size: 11px;
     padding: 14px 16px;
     line-height: 1.9;
-    min-height: 160px;
   }
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
