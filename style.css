@@ -158,7 +158,7 @@ body.loading {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 32px;
+  gap: 28px;
   transition:
     opacity 0.7s var(--ease-fade),
     visibility 0.7s var(--ease-fade);
@@ -167,13 +167,55 @@ body.loading {
   opacity: 0;
   visibility: hidden;
 }
+
+.loader-orbit {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loader-ring {
+  position: absolute;
+  inset: 0;
+  width: 80px;
+  height: 80px;
+  transform: rotate(-90deg);
+}
+.loader-ring-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1.5;
+}
+.loader-ring-progress {
+  fill: none;
+  stroke: url(#loaderGradient);
+  stroke: var(--blue);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 226.2; /* 2 * PI * 36 */
+  stroke-dashoffset: 226.2;
+  transition: stroke-dashoffset 0.12s ease-out;
+}
+.loader-mark {
+  font-family: "Playfair Display", serif;
+  font-weight: 200;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--text);
+  opacity: 0;
+  animation: loaderMarkIn 0.6s 0.2s var(--ease-spatial) forwards;
+}
+
 .loader-name {
   font-family: "Playfair Display", serif;
-  font-weight: 100;
-  font-size: clamp(36px, 7vw, 80px);
-  letter-spacing: -1px;
+  font-weight: 300;
+  font-size: clamp(28px, 5vw, 48px);
+  letter-spacing: -0.5px;
   color: var(--text);
   overflow: hidden;
+  opacity: 0.85;
 }
 .loader-name span {
   display: inline-block;
@@ -181,22 +223,35 @@ body.loading {
   animation: loaderSlide 0.7s var(--ease-spatial) forwards;
 }
 .loader-name span:nth-child(1) {
-  animation-delay: 0.05s;
+  animation-delay: 0.35s;
 }
 .loader-name span:nth-child(2) {
-  animation-delay: 0.1s;
+  animation-delay: 0.4s;
 }
 .loader-name span:nth-child(3) {
-  animation-delay: 0.15s;
+  animation-delay: 0.45s;
 }
 .loader-name span:nth-child(4) {
-  animation-delay: 0.2s;
+  animation-delay: 0.5s;
 }
 .loader-name span:nth-child(5) {
-  animation-delay: 0.25s;
+  animation-delay: 0.55s;
 }
 .loader-name span:nth-child(6) {
-  animation-delay: 0.3s;
+  animation-delay: 0.6s;
+}
+.loader-pct {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+@keyframes loaderMarkIn {
+  to {
+    opacity: 1;
+  }
 }
 .loader-bar-wrap {
   width: 200px;
@@ -547,11 +602,48 @@ body.loading {
   flex: 1;
   overflow: hidden;
 }
-.resume-modal-body iframe {
+.resume-modal-body iframe,
+.resume-modal-body object {
   width: 100%;
   height: 100%;
   border: none;
   background: #fff;
+}
+.resume-fallback-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
+  text-align: center;
+}
+.resume-fallback-card svg {
+  width: 48px;
+  height: 48px;
+  stroke: var(--blue);
+  fill: none;
+  stroke-width: 1.3;
+}
+.resume-fallback-card p {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 280px;
+  line-height: 1.6;
+}
+.resume-fallback-open-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 32px;
+  background: var(--blue);
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 2px;
 }
 
 /* ── NAV — true frosted glass with saturate + inner highlight ── */
@@ -1700,11 +1792,11 @@ button:focus-visible {
     background: var(--blue-dim);
   }
   .tldr-icon {
-  width: 13px;
-  height: 13px;
-  flex-shrink: 0;
-  color: var(--blue);
-  transition: color 0.3s;
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+    color: var(--blue);
+    transition: color 0.3s;
   }
   .tldr-toggle.active .tldr-icon {
     color: var(--blue);

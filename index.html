@@ -58,10 +58,16 @@
 </button>
 
 <div id="loader">
+  <div class="loader-orbit" aria-hidden="true">
+    <svg viewBox="0 0 80 80" class="loader-ring">
+      <circle class="loader-ring-track" cx="40" cy="40" r="36"/>
+      <circle class="loader-ring-progress" id="loader-ring-progress" cx="40" cy="40" r="36"/>
+    </svg>
+    <span class="loader-mark">ZA</span>
+  </div>
   <div class="loader-name" aria-hidden="true">
     <span>Z</span><span>i</span><span>y</span><span>a</span><span>d</span><span>&nbsp;A</span>
   </div>
-  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
   <div class="loader-pct" id="loader-pct">0%</div>
 </div>
 
@@ -107,8 +113,7 @@
         </button>
       </div>
     </div>
-    <div class="resume-modal-body">
-      <iframe id="resume-iframe" title="Resume PDF preview" loading="lazy"></iframe>
+    <div class="resume-modal-body" id="resume-modal-body">
     </div>
   </div>
 </div>

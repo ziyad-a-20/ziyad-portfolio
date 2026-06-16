@@ -1,16 +1,18 @@
 /* ══════════════════════════════════════════
-   LOADER — bar width synced with JS counter
+   LOADER — orbiting ring synced with JS counter
 ══════════════════════════════════════════ */
 (function () {
   const loader = document.getElementById("loader");
   const pctEl = document.getElementById("loader-pct");
-  const barEl = document.getElementById("loader-bar");
+  const ringEl = document.getElementById("loader-ring-progress");
+  const CIRCUMFERENCE = 226.2; /* 2 * PI * 36 */
   let pct = 0;
 
   function setPct(val) {
     pct = Math.min(val, 100);
     pctEl.textContent = pct + "%";
-    barEl.style.width = pct + "%"; /* bar always matches the number */
+    const offset = CIRCUMFERENCE - (pct / 100) * CIRCUMFERENCE;
+    ringEl.style.strokeDashoffset = offset;
   }
 
   const iv = setInterval(() => {
