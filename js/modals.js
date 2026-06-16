@@ -1,14 +1,25 @@
 /* ══════════════════════════════════════════
-   RESUME MODAL — direct PDF, no Google Docs Viewer
-   (that was the cause of the 5-10s desktop delay
-   and the mobile blank-screen failure)
+   RESUME MODAL
+   — Desktop embed uses raw=1 (inline-renderable),
+     NOT dl=1 (forces attachment disposition, which
+     is why <object> rendered a blank white box)
+   — Download button keeps dl=1, since forcing a
+     download there is correct
+   — Mobile gets a direct "open in new tab" card
 ══════════════════════════════════════════ */
 const resumeModal = document.getElementById("resume-modal");
 const resumeModalBody = document.getElementById("resume-modal-body");
 const resumeClose = document.getElementById("resume-close");
 
+/* dl=1 forces Content-Disposition: attachment — correct for the Download button,
+   wrong for embedding. Used only for the explicit download link. */
 const RESUME_DOWNLOAD_URL =
-  "https://www.dropbox.com/scl/fi/tx5bahwrs4xzsmofb6xyk/ziyad-resume.pdf?rlkey=5up0dw63amdlqkgx957fblytk&st=xud27njm&dl=1";
+  "https://www.dropbox.com/scl/fi/v3vu8xhp6od1gbu3yl3xd/ziyad-resume.pdf?rlkey=3glln5w6k3ow0ws2aqbf3jgtc&st=4l2tuyi6&dl=1";
+
+/* raw=1 serves the file inline (no forced download) — this is what <object>/<iframe>
+   actually need to render the PDF instead of showing a blank box. */
+const RESUME_EMBED_URL =
+  "https://www.dropbox.com/scl/fi/v3vu8xhp6od1gbu3yl3xd/ziyad-resume.pdf?rlkey=3glln5w6k3ow0ws2aqbf3jgtc&st=4l2tuyi6&raw=1";
 
 const resumeDownloadBtn = document.querySelector(".resume-download-btn");
 if (resumeDownloadBtn) resumeDownloadBtn.href = RESUME_DOWNLOAD_URL;
@@ -19,10 +30,11 @@ function buildResumeContent() {
   if (resumeContentBuilt) return;
   resumeContentBuilt = true;
 
-  if (isTouchDevice()) {
-    /* Mobile: native in-modal PDF rendering is unreliable across browsers.
-       A direct "open in new tab" card uses the OS's own PDF viewer instead,
-       which always works and opens instantly. */
+  /* Use both the media-query check AND a width check as a fallback signal —
+     belt-and-suspenders so mobile never accidentally gets the desktop embed path. */
+  const isMobile = isTouchDevice() || window.innerWidth <= 768;
+
+  if (isMobile) {
     resumeModalBody.innerHTML = `
       <div class="resume-fallback-card">
         <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -36,11 +48,8 @@ function buildResumeContent() {
       </div>
     `;
   } else {
-    /* Desktop: direct <object> embed renders natively via the browser's
-       built-in PDF engine (Chrome PDFium / Safari PDFKit / Firefox pdf.js).
-       No server round-trip, loads near-instantly. */
     resumeModalBody.innerHTML = `
-      <object data="${RESUME_DOWNLOAD_URL}" type="application/pdf">
+      <object data="${RESUME_EMBED_URL}" type="application/pdf">
         <div class="resume-fallback-card">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
@@ -57,6 +66,15 @@ function buildResumeContent() {
 }
 
 function openResumeModal() {
+  /* Close the mobile hamburger menu first if it's open — otherwise it sits
+     on top of/behind the resume modal and the button appears to do nothing */
+  if (typeof hamburger !== "undefined" && hamburger.classList.contains("open")) {
+    hamburger.classList.remove("open");
+    hamburger.setAttribute("aria-expanded", false);
+    mobileMenu.classList.remove("open");
+    mobileMenu.setAttribute("aria-hidden", true);
+  }
+
   buildResumeContent();
   resumeModal.classList.add("open");
   resumeModal.setAttribute("aria-hidden", "false");

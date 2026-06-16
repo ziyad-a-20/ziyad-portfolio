@@ -58,17 +58,27 @@
 </button>
 
 <div id="loader">
-  <div class="loader-orbit" aria-hidden="true">
-    <svg viewBox="0 0 80 80" class="loader-ring">
-      <circle class="loader-ring-track" cx="40" cy="40" r="36"/>
-      <circle class="loader-ring-progress" id="loader-ring-progress" cx="40" cy="40" r="36"/>
+  <div class="loader-stage" aria-hidden="true">
+    <svg viewBox="0 0 100 100" class="loader-ring">
+      <defs>
+        <linearGradient id="loaderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#4a90d9"/>
+          <stop offset="100%" stop-color="#c9a876"/>
+        </linearGradient>
+      </defs>
+      <circle class="loader-ring-track" cx="50" cy="50" r="44"/>
+      <circle class="loader-ring-progress" id="loader-ring-progress" cx="50" cy="50" r="44"/>
     </svg>
     <span class="loader-mark">ZA</span>
   </div>
   <div class="loader-name" aria-hidden="true">
     <span>Z</span><span>i</span><span>y</span><span>a</span><span>d</span><span>&nbsp;A</span>
   </div>
-  <div class="loader-pct" id="loader-pct">0%</div>
+  <div class="loader-status">
+    <span class="loader-pct" id="loader-pct">0%</span>
+    <span class="loader-divider" aria-hidden="true">·</span>
+    <span class="loader-label">Loading experience</span>
+  </div>
 </div>
 
 <div id="cursor" aria-hidden="true"></div>

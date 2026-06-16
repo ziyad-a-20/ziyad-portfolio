@@ -149,127 +149,121 @@ body.loading {
 }
 
 /* ── LOADER ── */
+/* ── LOADER — premium: gradient ring, layered reveal, ambient glow ── */
 #loader {
   position: fixed;
   inset: 0;
   z-index: 10000;
-  background: var(--bg);
+  background: radial-gradient(ellipse 70% 50% at 50% 45%, rgba(74, 144, 217, 0.06), transparent), var(--bg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 28px;
-  transition:
-    opacity 0.7s var(--ease-fade),
-    visibility 0.7s var(--ease-fade);
+  gap: 36px;
+  transition: opacity 0.8s var(--ease-fade), visibility 0.8s var(--ease-fade);
 }
 #loader.hide {
   opacity: 0;
   visibility: hidden;
 }
 
-.loader-orbit {
+.loader-stage {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transform: scale(0.85);
+  animation: loaderStageIn 0.7s var(--ease-spatial) forwards;
 }
 .loader-ring {
   position: absolute;
   inset: 0;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   transform: rotate(-90deg);
 }
 .loader-ring-track {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.08);
+  stroke: rgba(255, 255, 255, 0.06);
   stroke-width: 1.5;
 }
 .loader-ring-progress {
   fill: none;
   stroke: url(#loaderGradient);
-  stroke: var(--blue);
   stroke-width: 1.5;
   stroke-linecap: round;
-  stroke-dasharray: 226.2; /* 2 * PI * 36 */
-  stroke-dashoffset: 226.2;
-  transition: stroke-dashoffset 0.12s ease-out;
+  stroke-dasharray: 276.5; /* 2 * PI * 44 */
+  stroke-dashoffset: 276.5;
+  transition: stroke-dashoffset 0.15s ease-out;
+  filter: drop-shadow(0 0 6px rgba(74, 144, 217, 0.4));
 }
 .loader-mark {
   font-family: "Playfair Display", serif;
   font-weight: 200;
-  font-size: 20px;
-  letter-spacing: 2px;
+  font-size: 22px;
+  letter-spacing: 3px;
   color: var(--text);
   opacity: 0;
-  animation: loaderMarkIn 0.6s 0.2s var(--ease-spatial) forwards;
+  animation: loaderMarkIn 0.6s 0.35s var(--ease-spatial) forwards;
 }
 
 .loader-name {
   font-family: "Playfair Display", serif;
   font-weight: 300;
-  font-size: clamp(28px, 5vw, 48px);
-  letter-spacing: -0.5px;
+  font-size: clamp(26px, 4.5vw, 42px);
+  letter-spacing: -0.3px;
   color: var(--text);
   overflow: hidden;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 .loader-name span {
   display: inline-block;
   transform: translateY(100%);
-  animation: loaderSlide 0.7s var(--ease-spatial) forwards;
+  animation: loaderSlide 0.65s var(--ease-spatial) forwards;
 }
-.loader-name span:nth-child(1) {
-  animation-delay: 0.35s;
-}
-.loader-name span:nth-child(2) {
-  animation-delay: 0.4s;
-}
-.loader-name span:nth-child(3) {
-  animation-delay: 0.45s;
-}
-.loader-name span:nth-child(4) {
-  animation-delay: 0.5s;
-}
-.loader-name span:nth-child(5) {
-  animation-delay: 0.55s;
-}
-.loader-name span:nth-child(6) {
-  animation-delay: 0.6s;
+.loader-name span:nth-child(1) { animation-delay: 0.45s; }
+.loader-name span:nth-child(2) { animation-delay: 0.5s; }
+.loader-name span:nth-child(3) { animation-delay: 0.55s; }
+.loader-name span:nth-child(4) { animation-delay: 0.6s; }
+.loader-name span:nth-child(5) { animation-delay: 0.65s; }
+.loader-name span:nth-child(6) { animation-delay: 0.7s; }
+
+.loader-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: loaderMarkIn 0.6s 0.85s var(--ease-fade) forwards;
 }
 .loader-pct {
   font-size: 10px;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 400;
+  min-width: 32px;
+}
+.loader-divider {
+  font-size: 10px;
+  color: var(--muted);
+  opacity: 0.4;
+}
+.loader-label {
+  font-size: 10px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--muted);
   opacity: 0.7;
 }
 
+@keyframes loaderStageIn {
+  to { opacity: 1; transform: scale(1); }
+}
 @keyframes loaderMarkIn {
-  to {
-    opacity: 1;
-  }
-}
-.loader-bar-wrap {
-  width: 200px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-}
-.loader-bar {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(to right, var(--blue), var(--gold));
-  transition: width 0.12s ease-out;
-}
-.loader-pct {
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--muted);
+  to { opacity: 1; }
 }
 
 /* ── CURSOR ── */
