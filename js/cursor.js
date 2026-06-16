@@ -1,15 +1,18 @@
 /* ══════════════════════════════════════════
    CURSOR — desktop only
+   Links/buttons/skill-cards: ring scales up (unchanged)
+   Project cards: ring disappears, "View →" label
+   follows the cursor instead — content-aware cursor
 ══════════════════════════════════════════ */
 const cur = document.getElementById("cursor");
 const ring = document.getElementById("cursor-ring");
+const label = document.getElementById("cursor-label");
 let mx = 0,
   my = 0,
   rx = 0,
   ry = 0;
-
-/* scrollTimer is local to cursor.js only — decoupled from nav.js */
 let _cursorScrollTimer = null;
+let overProjectCard = false;
 
 const TRAIL_COUNT = 5;
 const trailDots = [];
@@ -29,8 +32,14 @@ if (!isTouchDevice()) {
     my = e.clientY;
     cur.style.left = mx + "px";
     cur.style.top = my + "px";
-    cur.classList.remove("hidden");
-    ring.classList.remove("hidden");
+    if (!overProjectCard) {
+      cur.classList.remove("hidden");
+      ring.classList.remove("hidden");
+    }
+    if (label) {
+      label.style.left = mx + "px";
+      label.style.top = my + "px";
+    }
   });
 
   (function animRing() {
@@ -46,7 +55,7 @@ if (!isTouchDevice()) {
       trailPos[i].y += (trailPos[i - 1].y - trailPos[i].y) * 0.32;
     }
     trailDots.forEach((dot, i) => {
-      const alpha = (1 - i / TRAIL_COUNT) * 0.35;
+      const alpha = overProjectCard ? 0 : (1 - i / TRAIL_COUNT) * 0.35;
       const size = 4 - i * 0.5;
       dot.style.left = trailPos[i].x + "px";
       dot.style.top = trailPos[i].y + "px";
@@ -58,31 +67,52 @@ if (!isTouchDevice()) {
     requestAnimationFrame(animRing);
   })();
 
-  document
-    .querySelectorAll("a, button, .skill-card, .project-card")
-    .forEach((el) => {
-      el.addEventListener("mouseenter", () => {
-        ring.style.width = "56px";
-        ring.style.height = "56px";
-        ring.style.borderColor = "rgba(74,144,217,0.9)";
-      });
-      el.addEventListener("mouseleave", () => {
-        ring.style.width = "36px";
-        ring.style.height = "36px";
-        ring.style.borderColor = "rgba(255,255,255,0.4)";
-      });
+  /* Standard ring-scale hover for links, buttons, skill cards */
+  document.querySelectorAll("a, button, .skill-card").forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+      if (overProjectCard) return;
+      ring.style.width = "56px";
+      ring.style.height = "56px";
+      ring.style.borderColor = "rgba(74,144,217,0.9)";
     });
+    el.addEventListener("mouseleave", () => {
+      if (overProjectCard) return;
+      ring.style.width = "36px";
+      ring.style.height = "36px";
+      ring.style.borderColor = "rgba(255,255,255,0.4)";
+    });
+  });
+
+  /* Content-aware cursor: project cards swap the ring for a "View →" label */
+  document.querySelectorAll(".project-card").forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      overProjectCard = true;
+      cur.classList.add("hidden");
+      ring.classList.add("hidden");
+      if (label) label.classList.add("visible");
+    });
+    card.addEventListener("mouseleave", () => {
+      overProjectCard = false;
+      cur.classList.remove("hidden");
+      ring.classList.remove("hidden");
+      if (label) label.classList.remove("visible");
+    });
+  });
 
   /* Hide cursor during scroll, restore after */
   window.addEventListener(
     "scroll",
     () => {
-      cur.classList.add("hidden");
-      ring.classList.add("hidden");
+      if (!overProjectCard) {
+        cur.classList.add("hidden");
+        ring.classList.add("hidden");
+      }
       clearTimeout(_cursorScrollTimer);
       _cursorScrollTimer = setTimeout(() => {
-        cur.classList.remove("hidden");
-        ring.classList.remove("hidden");
+        if (!overProjectCard) {
+          cur.classList.remove("hidden");
+          ring.classList.remove("hidden");
+        }
       }, 300);
     },
     { passive: true },

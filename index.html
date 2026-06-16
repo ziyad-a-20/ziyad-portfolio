@@ -68,6 +68,7 @@
 <div id="cursor" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
 <div id="cursor-trail" aria-hidden="true"></div>
+<div id="cursor-label" aria-hidden="true">View →</div>
 
 <!-- KEYBOARD SHORTCUTS MODAL -->
 <div id="shortcuts-modal" class="shortcuts-modal" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" aria-hidden="true">
@@ -346,9 +347,11 @@
   <h2 class="section-title reveal-item">Four builds.<br>Real problems solved.</h2>
 
   <button class="tldr-toggle" id="tldr-toggle" aria-pressed="false">
-    <span class="tldr-icon" aria-hidden="true">⚡</span>
-    <span class="tldr-text">TL;DR Mode</span>
-  </button>
+  <svg class="tldr-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M13 2L4.5 13.5h5.5L9 22l9.5-12.5H13L13 2z"/>
+  </svg>
+  <span class="tldr-text">TL;DR Mode</span>
+</button>
 
   <!-- BENTO: dots moved to AFTER the closing div, so they sit below cards -->
   <div class="bento">
