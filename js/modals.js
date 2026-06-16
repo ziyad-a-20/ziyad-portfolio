@@ -1,37 +1,22 @@
-/* ══════════════════════════════════════════
-   RESUME MODAL
-   — Desktop embed uses raw=1 (inline-renderable),
-     NOT dl=1 (forces attachment disposition, which
-     is why <object> rendered a blank white box)
-   — Download button keeps dl=1, since forcing a
-     download there is correct
-   — Mobile gets a direct "open in new tab" card
-══════════════════════════════════════════ */
+/* RESUME MODAL — self-hosted PDF, no third-party Dropbox dependency.
+   Make sure your actual resume file is placed at assets/resume.pdf */
 const resumeModal = document.getElementById("resume-modal");
 const resumeModalBody = document.getElementById("resume-modal-body");
 const resumeClose = document.getElementById("resume-close");
 
-/* dl=1 forces Content-Disposition: attachment — correct for the Download button,
-   wrong for embedding. Used only for the explicit download link. */
-const RESUME_DOWNLOAD_URL =
-  "https://www.dropbox.com/scl/fi/v3vu8xhp6od1gbu3yl3xd/ziyad-resume.pdf?rlkey=3glln5w6k3ow0ws2aqbf3jgtc&st=4l2tuyi6&dl=1";
-
-/* raw=1 serves the file inline (no forced download) — this is what <object>/<iframe>
-   actually need to render the PDF instead of showing a blank box. */
-const RESUME_EMBED_URL =
-  "https://www.dropbox.com/scl/fi/v3vu8xhp6od1gbu3yl3xd/ziyad-resume.pdf?rlkey=3glln5w6k3ow0ws2aqbf3jgtc&st=4l2tuyi6&raw=1";
+const RESUME_DOWNLOAD_URL = "assets/resume.pdf";
+const RESUME_EMBED_URL = "assets/resume.pdf";
 
 const resumeDownloadBtn = document.querySelector(".resume-download-btn");
 if (resumeDownloadBtn) resumeDownloadBtn.href = RESUME_DOWNLOAD_URL;
 
 let resumeContentBuilt = false;
+let resumeLastFocused = null;
 
 function buildResumeContent() {
   if (resumeContentBuilt) return;
   resumeContentBuilt = true;
 
-  /* Use both the media-query check AND a width check as a fallback signal —
-     belt-and-suspenders so mobile never accidentally gets the desktop embed path. */
   const isMobile = isTouchDevice() || window.innerWidth <= 768;
 
   if (isMobile) {
@@ -65,10 +50,48 @@ function buildResumeContent() {
   }
 }
 
+/* Generic focus trap, shared by both modals */
+function getFocusableEls(container) {
+  return Array.from(
+    container.querySelectorAll(
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+    ),
+  ).filter((el) => el.offsetParent !== null);
+}
+
+function trapFocus(modalEl) {
+  function handleKeydown(e) {
+    if (e.key !== "Tab") return;
+    const focusable = getFocusableEls(modalEl);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+  modalEl.addEventListener("keydown", handleKeydown);
+  modalEl._focusTrapHandler = handleKeydown;
+}
+
+function releaseFocusTrap(modalEl) {
+  if (modalEl._focusTrapHandler) {
+    modalEl.removeEventListener("keydown", modalEl._focusTrapHandler);
+    modalEl._focusTrapHandler = null;
+  }
+}
+
 function openResumeModal() {
-  /* Close the mobile hamburger menu first if it's open — otherwise it sits
-     on top of/behind the resume modal and the button appears to do nothing */
-  if (typeof hamburger !== "undefined" && hamburger.classList.contains("open")) {
+  resumeLastFocused = document.activeElement;
+
+  if (
+    typeof hamburger !== "undefined" &&
+    hamburger.classList.contains("open")
+  ) {
     hamburger.classList.remove("open");
     hamburger.setAttribute("aria-expanded", false);
     mobileMenu.classList.remove("open");
@@ -80,12 +103,18 @@ function openResumeModal() {
   resumeModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   resumeClose.focus();
+  trapFocus(resumeModal);
 }
 
 function closeResumeModal() {
+  releaseFocusTrap(resumeModal);
   resumeModal.classList.remove("open");
   resumeModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  if (resumeLastFocused && typeof resumeLastFocused.focus === "function") {
+    resumeLastFocused.focus();
+  }
+  resumeLastFocused = null;
 }
 
 const resumeTriggers = [
@@ -104,23 +133,32 @@ resumeModal.addEventListener("click", (e) => {
   if (e.target === resumeModal) closeResumeModal();
 });
 
-/* ══════════════════════════════════════════
-   KEYBOARD SHORTCUTS MODAL
-══════════════════════════════════════════ */
+/* KEYBOARD SHORTCUTS MODAL */
 const shortcutsModal = document.getElementById("shortcuts-modal");
 const shortcutsClose = document.getElementById("shortcuts-close");
 const shortcutsHintBtn = document.getElementById("shortcuts-hint-btn");
+let shortcutsLastFocused = null;
 
 function openShortcutsModal() {
+  shortcutsLastFocused = document.activeElement;
   shortcutsModal.classList.add("open");
   shortcutsModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   shortcutsClose.focus();
+  trapFocus(shortcutsModal);
 }
 function closeShortcutsModal() {
+  releaseFocusTrap(shortcutsModal);
   shortcutsModal.classList.remove("open");
   shortcutsModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  if (
+    shortcutsLastFocused &&
+    typeof shortcutsLastFocused.focus === "function"
+  ) {
+    shortcutsLastFocused.focus();
+  }
+  shortcutsLastFocused = null;
 }
 
 shortcutsHintBtn.addEventListener("click", openShortcutsModal);
@@ -129,9 +167,7 @@ shortcutsModal.addEventListener("click", (e) => {
   if (e.target === shortcutsModal) closeShortcutsModal();
 });
 
-/* ══════════════════════════════════════════
-   KEYBOARD SHORTCUTS HANDLER
-══════════════════════════════════════════ */
+/* KEYBOARD SHORTCUTS HANDLER */
 const SECTION_KEYS = {
   1: "about",
   2: "skills",

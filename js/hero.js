@@ -1,7 +1,7 @@
-/* ══════════════════════════════════════════
-   HERO 3D CANVAS
-   Paused via IntersectionObserver when hero is off-screen
-══════════════════════════════════════════ */
+/* HERO 3D CANVAS
+   Now fully stops its requestAnimationFrame loop (instead of looping with
+   skipped draw work) whenever the hero is scrolled out of view or the tab
+   is hidden, and restarts it only when both conditions are true again. */
 const canvas = document.getElementById("hero-canvas");
 const ctx = canvas.getContext("2d");
 let W,
@@ -10,6 +10,8 @@ let W,
 let mouseX = 0,
   mouseY = 0;
 let heroVisible = true;
+let tabVisible = !document.hidden;
+let rafId = null;
 
 function resizeCanvas() {
   W = canvas.width = window.innerWidth;
@@ -24,14 +26,6 @@ if (!isTouchDevice()) {
     mouseY = (e.clientY / H - 0.5) * 2;
   });
 }
-
-const heroObs = new IntersectionObserver(
-  (entries) => {
-    heroVisible = entries[0].isIntersecting;
-  },
-  { threshold: 0.01 },
-);
-heroObs.observe(document.getElementById("hero"));
 
 function proj3D(x, y, z, rX, rY) {
   const cX = Math.cos(rX),
@@ -111,11 +105,6 @@ function drawGlobe(rX, rY, R, cx, cy, numParticles) {
 }
 
 function drawHero() {
-  if (!heroVisible || document.hidden) {
-    t += 0;
-    requestAnimationFrame(drawHero);
-    return;
-  }
   ctx.clearRect(0, 0, W, H);
   const cx = W / 2,
     cy = H / 2;
@@ -134,13 +123,42 @@ function drawHero() {
   }
   drawGlobe(rX, rY, R, cx, cy, particles);
   t += 0.006;
-  requestAnimationFrame(drawHero);
+  rafId = requestAnimationFrame(drawHero);
 }
-drawHero();
 
-/* ══════════════════════════════════════════
-   SUBTITLE LOOP
-══════════════════════════════════════════ */
+function startHeroLoop() {
+  if (rafId === null) {
+    rafId = requestAnimationFrame(drawHero);
+  }
+}
+function stopHeroLoop() {
+  if (rafId !== null) {
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+}
+function syncHeroLoop() {
+  if (heroVisible && tabVisible) startHeroLoop();
+  else stopHeroLoop();
+}
+
+const heroObs = new IntersectionObserver(
+  (entries) => {
+    heroVisible = entries[0].isIntersecting;
+    syncHeroLoop();
+  },
+  { threshold: 0.01 },
+);
+heroObs.observe(document.getElementById("hero"));
+
+document.addEventListener("visibilitychange", () => {
+  tabVisible = !document.hidden;
+  syncHeroLoop();
+});
+
+startHeroLoop();
+
+/* SUBTITLE LOOP */
 const subtitles = [
   "Building the web, one line at a time",
   "Solving real problems with clean code",
@@ -182,9 +200,7 @@ function startSubtitleLoop() {
   }, 1800);
 }
 
-/* ══════════════════════════════════════════
-   TEXT SCRAMBLE
-══════════════════════════════════════════ */
+/* TEXT SCRAMBLE */
 const CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
 let scrambleStarted = false;

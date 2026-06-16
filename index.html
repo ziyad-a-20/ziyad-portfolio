@@ -28,8 +28,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,100;0,200;0,300;1,200&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
-<!-- LENIS SMOOTH SCROLL -->
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+<!-- LENIS SMOOTH SCROLL — deferred so it no longer blocks HTML parsing -->
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js" defer></script>
 <link rel="stylesheet" href="style.css">
 <script type="application/ld+json">
 {
@@ -49,6 +49,21 @@
 </script>
 </head>
 <body class="loading">
+
+<a href="#hero" class="skip-link">Skip to main content</a>
+
+<noscript>
+  <style>
+    #loader, .grain, #cursor, #cursor-ring, #cursor-trail, #cursor-label, #scroll-progress, #back-to-top { display: none !important; }
+    body.loading { overflow: visible !important; }
+    .reveal-item, .skill-card, .timeline-item, .hero-eyebrow, .hero-name span em, .hero-sub, .hero-cta, .scroll-hint, .section-title { opacity: 1 !important; transform: none !important; }
+    html { cursor: auto !important; }
+  </style>
+  <div style="padding:60px 24px;max-width:680px;margin:0 auto;text-align:center;font-family:sans-serif;color:#f5f5f7;">
+    <h1 style="margin-bottom:12px;">Ziyad A — Full Stack Developer</h1>
+    <p style="line-height:1.7;color:#b8b8bd;">This site is best experienced with JavaScript enabled. You can still reach me directly at <a href="mailto:ziyad-a-tech@gmail.com" style="color:#4a90d9;">ziyad-a-tech@gmail.com</a>, view my work on <a href="https://github.com/ziyad-a-20" style="color:#4a90d9;">GitHub</a>, or <a href="assets/resume.pdf" style="color:#4a90d9;">download my resume</a>.</p>
+  </div>
+</noscript>
 
 <div class="grain" aria-hidden="true"></div>
 <div id="scroll-progress" aria-hidden="true"></div>
@@ -79,7 +94,34 @@
     <span class="loader-divider" aria-hidden="true">·</span>
     <span class="loader-label">Loading experience</span>
   </div>
+  <div class="loader-bar-track" aria-hidden="true">
+    <div class="loader-bar-fill" id="loader-bar-fill"></div>
+  </div>
 </div>
+
+<!-- LOADER FAILSAFE — force-hides the loader after 8s even if window 'load'
+     never fires (slow asset, blocked request, flaky connection), so visitors
+     are never stuck staring at a stalled loading screen -->
+<script>
+(function () {
+  var FAILSAFE_MS = 8000;
+  var failsafeTimer = setTimeout(function () {
+    var loader = document.getElementById("loader");
+    if (loader && !loader.classList.contains("hide")) {
+      loader.classList.add("hide");
+      document.body.classList.remove("loading");
+      var hero = document.getElementById("hero");
+      if (hero) hero.classList.add("hero-in");
+    }
+  }, FAILSAFE_MS);
+
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      clearTimeout(failsafeTimer);
+    }, 1500);
+  });
+})();
+</script>
 
 <div id="cursor" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
@@ -114,7 +156,7 @@
     <div class="resume-modal-header">
       <span class="resume-modal-title">Resume</span>
       <div class="resume-modal-actions">
-        <a href="https://www.dropbox.com/scl/fi/tx5bahwrs4xzsmofb6xyk/ziyad-resume.pdf?rlkey=5up0dw63amdlqkgx957fblytk&st=xud27njm&dl=1" class="resume-download-btn" target="_blank" rel="noopener" aria-label="Download resume">
+        <a href="assets/resume.pdf" class="resume-download-btn" download="Ziyad-A-Resume.pdf" aria-label="Download resume">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download
         </a>
@@ -158,7 +200,7 @@
 </div>
 
 <!-- HERO -->
-<section id="hero">
+<section id="hero" tabindex="-1">
   <div class="hero-code-bg" aria-hidden="true">
     <canvas id="hero-canvas"></canvas>
   </div>
@@ -203,7 +245,6 @@
       </span>
     </div>
 
-    <!-- TERMINAL: toggle button removed, no expand/collapse on mobile -->
     <div class="terminal reveal-item" role="region" aria-label="Developer terminal">
       <div class="terminal-bar" aria-hidden="true">
         <div class="t-dot t-red"></div>
@@ -317,6 +358,15 @@
   <div class="timeline">
     <div class="timeline-item reveal-item stagger-1">
       <div class="tl-dot" aria-hidden="true"></div>
+      <div class="tl-date">2023 – 2026</div>
+      <div class="tl-card">
+        <h3 class="tl-title">B.Com (Computer Applications)</h3>
+        <p class="tl-desc">Completed my B.Com in Computer Applications at The American College, Madurai, with a CGPA of 6.8 — building the academic foundation alongside the hands-on coding I was doing in parallel.</p>
+        <div class="tl-tags"><span class="tag">Education</span><span class="tag">Computer Applications</span></div>
+      </div>
+    </div>
+    <div class="timeline-item reveal-item stagger-2">
+      <div class="tl-dot" aria-hidden="true"></div>
       <div class="tl-date">2023</div>
       <div class="tl-card">
         <h3 class="tl-title">Started Web Development</h3>
@@ -324,7 +374,7 @@
         <div class="tl-tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
       </div>
     </div>
-    <div class="timeline-item reveal-item stagger-2">
+    <div class="timeline-item reveal-item stagger-3">
       <div class="tl-dot" aria-hidden="true"></div>
       <div class="tl-date">Early 2024</div>
       <div class="tl-card">
@@ -333,7 +383,7 @@
         <div class="tl-tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">MySQL</span><span class="tag">JavaScript</span></div>
       </div>
     </div>
-    <div class="timeline-item reveal-item stagger-3">
+    <div class="timeline-item reveal-item stagger-4">
       <div class="tl-dot" aria-hidden="true"></div>
       <div class="tl-date">Late 2024</div>
       <div class="tl-card">
@@ -342,7 +392,7 @@
         <div class="tl-tags"><span class="tag">Flask</span><span class="tag">MySQL</span></div>
       </div>
     </div>
-    <div class="timeline-item reveal-item stagger-4">
+    <div class="timeline-item reveal-item stagger-5">
       <div class="tl-dot active" aria-hidden="true"></div>
       <div class="tl-date">2025 →</div>
       <div class="tl-card active">
@@ -368,7 +418,6 @@
   <span class="tldr-text">TL;DR Mode</span>
 </button>
 
-  <!-- BENTO: dots moved to AFTER the closing div, so they sit below cards -->
   <div class="bento">
 
     <div class="project-card large reveal-item">
@@ -519,7 +568,6 @@
     </div>
 
   </div>
-  <!-- DOTS NOW OUTSIDE .bento — renders below all cards -->
   <div class="bento-hint" aria-hidden="true">
     <span class="active"></span><span></span><span></span><span></span>
   </div>
@@ -547,7 +595,6 @@
     </button>
   </div>
 
-  <!-- CONTACT FORM -->
   <div class="contact-form-wrap reveal-item">
     <div class="contact-form-inner">
       <div class="form-header">
@@ -555,7 +602,6 @@
         <div class="form-header-line"></div>
       </div>
       <div id="contact-form" class="contact-form">
-        <!-- HONEYPOT: hidden from humans, bots fill it, Formspree rejects the submission -->
         <input
           type="text"
           name="_gotcha"
@@ -658,5 +704,6 @@
 <script src="js/bento-swipe.js" defer></script>
 <script src="js/tldr.js" defer></script>
 <script src="js/tab-title.js" defer></script>
+<script src="sw.js" defer></script>
 </body>
 </html>
