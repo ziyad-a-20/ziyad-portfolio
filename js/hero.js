@@ -1,240 +1,153 @@
-/* HERO 3D CANVAS
-   Now fully stops its requestAnimationFrame loop (instead of looping with
-   skipped draw work) whenever the hero is scrolled out of view or the tab
-   is hidden, and restarts it only when both conditions are true again. */
-const canvas = document.getElementById("hero-canvas");
-const ctx = canvas.getContext("2d");
-let W,
-  H,
-  t = 0;
-let mouseX = 0,
-  mouseY = 0;
-let heroVisible = true;
-let tabVisible = !document.hidden;
-let rafId = null;
+/* ══════════════════════════════
+   HERO — particle field canvas
+   + text entrance animation
+══════════════════════════════ */
+(function () {
+  window._heroInit = function () {
+    var sec = document.getElementById("hero");
+    var canvas = document.getElementById("hero-canvas");
+    if (!canvas || !sec) return;
 
-function resizeCanvas() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+    var ctx = canvas.getContext("2d");
+    var W, H;
 
-if (!isTouchDevice()) {
-  document.addEventListener("mousemove", (e) => {
-    mouseX = (e.clientX / W - 0.5) * 2;
-    mouseY = (e.clientY / H - 0.5) * 2;
-  });
-}
-
-function proj3D(x, y, z, rX, rY) {
-  const cX = Math.cos(rX),
-    sX = Math.sin(rX);
-  const cY = Math.cos(rY),
-    sY = Math.sin(rY);
-  const y2 = y * cX - z * sX;
-  const z2 = y * sX + z * cX;
-  const x3 = x * cY + z2 * sY;
-  const z3 = -x * sY + z2 * cY;
-  const f = 480;
-  const s = f / (f + z3);
-  return { x: x3 * s, y: y2 * s, z: z3, s };
-}
-
-function drawGlobe(rX, rY, R, cx, cy, numParticles) {
-  for (let r = 0; r < 6; r++) {
-    const lat = (r / 5 - 0.5) * Math.PI;
-    const cL = Math.cos(lat),
-      sL = Math.sin(lat);
-    ctx.beginPath();
-    for (let p = 0; p <= 50; p++) {
-      const lng = (p / 50) * Math.PI * 2;
-      const pt = proj3D(
-        R * cL * Math.cos(lng),
-        R * sL,
-        R * cL * Math.sin(lng),
-        rX,
-        rY,
-      );
-      p === 0
-        ? ctx.moveTo(cx + pt.x, cy + pt.y)
-        : ctx.lineTo(cx + pt.x, cy + pt.y);
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
     }
-    ctx.strokeStyle = `rgba(74,144,217,${0.05 + 0.1 * (r / 6)})`;
-    ctx.lineWidth = 0.7;
-    ctx.stroke();
-  }
-  for (let m = 0; m < 14; m++) {
-    const lng = (m / 14) * Math.PI * 2;
-    ctx.beginPath();
-    for (let p = 0; p <= 30; p++) {
-      const lat = (p / 30 - 0.5) * Math.PI;
-      const cL = Math.cos(lat),
-        sL = Math.sin(lat);
-      const pt = proj3D(
-        R * cL * Math.cos(lng),
-        R * sL,
-        R * cL * Math.sin(lng),
-        rX,
-        rY,
+    resize();
+    window.addEventListener("resize", resize);
+
+    /* Particles */
+    var COUNT = isTouchDevice() ? 45 : 110;
+    var pts = Array.from({ length: COUNT }, function () {
+      return {
+        x: Math.random(),
+        y: Math.random(),
+        vx: (Math.random() - 0.5) * 0.00035,
+        vy: (Math.random() - 0.5) * 0.00035,
+        r: Math.random() * 1.6 + 0.4,
+        a: Math.random() * 0.55 + 0.1,
+        seed: Math.random() * 100,
+      };
+    });
+
+    var mx = 0.5,
+      my = 0.5;
+    var heroVis = true,
+      tabVis = !document.hidden;
+    var rafId = null;
+
+    if (!isTouchDevice()) {
+      document.addEventListener(
+        "mousemove",
+        function (e) {
+          mx = e.clientX / W;
+          my = e.clientY / H;
+        },
+        { passive: true },
       );
-      p === 0
-        ? ctx.moveTo(cx + pt.x, cy + pt.y)
-        : ctx.lineTo(cx + pt.x, cy + pt.y);
     }
-    ctx.strokeStyle = "rgba(74,144,217,0.04)";
-    ctx.lineWidth = 0.5;
-    ctx.stroke();
-  }
-  for (let i = 0; i < numParticles; i++) {
-    const a = i * 137.508 * (Math.PI / 180) + t * 0.04;
-    const rad = 38 + i * 2.6;
-    const pt = proj3D(
-      rad * Math.cos(a) * 0.85,
-      rad * Math.sin(a) * 0.5,
-      Math.sin(i * 0.38 + t) * 42,
-      rX,
-      rY,
+
+    var heroObs = new IntersectionObserver(
+      function (en) {
+        heroVis = en[0].isIntersecting;
+        sync();
+      },
+      { threshold: 0.01 },
     );
-    const alpha = Math.max(0, (pt.z + 220) / 420) * 0.48;
-    ctx.beginPath();
-    ctx.arc(cx + pt.x, cy + pt.y, pt.s * 1.4, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(190,215,255,${alpha})`;
-    ctx.fill();
-  }
-}
+    heroObs.observe(sec);
 
-function drawHero() {
-  ctx.clearRect(0, 0, W, H);
-  const cx = W / 2,
-    cy = H / 2;
-  const mobile = W < 768;
-  let rX, rY, R, particles;
-  if (mobile) {
-    rX = t * 0.15;
-    rY = t * 0.3;
-    R = Math.min(W, H) * 0.28;
-    particles = 30;
-  } else {
-    rX = t * 0.14 + mouseY * 0.22;
-    rY = t * 0.28 + mouseX * 0.38;
-    R = 140;
-    particles = 68;
-  }
-  drawGlobe(rX, rY, R, cx, cy, particles);
-  t += 0.006;
-  rafId = requestAnimationFrame(drawHero);
-}
+    document.addEventListener("visibilitychange", function () {
+      tabVis = !document.hidden;
+      sync();
+    });
 
-function startHeroLoop() {
-  if (rafId === null) {
-    rafId = requestAnimationFrame(drawHero);
-  }
-}
-function stopHeroLoop() {
-  if (rafId !== null) {
-    cancelAnimationFrame(rafId);
-    rafId = null;
-  }
-}
-function syncHeroLoop() {
-  if (heroVisible && tabVisible) startHeroLoop();
-  else stopHeroLoop();
-}
-
-const heroObs = new IntersectionObserver(
-  (entries) => {
-    heroVisible = entries[0].isIntersecting;
-    syncHeroLoop();
-  },
-  { threshold: 0.01 },
-);
-heroObs.observe(document.getElementById("hero"));
-
-document.addEventListener("visibilitychange", () => {
-  tabVisible = !document.hidden;
-  syncHeroLoop();
-});
-
-startHeroLoop();
-
-/* SUBTITLE LOOP */
-const subtitles = [
-  "Building the web, one line at a time",
-  "Solving real problems with clean code",
-  "Full-stack · Flask · MySQL · JavaScript",
-  "Open to work — let's build together",
-];
-let subIdx = 0;
-
-function typeSubtitle(el, text, cb) {
-  el.textContent = "";
-  let i = 0;
-  const iv = setInterval(() => {
-    el.textContent += text[i];
-    i++;
-    if (i >= text.length) {
-      clearInterval(iv);
-      setTimeout(cb, 2200);
-    }
-  }, 38);
-}
-function eraseSubtitle(el, cb) {
-  const iv = setInterval(() => {
-    el.textContent = el.textContent.slice(0, -1);
-    if (el.textContent.length === 0) {
-      clearInterval(iv);
-      cb();
-    }
-  }, 22);
-}
-function startSubtitleLoop() {
-  const el = document.getElementById("hero-sub");
-  if (!el) return;
-  setTimeout(() => {
-    function cycle() {
-      subIdx = (subIdx + 1) % subtitles.length;
-      eraseSubtitle(el, () => typeSubtitle(el, subtitles[subIdx], cycle));
-    }
-    typeSubtitle(el, subtitles[0], cycle);
-  }, 1800);
-}
-
-/* TEXT SCRAMBLE */
-const CHARS =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
-let scrambleStarted = false;
-
-function scrambleText(el, finalText, duration) {
-  const totalFrames = Math.round(duration / 16);
-  let frame = 0;
-  function step() {
-    frame++;
-    const progress = frame / totalFrames;
-    const revealCount = Math.floor(progress * finalText.length);
-    let display = "";
-    for (let i = 0; i < finalText.length; i++) {
-      if (finalText[i] === " ") {
-        display += " ";
-        continue;
+    function sync() {
+      if (heroVis && tabVis) {
+        if (!rafId) rafId = requestAnimationFrame(draw);
+      } else {
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
       }
-      display +=
-        i < revealCount
-          ? finalText[i]
-          : CHARS[Math.floor(Math.random() * CHARS.length)];
     }
-    el.textContent = display;
-    if (frame < totalFrames) requestAnimationFrame(step);
-    else el.textContent = finalText;
-  }
-  requestAnimationFrame(step);
-}
 
-function startScramble() {
-  if (scrambleStarted) return;
-  scrambleStarted = true;
-  document.querySelectorAll("[data-scramble]").forEach((el) => {
-    const final = el.dataset.scramble;
-    setTimeout(() => scrambleText(el, final, 1000), 300);
-  });
-}
+    var t = 0;
+
+    function draw() {
+      rafId = requestAnimationFrame(draw);
+      ctx.clearRect(0, 0, W, H);
+      t += 0.003;
+
+      /* Cursor glow */
+      var gx = mx * W,
+        gy = my * H;
+      var g = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.min(W, H) * 0.5);
+      g.addColorStop(0, "rgba(200,255,0,0.05)");
+      g.addColorStop(1, "rgba(200,255,0,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+
+      /* Connections + dots */
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i];
+        p.x += p.vx + noise(t + p.seed) * 0.00008;
+        p.y += p.vy + noise(t + p.seed + 5) * 0.00008;
+        if (p.x < 0) p.x = 1;
+        if (p.x > 1) p.x = 0;
+        if (p.y < 0) p.y = 1;
+        if (p.y > 1) p.y = 0;
+
+        var px = p.x * W,
+          py = p.y * H;
+        var nearMouse =
+          Math.sqrt(Math.pow(p.x - mx, 2) + Math.pow(p.y - my, 2)) < 0.12;
+
+        for (var j = i + 1; j < pts.length; j++) {
+          var q = pts[j];
+          var dx = (p.x - q.x) * W;
+          var dy = (p.y - q.y) * H;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 110) {
+            var alpha = (1 - d / 110) * 0.07 * (nearMouse ? 2.5 : 1);
+            ctx.beginPath();
+            ctx.moveTo(px, py);
+            ctx.lineTo(q.x * W, q.y * H);
+            ctx.strokeStyle = "rgba(200,255,0," + alpha + ")";
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+
+        var dotA = p.a * (nearMouse ? 1.8 : 1);
+        var dotR = p.r * (nearMouse ? 2.2 : 1);
+        ctx.beginPath();
+        ctx.arc(px, py, dotR, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(200,255,0," + dotA + ")";
+        ctx.fill();
+      }
+    }
+
+    rafId = requestAnimationFrame(draw);
+
+    /* ── Text entrance ── */
+    function revealHero() {
+      var top = document.querySelector(".hero-top");
+      var name = document.getElementById("hero-name");
+      var sub = document.querySelector(".hero-sub");
+      var actions = document.querySelector(".hero-actions");
+
+      if (top) top.classList.add("in");
+      if (name)
+        setTimeout(function () {
+          name.classList.add("in");
+        }, 120);
+      if (sub) sub.classList.add("in");
+      if (actions) actions.classList.add("in");
+    }
+
+    setTimeout(revealHero, 180);
+  };
+})();

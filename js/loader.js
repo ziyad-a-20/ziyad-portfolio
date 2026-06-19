@@ -1,93 +1,157 @@
+/* ══════════════════════════════
+   LOADER / ENTRY TUNNEL
+══════════════════════════════ */
 (function () {
-  const loader = document.getElementById("loader");
-  const pctEl = document.getElementById("loader-pct");
-  const ringEl = document.getElementById("loader-ring-progress");
-  const barFillEl = document.getElementById("loader-bar-fill");
-  const labelEl = document.querySelector(".loader-label");
-  const CIRCUMFERENCE = 276.5;
+  var tunnel = document.getElementById("tunnel");
+  var grid = document.getElementById("tunnel-grid");
+  var logo = document.getElementById("tun-logo");
+  var site = document.getElementById("site");
+  var nav = document.getElementById("main-nav");
 
-  const STAGES = [
-    { at: 0, text: "Loading experience" },
-    { at: 35, text: "Preparing visuals" },
-    { at: 70, text: "Almost ready" },
+  if (!tunnel) return;
+
+  /* ── Grid canvas ── */
+  var ctx = grid.getContext("2d");
+  var W, H;
+
+  function resize() {
+    W = grid.width = grid.offsetWidth || window.innerWidth;
+    H = grid.height = grid.offsetHeight || window.innerHeight;
+  }
+  resize();
+
+  var COLS = 22,
+    ROWS = 14;
+  var segs = [],
+    gridRaf = null,
+    gridStart = null;
+  var GDUR = 1100;
+
+  function buildGrid() {
+    segs = [];
+    var cw = W / COLS,
+      ch = H / ROWS;
+    var cx = COLS / 2,
+      cy = ROWS / 2;
+    for (var r = 0; r <= ROWS; r++) {
+      for (var c = 0; c <= COLS; c++) {
+        var d = Math.sqrt(Math.pow(c - cx, 2) + Math.pow(r - cy, 2));
+        if (c < COLS)
+          segs.push({
+            x1: c * cw,
+            y1: r * ch,
+            x2: (c + 1) * cw,
+            y2: r * ch,
+            d: d,
+          });
+        if (r < ROWS)
+          segs.push({
+            x1: c * cw,
+            y1: r * ch,
+            x2: c * cw,
+            y2: (r + 1) * ch,
+            d: d,
+          });
+      }
+    }
+    segs.sort(function (a, b) {
+      return a.d - b.d;
+    });
+  }
+  buildGrid();
+
+  function drawGrid(ts) {
+    if (!gridStart) gridStart = ts;
+    var pct = Math.min((ts - gridStart) / GDUR, 1);
+    var show = Math.floor(pct * segs.length);
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < show; i++) {
+      var s = segs[i];
+      var outer = s.d > COLS * 0.35;
+      ctx.beginPath();
+      ctx.moveTo(s.x1, s.y1);
+      ctx.lineTo(s.x2, s.y2);
+      ctx.strokeStyle = outer ? "rgba(200,255,0,0.22)" : "rgba(200,255,0,0.07)";
+      ctx.lineWidth = outer ? 1 : 0.5;
+      ctx.stroke();
+    }
+    if (pct < 1) gridRaf = requestAnimationFrame(drawGrid);
+  }
+  gridRaf = requestAnimationFrame(drawGrid);
+
+  /* ── Terminal text ── */
+  var LINES = [
+    { id: "tl0", text: "initializing ziyad.dev...", delay: 80 },
+    { id: "tl1", text: "loading: identity · craft · work", delay: 600 },
+    { id: "tl2", text: "compiling experience...", delay: 1180 },
+    { id: "tl3", text: "all systems ready.", delay: 1750 },
   ];
 
-  let targetPct = 0;
-  let displayedPct = 0;
-  let stageIdx = 0;
-  let rafActive = false;
-
-  function applyPct(rounded) {
-    pctEl.textContent = rounded + "%";
-    const offset = CIRCUMFERENCE - (rounded / 100) * CIRCUMFERENCE;
-    ringEl.style.strokeDashoffset = offset;
-    if (barFillEl) barFillEl.style.width = rounded + "%";
-
-    while (stageIdx < STAGES.length - 1 && rounded >= STAGES[stageIdx + 1].at) {
-      stageIdx++;
-      if (labelEl) labelEl.textContent = STAGES[stageIdx].text;
+  function typeInto(id, text, done) {
+    var el = document.getElementById(id);
+    if (!el) {
+      if (done) done();
+      return;
     }
+    var tspan = el.querySelector(".tl-text");
+    if (!tspan) {
+      if (done) done();
+      return;
+    }
+    tspan.textContent = "";
+    var i = 0;
+    function step() {
+      tspan.textContent += text[i++];
+      if (i < text.length) setTimeout(step, 24 + Math.random() * 14);
+      else if (done) setTimeout(done, 180);
+    }
+    step();
   }
 
-  function tick() {
-    displayedPct += (targetPct - displayedPct) * 0.14;
-    if (Math.abs(targetPct - displayedPct) < 0.4) displayedPct = targetPct;
-    applyPct(Math.round(displayedPct));
+  /* ── Exit sequence ── */
+  var exited = false;
 
-    if (displayedPct < targetPct) {
-      requestAnimationFrame(tick);
-    } else {
-      rafActive = false;
-    }
+  function exit() {
+    if (exited) return;
+    exited = true;
+    if (gridRaf) cancelAnimationFrame(gridRaf);
+
+    logo.classList.add("show");
+
+    setTimeout(function () {
+      logo.classList.add("implode");
+      setTimeout(function () {
+        tunnel.classList.add("out");
+        if (site) site.classList.add("show");
+        if (nav) nav.classList.add("ready");
+        setTimeout(function () {
+          tunnel.style.display = "none";
+          document.body.classList.remove("is-loading");
+          if (window._heroInit) window._heroInit();
+        }, 750);
+      }, 380);
+    }, 480);
   }
 
-  function setTarget(val) {
-    targetPct = Math.min(val, 100);
-    if (!rafActive) {
-      rafActive = true;
-      requestAnimationFrame(tick);
-    }
-  }
+  /* Failsafe */
+  var fs = setTimeout(exit, 6500);
 
-  const iv = setInterval(() => {
-    setTarget(targetPct + Math.floor(Math.random() * 10) + 3);
-    if (targetPct >= 100) clearInterval(iv);
-  }, 90);
-
-  window.addEventListener("load", () => {
-    setTarget(100);
-
-    setTimeout(() => {
-      displayedPct = 100;
-      applyPct(100);
-      if (labelEl) labelEl.textContent = "Ready";
-
-      setTimeout(() => {
-        loader.classList.add("hide");
-        document.body.classList.remove("loading");
-        document.getElementById("hero").classList.add("hero-in");
-
-        const nameEms = document.querySelectorAll(".hero-name span em");
-        if (nameEms.length > 0) {
-          const lastEm = nameEms[nameEms.length - 1];
-          lastEm.addEventListener("animationend", startScramble, {
-            once: true,
-          });
-          setTimeout(startScramble, 1100);
-        } else {
-          startScramble();
+  /* Sequence */
+  var done = 0;
+  LINES.forEach(function (l, i) {
+    setTimeout(function () {
+      if (i > 0) {
+        var prev = document.getElementById(LINES[i - 1].id);
+        var c = prev && prev.querySelector(".tl-caret");
+        if (c) c.style.display = "none";
+      }
+      typeInto(l.id, l.text, function () {
+        done++;
+        if (done === LINES.length) {
+          clearTimeout(fs);
+          setTimeout(exit, 480);
         }
-
-        startTerminalType();
-        startSubtitleLoop();
-        setTimeout(() => {
-          if (window.scrollY > 80) navbar.classList.add("visible");
-        }, 600);
-      }, 450);
-    }, 300);
+      });
+    }, l.delay);
   });
 })();
-
-/* FOOTER YEAR */
-const yearEl = document.getElementById("footer-year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();

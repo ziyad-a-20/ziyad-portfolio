@@ -1,709 +1,462 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Ziyad A is a Full Stack Developer specializing in Python, Flask, MySQL, JavaScript and responsive web applications. Explore projects, skills and portfolio work.">
-<meta name="author" content="Ziyad A">
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="Ziyad A | Full Stack Developer · Flask · Python · MySQL">
-<meta property="og:description" content="Building the web, one line at a time.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ziyad-portfolio-nine.vercel.app/">
-<meta property="og:image" content="https://ziyad-portfolio-nine.vercel.app/assets/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="theme-color" content="#060608">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ziyad A | Full Stack Developer">
-<meta name="twitter:description" content="Python, Flask, MySQL and modern web development portfolio">
-<meta name="twitter:image" content="https://ziyad-portfolio-nine.vercel.app/assets/og-image.png">
-<link rel="canonical" href="https://ziyad-portfolio-nine.vercel.app/">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
-<link rel="manifest" href="manifest.json">
-<title>Ziyad A | Full Stack Developer Portfolio | Python, Flask, MySQL, JavaScript</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,100;0,200;0,300;1,200&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
-<!-- LENIS SMOOTH SCROLL — deferred so it no longer blocks HTML parsing -->
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js" defer></script>
-<link rel="stylesheet" href="style.css">
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Person",
-  "name":"Ziyad A",
-  "jobTitle":"Full Stack Developer",
-  "url":"https://ziyad-portfolio-nine.vercel.app/",
-  "sameAs":[
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ziyad A — Full Stack Developer specialising in Flask, Python, MySQL and JavaScript. Building precise, scalable web applications.">
+  <meta name="author" content="Ziyad A">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Ziyad A | Full Stack Developer">
+  <meta property="og:description" content="Flask · Python · MySQL · JavaScript — Built with intent.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ziyad-portfolio-nine.vercel.app/">
+  <meta property="og:image" content="https://ziyad-portfolio-nine.vercel.app/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="theme-color" content="#0a0a08">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ziyad A | Full Stack Developer">
+  <meta name="twitter:description" content="Flask · Python · MySQL · JavaScript">
+  <meta name="twitter:image" content="https://ziyad-portfolio-nine.vercel.app/assets/og-image.png">
+  <link rel="canonical" href="https://ziyad-portfolio-nine.vercel.app/">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <title>Ziyad A — Full Stack Developer | Flask · Python · MySQL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ziyad A",
+    "jobTitle": "Full Stack Developer",
+    "url": "https://ziyad-portfolio-nine.vercel.app/",
+    "email": "ziyad-a-tech@gmail.com",
+    "sameAs": [
       "https://github.com/ziyad-a-20",
       "https://www.linkedin.com/in/ziyad-a-tech/"
-  ],
-  "knowsAbout":[
-      "Python","Flask","MySQL","JavaScript","HTML","CSS","Tailwind CSS","Web Development","Full Stack Development"
-  ]
-}
-</script>
+    ],
+    "knowsAbout": ["Python","Flask","MySQL","JavaScript","HTML","CSS","Tailwind CSS"]
+  }
+  </script>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="loading">
+<body class="is-loading">
 
-<a href="#hero" class="skip-link">Skip to main content</a>
+  <a href="#hero" class="skip-link">Skip to main content</a>
 
-<noscript>
-  <style>
-    #loader, .grain, #cursor, #cursor-ring, #cursor-trail, #cursor-label, #scroll-progress, #back-to-top { display: none !important; }
-    body.loading { overflow: visible !important; }
-    .reveal-item, .skill-card, .timeline-item, .hero-eyebrow, .hero-name span em, .hero-sub, .hero-cta, .scroll-hint, .section-title { opacity: 1 !important; transform: none !important; }
-    html { cursor: auto !important; }
-  </style>
-  <div style="padding:60px 24px;max-width:680px;margin:0 auto;text-align:center;font-family:sans-serif;color:#f5f5f7;">
-    <h1 style="margin-bottom:12px;">Ziyad A — Full Stack Developer</h1>
-    <p style="line-height:1.7;color:#b8b8bd;">This site is best experienced with JavaScript enabled. You can still reach me directly at <a href="mailto:ziyad-a-tech@gmail.com" style="color:#4a90d9;">ziyad-a-tech@gmail.com</a>, view my work on <a href="https://github.com/ziyad-a-20" style="color:#4a90d9;">GitHub</a>, or <a href="assets/resume.pdf" style="color:#4a90d9;">download my resume</a>.</p>
-  </div>
-</noscript>
-
-<div class="grain" aria-hidden="true"></div>
-<div id="scroll-progress" aria-hidden="true"></div>
-
-<button id="back-to-top" aria-label="Back to top">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
-</button>
-
-<div id="loader">
-  <div class="loader-stage" aria-hidden="true">
-    <svg viewBox="0 0 100 100" class="loader-ring">
-      <defs>
-        <linearGradient id="loaderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#4a90d9"/>
-          <stop offset="100%" stop-color="#c9a876"/>
-        </linearGradient>
-      </defs>
-      <circle class="loader-ring-track" cx="50" cy="50" r="44"/>
-      <circle class="loader-ring-progress" id="loader-ring-progress" cx="50" cy="50" r="44"/>
-    </svg>
-    <span class="loader-mark">ZA</span>
-  </div>
-  <div class="loader-name" aria-hidden="true">
-    <span>Z</span><span>i</span><span>y</span><span>a</span><span>d</span><span>&nbsp;A</span>
-  </div>
-  <div class="loader-status">
-    <span class="loader-pct" id="loader-pct">0%</span>
-    <span class="loader-divider" aria-hidden="true">·</span>
-    <span class="loader-label">Loading experience</span>
-  </div>
-  <div class="loader-bar-track" aria-hidden="true">
-    <div class="loader-bar-fill" id="loader-bar-fill"></div>
-  </div>
-</div>
-
-<!-- LOADER FAILSAFE — force-hides the loader after 8s even if window 'load'
-     never fires (slow asset, blocked request, flaky connection), so visitors
-     are never stuck staring at a stalled loading screen -->
-<script>
-(function () {
-  var FAILSAFE_MS = 8000;
-  var failsafeTimer = setTimeout(function () {
-    var loader = document.getElementById("loader");
-    if (loader && !loader.classList.contains("hide")) {
-      loader.classList.add("hide");
-      document.body.classList.remove("loading");
-      var hero = document.getElementById("hero");
-      if (hero) hero.classList.add("hero-in");
-    }
-  }, FAILSAFE_MS);
-
-  window.addEventListener("load", function () {
-    setTimeout(function () {
-      clearTimeout(failsafeTimer);
-    }, 1500);
-  });
-})();
-</script>
-
-<div id="cursor" aria-hidden="true"></div>
-<div id="cursor-ring" aria-hidden="true"></div>
-<div id="cursor-trail" aria-hidden="true"></div>
-<div id="cursor-label" aria-hidden="true">View →</div>
-
-<!-- KEYBOARD SHORTCUTS MODAL -->
-<div id="shortcuts-modal" class="shortcuts-modal" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" aria-hidden="true">
-  <div class="shortcuts-inner">
-    <div class="shortcuts-header">
-      <span class="shortcuts-title">Keyboard Shortcuts</span>
-      <button class="shortcuts-close" id="shortcuts-close" aria-label="Close shortcuts">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+  <noscript>
+    <style>
+      body.is-loading { overflow: visible !important; }
+      #tunnel { display: none !important; }
+      #site { opacity: 1 !important; }
+    </style>
+    <div style="padding:60px 24px;max-width:600px;margin:0 auto;text-align:center;font-family:sans-serif;color:#f2f0e8;background:#0a0a08;min-height:100vh;">
+      <h1 style="font-size:32px;margin-bottom:16px;">Ziyad A — Full Stack Developer</h1>
+      <p style="color:rgba(242,240,232,0.5);">JavaScript required. Email: <a href="mailto:ziyad-a-tech@gmail.com" style="color:#c8ff00;">ziyad-a-tech@gmail.com</a></p>
     </div>
-    <ul class="shortcuts-list">
-      <li><kbd>1</kbd><span>About</span></li>
-      <li><kbd>2</kbd><span>Skills</span></li>
-      <li><kbd>3</kbd><span>Journey</span></li>
-      <li><kbd>4</kbd><span>Work</span></li>
-      <li><kbd>5</kbd><span>Contact</span></li>
-      <li><kbd>/</kbd><span>Focus navigation</span></li>
-      <li><kbd>?</kbd><span>Show this panel</span></li>
-      <li><kbd>Esc</kbd><span>Close panels / Back to top</span></li>
-    </ul>
-  </div>
-</div>
+  </noscript>
 
-<!-- RESUME PREVIEW MODAL -->
-<div id="resume-modal" class="resume-modal" role="dialog" aria-modal="true" aria-label="Resume preview" aria-hidden="true">
-  <div class="resume-modal-inner">
-    <div class="resume-modal-header">
-      <span class="resume-modal-title">Resume</span>
-      <div class="resume-modal-actions">
-        <a href="assets/resume.pdf" class="resume-download-btn" download="Ziyad-A-Resume.pdf" aria-label="Download resume">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download
-        </a>
-        <button class="resume-close" id="resume-close" aria-label="Close resume preview">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  <!-- Custom cursor -->
+  <div id="cur-dot" aria-hidden="true"></div>
+  <div id="cur-ring" aria-hidden="true"></div>
+
+  <!-- Scroll progress top bar -->
+  <div id="scroll-bar" aria-hidden="true"><div id="scroll-fill"></div></div>
+
+  <!-- ══════════════════════════
+       RESUME MODAL
+  ══════════════════════════ -->
+  <div id="resume-modal" class="r-modal" role="dialog" aria-modal="true" aria-label="Resume preview" aria-hidden="true">
+    <div class="r-modal-inner">
+      <div class="r-modal-header">
+        <span class="r-modal-title">Resume</span>
+        <div class="r-modal-actions">
+          <a href="assets/resume.pdf" class="r-dl-btn" download="Ziyad-A-Resume.pdf" aria-label="Download resume">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M7 2v7M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Download
+          </a>
+          <button class="r-close-btn" id="resume-close" aria-label="Close resume preview">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="r-modal-body" id="resume-body"></div>
+    </div>
+  </div>
+
+  <!-- LOADER -->
+  <div id="tunnel" role="status" aria-label="Loading portfolio" aria-live="polite">
+    <canvas id="tunnel-grid" aria-hidden="true"></canvas>
+    <div class="tun-center">
+      <div class="tun-lines" aria-hidden="true">
+        <div class="tun-line" id="tl0"><span class="tl-prompt">❯ </span><span class="tl-text"></span></div>
+        <div class="tun-line" id="tl1"><span class="tl-prompt">❯ </span><span class="tl-text"></span></div>
+        <div class="tun-line" id="tl2"><span class="tl-prompt">❯ </span><span class="tl-text"></span></div>
+        <div class="tun-line" id="tl3"><span class="tl-prompt">❯ </span><span class="tl-text"></span><span class="tl-caret">▋</span></div>
+      </div>
+      <div class="tun-logo" id="tun-logo" aria-hidden="true">ZA</div>
+    </div>
+  </div>
+
+  <!-- SITE -->
+  <div id="site">
+
+    <!-- NAV -->
+    <header id="nav-wrap">
+      <nav id="main-nav" aria-label="Main navigation">
+        <a href="#hero" class="nav-logo" aria-label="Ziyad A home">ZA</a>
+        <ul class="nav-list" role="list">
+          <li><a href="#work"   class="nav-a" data-target="work">Work</a></li>
+          <li><a href="#craft"  class="nav-a" data-target="craft">Craft</a></li>
+          <li><a href="#story"  class="nav-a" data-target="story">Story</a></li>
+          <li><a href="#signal" class="nav-a" data-target="signal">Signal</a></li>
+        </ul>
+        <!-- Resume button — opens modal -->
+        <button class="nav-resume" id="nav-resume-btn" aria-label="Preview resume">Resume ↗</button>
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mob-menu">
+          <span></span><span></span>
         </button>
-      </div>
-    </div>
-    <div class="resume-modal-body" id="resume-modal-body">
-    </div>
-  </div>
-</div>
+      </nav>
+    </header>
 
-<nav id="navbar">
-  <a href="#hero" class="nav-logo">ZA</a>
-  <ul class="nav-links" id="nav-links" role="list">
-    <li><a href="#about" data-section="about">About</a></li>
-    <li><a href="#skills" data-section="skills">Skills</a></li>
-    <li><a href="#experience" data-section="experience">Journey</a></li>
-    <li><a href="#projects" data-section="projects">Work</a></li>
-    <li><a href="#contact" data-section="contact">Contact</a></li>
-    <li>
-      <button class="nav-resume" id="nav-resume-btn" aria-label="Preview or download resume">Resume ↗</button>
-    </li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-  <ul class="mobile-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Journey</a></li>
-    <li><a href="#projects">Work</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><button class="mobile-resume-btn" id="mobile-resume-btn">Resume ↗</button></li>
-    <li><a href="#contact" class="hire-me-btn">Hire Me</a></li>
-  </ul>
-</div>
-
-<!-- HERO -->
-<section id="hero" tabindex="-1">
-  <div class="hero-code-bg" aria-hidden="true">
-    <canvas id="hero-canvas"></canvas>
-  </div>
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Full-Stack Dev &nbsp;·&nbsp; Flask &amp; Python</p>
-    <h1 class="hero-name">
-      <span><em data-scramble="Ziyad">Ziyad</em></span>
-      <span class="dim"><em data-scramble="A.">A.</em></span>
-    </h1>
-    <p class="hero-sub" id="hero-sub">Building the web, one line at a time</p>
-    <div class="hero-cta">
-      <a href="#projects" class="btn-outline">View My Work</a>
-      <button class="btn-fill" id="hero-resume-btn" aria-label="Preview resume">Preview Resume</button>
-    </div>
-  </div>
-  <div class="scroll-hint" aria-hidden="true">
-    <span class="scroll-text">Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<div class="divider" aria-hidden="true"></div>
-
-<!-- ABOUT -->
-<section id="about" class="section-wrap">
-  <div class="about-grid">
-    <div>
-      <p class="section-label reveal-item">About</p>
-      <h2 class="section-title reveal-item" style="font-size:clamp(26px,4vw,50px)">
-        Code with<br>purpose. Design<br>with intent.
-      </h2>
-      <div class="about-text reveal-item">
-        <p>I'm Ziyad, a Full Stack Developer specializing in Python, Flask, MySQL and modern JavaScript applications. I build scalable web applications with responsive front-end interfaces and robust backend systems.</p>
-        <p>From normalised database schemas to animated UIs, I obsess over every layer of the stack — because great software isn't just functional, it's <em>felt</em>.</p>
-        <p>I work well async, document as I go, and iterate quickly on feedback — comfortable collaborating with designers, other devs, or directly with clients.</p>
-        <p>Currently levelling up and actively seeking opportunities to grow and ship real-world products.</p>
-      </div>
-      <span class="about-badge reveal-item">
-        <span class="about-badge-dot" aria-hidden="true"></span>
-        Available for opportunities
-      </span>
+    <!-- MOBILE MENU -->
+    <div id="mob-menu" aria-hidden="true">
+      <nav aria-label="Mobile navigation">
+        <ul role="list">
+          <li><a href="#work"   class="mob-a">Work</a></li>
+          <li><a href="#craft"  class="mob-a">Craft</a></li>
+          <li><a href="#story"  class="mob-a">Story</a></li>
+          <li><a href="#signal" class="mob-a">Signal</a></li>
+          <li><button class="mob-a mob-resume-btn" id="mob-resume-btn">Resume ↗</button></li>
+        </ul>
+      </nav>
     </div>
 
-    <div class="terminal reveal-item" role="region" aria-label="Developer terminal">
-      <div class="terminal-bar" aria-hidden="true">
-        <div class="t-dot t-red"></div>
-        <div class="t-dot t-yellow"></div>
-        <div class="t-dot t-green"></div>
-        <span class="terminal-title">ziyad@dev ~ zsh</span>
+    <!-- ═══════════════════════════
+         HERO
+    ═══════════════════════════ -->
+    <section id="hero" tabindex="-1">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <div class="hero-top">
+          <span class="hero-tag">Full-Stack Developer</span>
+          <span class="hero-avail">
+            <span class="avail-dot" aria-hidden="true"></span>
+            Available
+          </span>
+        </div>
+        <h1 class="hero-name" id="hero-name" aria-label="Ziyad A">
+          <span class="hn-line">
+            <span class="hn-mask"><em>Ziyad</em></span>
+          </span>
+          <span class="hn-line hn-dim">
+            <span class="hn-mask"><em>A.</em></span>
+          </span>
+        </h1>
+        <p class="hero-sub">
+          <span>Flask</span><span class="sep" aria-hidden="true">·</span>
+          <span>Python</span><span class="sep" aria-hidden="true">·</span>
+          <span>MySQL</span><span class="sep" aria-hidden="true">·</span>
+          <span>JavaScript</span>
+        </p>
+        <div class="hero-actions">
+          <a href="#work" class="btn-acid">View Work</a>
+          <a href="#signal" class="btn-ghost">Let's Talk</a>
+        </div>
       </div>
-      <div class="terminal-body" id="terminal-body" aria-live="polite" aria-label="Terminal output"></div>
-    </div>
-  </div>
-</section>
+      <!-- Scroll hint — centered bottom -->
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
 
-<div class="divider" aria-hidden="true"></div>
+    <!-- ═══════════════════════════
+         WORK
+    ═══════════════════════════ -->
+    <section id="work">
+      <div class="section-intro">
+        <span class="eyebrow">Selected Work</span>
+        <h2 class="sec-h2">Four builds.<br><em>Real problems.</em></h2>
+      </div>
 
-<!-- SKILLS -->
-<section id="skills" class="section-wrap">
-  <p class="section-label reveal-item">Skills</p>
-  <h2 class="section-title reveal-item">The toolkit,<br>sharpened.</h2>
+      <div class="projects-grid">
 
-  <p class="skills-group-label skills-group-label--first reveal-item">Backend</p>
-  <div class="skills-grid">
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <img src="assets/icons/python.png" alt="" width="24" height="24" loading="lazy">
-      </div>
-      <div class="skill-name">Python</div>
-    </div>
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <img src="assets/icons/flask.png" alt="" width="24" height="24" class="icon-invert" loading="lazy">
-      </div>
-      <div class="skill-name">Flask</div>
-    </div>
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <svg class="mysql-svg" viewBox="-18.458 -22.75 191.151 191.151" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M-18.458 6.58h191.151v132.49H-18.458V6.58z" fill="none"/>
-          <path d="M40.054 113.583h-5.175c-.183-8.735-.687-16.947-1.511-24.642h-.046l-7.879 24.642h-3.94l-7.832-24.642h-.045c-.581 7.388-.947 15.602-1.099 24.642H7.81c.304-10.993 1.068-21.299 2.289-30.919h6.414l7.465 22.719h.046l7.511-22.719h6.137c1.344 11.268 2.138 21.575 2.382 30.919M62.497 90.771c-2.107 11.434-4.887 19.742-8.337 24.928-2.688 3.992-5.633 5.99-8.84 5.99-.855 0-1.91-.258-3.16-.77v-2.757c.611.088 1.328.138 2.152.138 1.498 0 2.702-.412 3.62-1.238 1.098-1.006 1.647-2.137 1.647-3.388 0-.858-.428-2.612-1.282-5.268L42.618 90.77h5.084l4.076 13.19c.916 2.995 1.298 5.086 1.145 6.277 2.229-5.953 3.786-12.444 4.673-19.468h4.901v.002z" fill="#5d87a1"/>
-          <path d="M131.382 113.583h-14.7V82.664h4.945v27.113h9.755v3.806zM112.834 114.33l-5.684-2.805c.504-.414.986-.862 1.42-1.381 2.416-2.838 3.621-7.035 3.621-12.594 0-10.229-4.014-15.346-12.045-15.346-3.938 0-7.01 1.298-9.207 3.895-2.414 2.84-3.619 7.022-3.619 12.551 0 5.435 1.068 9.422 3.205 11.951 1.955 2.291 4.902 3.438 8.843 3.438 1.47 0 2.819-.18 4.048-.543l7.4 4.308 2.018-3.474zm-18.413-6.934c-1.252-2.014-1.878-5.248-1.878-9.707 0-7.785 2.365-11.682 7.1-11.682 2.475 0 4.289.932 5.449 2.792 1.25 2.017 1.879 5.222 1.879 9.619 0 7.849-2.367 11.774-7.099 11.774-2.476.001-4.29-.928-5.451-2.796M85.165 105.013c0 2.622-.962 4.773-2.884 6.458-1.924 1.678-4.504 2.519-7.737 2.519-3.024 0-5.956-.966-8.794-2.888l1.329-2.655c2.442 1.223 4.653 1.831 6.638 1.831 1.863 0 3.319-.413 4.375-1.232 1.055-.822 1.684-1.975 1.684-3.433 0-1.837-1.281-3.407-3.631-4.722-2.167-1.19-6.501-3.678-6.501-3.678-2.349-1.712-3.525-3.55-3.525-6.578 0-2.506.877-4.529 2.632-6.068 1.757-1.545 4.024-2.315 6.803-2.315 2.87 0 5.479.769 7.829 2.291l-1.192 2.656c-2.01-.854-3.994-1.281-5.951-1.281-1.585 0-2.809.381-3.66 1.146-.858.762-1.387 1.737-1.387 2.933 0 1.828 1.308 3.418 3.722 4.759 2.196 1.192 6.638 3.723 6.638 3.723 2.409 1.709 3.612 3.53 3.612 6.534" fill="#f8981d"/>
-          <path d="M137.59 72.308c-2.99-.076-5.305.225-7.248 1.047-.561.224-1.453.224-1.531.933.303.3.338.784.601 1.198.448.747 1.229 1.752 1.942 2.276.783.6 1.569 1.194 2.393 1.717 1.453.899 3.1 1.422 4.516 2.318.825.521 1.645 1.195 2.471 1.756.406.299.666.784 1.193.971v-.114c-.264-.336-.339-.822-.598-1.196l-1.122-1.082c-1.084-1.456-2.431-2.727-3.884-3.771-1.196-.824-3.812-1.944-4.297-3.322l-.076-.076c.822-.077 1.797-.375 2.578-.604 1.271-.335 2.43-.259 3.734-.594.6-.15 1.195-.338 1.797-.523v-.337c-.676-.673-1.158-1.567-1.869-2.203-1.902-1.643-3.998-3.25-6.164-4.595-1.16-.749-2.652-1.231-3.887-1.868-.445-.225-1.195-.336-1.457-.71-.67-.822-1.047-1.904-1.533-2.877-1.08-2.053-2.129-4.331-3.061-6.502-.674-1.456-1.084-2.91-1.906-4.257-3.85-6.35-8.031-10.196-14.457-13.971-1.381-.786-3.024-1.121-4.779-1.533l-2.803-.148c-.598-.262-1.197-.973-1.719-1.309-2.132-1.344-7.621-4.257-9.189-.411-1.01 2.431 1.494 4.821 2.354 6.054.635.856 1.458 1.83 1.902 2.802.263.635.337 1.309.6 1.98.598 1.644 1.157 3.473 1.943 5.007.41.782.857 1.604 1.381 2.312.3.414.822.597.936 1.272-.521.744-.562 1.867-.861 2.801-1.344 4.221-.819 9.45 1.086 12.552.596.934 2.018 2.99 3.92 2.202 1.684-.672 1.311-2.801 1.795-4.668.111-.451.038-.747.262-1.043v.073c.521 1.045 1.047 2.052 1.53 3.1 1.159 1.829 3.177 3.735 4.858 5.002.895.676 1.604 1.832 2.725 2.245V74.1h-.074c-.227-.335-.559-.485-.857-.745-.674-.673-1.42-1.495-1.943-2.241-1.566-2.093-2.952-4.41-4.182-6.801-.602-1.16-1.121-2.428-1.606-3.586-.226-.447-.226-1.121-.601-1.346-.562.821-1.381 1.532-1.791 2.538-.711 1.609-.785 3.588-1.049 5.646l-.147.072c-1.19-.299-1.604-1.53-2.056-2.575-1.119-2.654-1.307-6.914-.336-9.976.26-.783 1.385-3.249.936-3.995-.225-.715-.973-1.122-1.383-1.685-.482-.708-1.01-1.604-1.346-2.39-.896-2.091-1.347-4.408-2.312-6.498-.451-.974-1.234-1.982-1.868-2.879-.712-1.008-1.495-1.718-2.058-2.913-.186-.411-.447-1.083-.148-1.53.073-.3.225-.412.523-.487.484-.409 1.867.11 2.352.336 1.385.56 2.543 1.083 3.699 1.867.523.375 1.084 1.085 1.755 1.272h.786c1.193.26 2.538.072 3.661.41 1.979.636 3.772 1.569 5.38 2.576 4.893 3.103 8.928 7.512 11.652 12.778.447.858.637 1.644 1.045 2.539.787 1.832 1.76 3.7 2.541 5.493.785 1.755 1.533 3.547 2.654 5.005.559.784 2.805 1.195 3.812 1.606.745.335 1.905.633 2.577 1.044 1.271.783 2.537 1.682 3.732 2.543.595.448 2.465 1.382 2.576 2.13M99.484 39.844a5.82 5.82 0 0 0-1.529.188v.075h.072c.301.597.824 1.011 1.197 1.532.301.599.562 1.193.857 1.791l.072-.074c.527-.373.789-.971.789-1.868-.227-.264-.262-.522-.451-.784-.22-.374-.705-.56-1.007-.86" fill="#5d87a1"/>
-          <path d="M141.148 113.578h.774v-3.788h-1.161l-.947 2.585-1.029-2.585h-1.118v3.788h.731v-2.882h.041l1.078 2.882h.557l1.074-2.882v2.882zm-6.235 0h.819v-3.146h1.072v-.643h-3.008v.643h1.115l.002 3.146z" fill="#f8981d"/>
-        </svg>
-      </div>
-      <div class="skill-name">MySQL</div>
-    </div>
-  </div>
-
-  <p class="skills-group-label reveal-item">Frontend</p>
-  <div class="skills-grid">
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <img src="assets/icons/html.png" alt="" width="24" height="24" loading="lazy">
-      </div>
-      <div class="skill-name">HTML5</div>
-    </div>
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <img src="assets/icons/css.png" alt="" width="24" height="24" loading="lazy">
-      </div>
-      <div class="skill-name">CSS3</div>
-    </div>
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <img src="assets/icons/js.png" alt="" width="24" height="24" loading="lazy">
-      </div>
-      <div class="skill-name">JavaScript</div>
-    </div>
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <img src="assets/icons/tailwind.png" alt="" width="24" height="24" loading="lazy">
-      </div>
-      <div class="skill-name">Tailwind CSS</div>
-    </div>
-  </div>
-
-  <p class="skills-group-label reveal-item">Tools &amp; Deployment</p>
-  <div class="skills-grid">
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <img src="assets/icons/git.png" alt="" width="24" height="24" class="icon-invert" loading="lazy">
-      </div>
-      <div class="skill-name">Git</div>
-    </div>
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <img src="assets/icons/github.png" alt="" width="24" height="24" class="icon-invert" loading="lazy">
-      </div>
-      <div class="skill-name">GitHub</div>
-    </div>
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <img src="assets/icons/vercel.png" alt="" width="24" height="24" class="icon-invert" loading="lazy">
-      </div>
-      <div class="skill-name">Vercel</div>
-    </div>
-    <div class="skill-card reveal-item">
-      <div class="skill-icon-wrap" aria-hidden="true">
-        <img src="assets/icons/netlify.png" alt="" width="24" height="24" loading="lazy">
-      </div>
-      <div class="skill-name">Netlify</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider" aria-hidden="true"></div>
-
-<!-- EXPERIENCE -->
-<section id="experience" class="section-wrap">
-  <p class="section-label reveal-item">Journey</p>
-  <h2 class="section-title reveal-item">The road<br>so far.</h2>
-  <div class="timeline">
-    <div class="timeline-item reveal-item stagger-1">
-      <div class="tl-dot" aria-hidden="true"></div>
-      <div class="tl-date">2023 – 2026</div>
-      <div class="tl-card">
-        <h3 class="tl-title">B.Com (Computer Applications)</h3>
-        <p class="tl-desc">Completed my B.Com in Computer Applications at The American College, Madurai, with a CGPA of 6.8 — building the academic foundation alongside the hands-on coding I was doing in parallel.</p>
-        <div class="tl-tags"><span class="tag">Education</span><span class="tag">Computer Applications</span></div>
-      </div>
-    </div>
-    <div class="timeline-item reveal-item stagger-2">
-      <div class="tl-dot" aria-hidden="true"></div>
-      <div class="tl-date">2023</div>
-      <div class="tl-card">
-        <h3 class="tl-title">Started Web Development</h3>
-        <p class="tl-desc">Wrote my first lines of HTML &amp; CSS. Fell in love with building things that live in a browser.</p>
-        <div class="tl-tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
-      </div>
-    </div>
-    <div class="timeline-item reveal-item stagger-3">
-      <div class="tl-dot" aria-hidden="true"></div>
-      <div class="tl-date">Early 2024</div>
-      <div class="tl-card">
-        <h3 class="tl-title">Went Full Stack</h3>
-        <p class="tl-desc">Picked up Python &amp; Flask, dived into MySQL databases, and built my first full-stack applications with real authentication and role-based access.</p>
-        <div class="tl-tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">MySQL</span><span class="tag">JavaScript</span></div>
-      </div>
-    </div>
-    <div class="timeline-item reveal-item stagger-4">
-      <div class="tl-dot" aria-hidden="true"></div>
-      <div class="tl-date">Late 2024</div>
-      <div class="tl-card">
-        <h3 class="tl-title">Library Management System</h3>
-        <p class="tl-desc">Built a production-grade system with Flask &amp; MySQL — my most technically complex project to date.</p>
-        <div class="tl-tags"><span class="tag">Flask</span><span class="tag">MySQL</span></div>
-      </div>
-    </div>
-    <div class="timeline-item reveal-item stagger-5">
-      <div class="tl-dot active" aria-hidden="true"></div>
-      <div class="tl-date">2025 →</div>
-      <div class="tl-card active">
-        <h3 class="tl-title">Shipping SafeRoute &amp; Growing</h3>
-        <p class="tl-desc">Currently building SafeRoute — a full-stack women's safety platform — while deepening my understanding of system design, background scheduling, and API architecture. Actively looking for a first role where I can contribute and keep learning fast.</p>
-        <div class="tl-tags"><span class="tag">In Progress</span><span class="tag">Open to Work</span><span class="tag">Jr. Developer</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider" aria-hidden="true"></div>
-
-<!-- PROJECTS -->
-<section id="projects" class="section-wrap">
-  <p class="section-label reveal-item">Selected Work</p>
-  <h2 class="section-title reveal-item">Four builds.<br>Real problems solved.</h2>
-
-  <button class="tldr-toggle" id="tldr-toggle" aria-pressed="false">
-  <svg class="tldr-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M13 2L4.5 13.5h5.5L9 22l9.5-12.5H13L13 2z"/>
-  </svg>
-  <span class="tldr-text">TL;DR Mode</span>
-</button>
-
-  <div class="bento">
-
-    <div class="project-card large reveal-item">
-      <div class="p-glow" aria-hidden="true"></div>
-      <div class="p-mockup">
-        <div class="mockup-bar" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="mockup-screen mockup-01">
-          <div class="mockup-line w80"></div>
-          <div class="mockup-line w60"></div>
-          <div class="mockup-grid">
-            <div class="mockup-block"></div>
-            <div class="mockup-block"></div>
-            <div class="mockup-block"></div>
+        <article class="proj-card proj-large" data-idx="0">
+          <div class="proj-bg proj-bg--lib" aria-hidden="true">
+            <!-- Subtle dot grid pattern — no canvas flowchart -->
+            <div class="lib-pattern" aria-hidden="true"></div>
           </div>
-          <div class="mockup-line w40"></div>
-        </div>
-      </div>
-      <div class="p-header">
-        <span class="p-num">01 — Backend Heavy</span>
-        <div class="p-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <ellipse cx="12" cy="5" rx="8" ry="3"/>
-            <path d="M4 5v5c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/>
-            <path d="M4 10v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5"/>
-            <path d="M4 15v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4"/>
-          </svg>
-        </div>
-      </div>
-      <h3 class="p-title">Library Management System</h3>
-      <p class="p-desc">A full-stack web app with role-based access control for two user types — member and librarian — eliminating manual record-keeping entirely. A normalised 5-table schema keeps queries fast and data consistent, while a real-time borrow/return engine with live book search lets librarians manage the full catalogue without page reloads.</p>
-      <div class="p-tags">
-        <span class="tag">Flask</span><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
-      </div>
-      <div class="p-links">
-        <a href="https://web-production-1e11b.up.railway.app/login" class="p-link" target="_blank" rel="noopener" aria-label="View Library Management System live site">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:13px;height:13px">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
-          </svg>
-          Live Site ↗
-        </a>
-      </div>
-    </div>
-
-    <div class="project-card reveal-item">
-      <div class="p-glow" aria-hidden="true"></div>
-      <div class="p-mockup mockup-product">
-        <div class="mockup-bar" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="mockup-screen mockup-02">
-          <div class="mockup-hero-block"></div>
-          <div class="mockup-line w70"></div>
-          <div class="mockup-line w50"></div>
-        </div>
-      </div>
-      <div class="p-header">
-        <span class="p-num">02 — Frontend</span>
-        <div class="p-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2"/>
-            <path d="M8 21h8m-4-4v4"/>
-          </svg>
-        </div>
-      </div>
-      <h3 class="p-title">Himalaya Lip Balm<br>Showcase</h3>
-      <p class="p-desc">A product page engineered to convert — scroll-triggered animations guide the user's eye to the CTA, an interactive cart drawer reduces friction at purchase, and pixel-perfect responsiveness ensures zero layout breakage across all viewports.</p>
-      <div class="p-tags">
-        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
-      </div>
-      <div class="p-links">
-        <a href="https://himalaya-lipbalm-showcase.vercel.app" class="p-link" target="_blank" rel="noopener" aria-label="View Himalaya Lip Balm Showcase live site">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:13px;height:13px">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
-          </svg>
-          Live Site ↗
-        </a>
-      </div>
-    </div>
-
-    <div class="project-card reveal-item">
-      <div class="p-glow" aria-hidden="true"></div>
-      <div class="p-mockup mockup-dark-theme">
-        <div class="mockup-bar" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="mockup-screen mockup-03">
-          <div class="mockup-cards-row">
-            <div class="mockup-card-sm"></div>
-            <div class="mockup-card-sm"></div>
-            <div class="mockup-card-sm"></div>
+          <div class="proj-body">
+            <header class="proj-head">
+              <span class="proj-num">01</span>
+              <span class="proj-type">Backend Heavy</span>
+            </header>
+            <h3 class="proj-title">Library Management<br>System</h3>
+            <p class="proj-desc">Full-stack app with role-based access for members and librarians. Normalised 5-table schema. Real-time borrow/return engine with live search. Zero manual record-keeping.</p>
+            <div class="proj-stack">
+              <span>Flask</span><span>Python</span><span>MySQL</span><span>JavaScript</span>
+            </div>
+            <a href="https://web-production-1e11b.up.railway.app/login" class="proj-link" target="_blank" rel="noopener">Live Site ↗</a>
           </div>
-          <div class="mockup-line w60"></div>
-          <div class="mockup-line w80"></div>
-        </div>
-      </div>
-      <div class="p-header">
-        <span class="p-num">03 — Full Stack</span>
-        <div class="p-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-          </svg>
-        </div>
-      </div>
-      <h3 class="p-title">Tokyo Revengers<br>Fan Portal</h3>
-      <p class="p-desc">A dark, cinematic fan portal that handles dynamic content at scale — gang-based character filtering cuts browse time, fan submissions feed directly into a moderated MySQL table, and interactive modals surface episode detail without leaving the page.</p>
-      <div class="p-tags">
-        <span class="tag">Flask</span><span class="tag">MySQL</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
-      </div>
-      <div class="p-links">
-        <a href="https://github.com/ziyad-a-20/Tokyo-Revengers-Gang-Character-Hub" class="p-link" target="_blank" rel="noopener" aria-label="View Tokyo Revengers Fan Portal on GitHub">
-          <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:var(--blue);stroke:none;width:14px;height:14px"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-          GitHub ↗
-        </a>
-      </div>
-    </div>
+        </article>
 
-    <div class="project-card large reveal-item project-wip">
-      <div class="p-glow" aria-hidden="true"></div>
-      <div class="p-mockup mockup-saferoute">
-        <div class="mockup-bar" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="mockup-screen mockup-04">
-          <div class="mockup-map-block">
-            <div class="mockup-map-pin"></div>
-            <div class="mockup-map-ring"></div>
+        <article class="proj-card" data-idx="1">
+          <div class="proj-bg proj-bg--him" aria-hidden="true">
+            <div class="orb-him" aria-hidden="true"></div>
           </div>
-          <div class="mockup-sr-row">
-            <div class="mockup-sr-stat"></div>
-            <div class="mockup-sr-stat"></div>
-            <div class="mockup-sr-stat"></div>
+          <div class="proj-body">
+            <header class="proj-head">
+              <span class="proj-num">02</span>
+              <span class="proj-type">Frontend</span>
+            </header>
+            <h3 class="proj-title">Himalaya Lip Balm<br>Showcase</h3>
+            <p class="proj-desc">Conversion-engineered product page. Scroll animations guide to CTA. Interactive cart drawer. Pixel-perfect across all viewports.</p>
+            <div class="proj-stack">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+            <a href="https://himalaya-lipbalm-showcase.vercel.app" class="proj-link" target="_blank" rel="noopener">Live Site ↗</a>
           </div>
-          <div class="mockup-line w70"></div>
+        </article>
+
+        <article class="proj-card" data-idx="2">
+          <div class="proj-bg proj-bg--tok" aria-hidden="true">
+            <canvas class="proj-canvas" id="pc-tok"></canvas>
+          </div>
+          <div class="proj-body">
+            <header class="proj-head">
+              <span class="proj-num">03</span>
+              <span class="proj-type">Full Stack</span>
+            </header>
+            <h3 class="proj-title">Tokyo Revengers<br>Fan Portal</h3>
+            <p class="proj-desc">Dark cinematic portal at scale. Gang-based filtering, fan submissions to moderated MySQL table, inline episode modals without page reload.</p>
+            <div class="proj-stack">
+              <span>Flask</span><span>MySQL</span><span>HTML</span><span>CSS</span><span>JS</span>
+            </div>
+            <a href="https://github.com/ziyad-a-20/Tokyo-Revengers-Gang-Character-Hub" class="proj-link" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </article>
+
+        <article class="proj-card proj-large proj-wip" data-idx="3">
+          <div class="proj-bg proj-bg--sr" aria-hidden="true">
+            <div class="sr-rings" aria-hidden="true">
+              <div class="sr-r"></div><div class="sr-r"></div>
+              <div class="sr-r"></div><div class="sr-r"></div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <header class="proj-head">
+              <span class="proj-num">04</span>
+              <span class="wip-badge"><span class="wip-dot" aria-hidden="true"></span>Building now</span>
+            </header>
+            <h3 class="proj-title">SafeRoute — Women's<br>Safety Platform</h3>
+            <p class="proj-desc">Auto-alerts trusted contacts on missed check-ins. APScheduler fires Twilio SMS. Live GPS feeds a community safety map. Admin dashboard surfaces incident patterns. Flask + MySQL + glassmorphism UI.</p>
+            <div class="proj-stack">
+              <span>Flask</span><span>Python</span><span>MySQL</span><span>Tailwind</span><span>JS</span>
+            </div>
+            <span class="proj-link-muted">GitHub — coming soon</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════
+         CRAFT
+    ═══════════════════════════ -->
+    <section id="craft">
+      <div class="section-intro">
+        <span class="eyebrow">Craft</span>
+        <h2 class="sec-h2">The stack,<br><em>mapped.</em></h2>
+        <p class="sec-sub">Hover a node to see relationships and usage.</p>
+      </div>
+      <div class="constellation-wrap">
+        <canvas id="craft-canvas" aria-label="Interactive skill constellation"></canvas>
+        <ul class="craft-list-sr" aria-label="Skills">
+          <li>Python</li><li>Flask</li><li>MySQL</li>
+          <li>HTML5</li><li>CSS3</li><li>JavaScript</li>
+          <li>Tailwind CSS</li><li>Git</li><li>GitHub</li>
+          <li>Vercel</li><li>Netlify</li>
+        </ul>
+      </div>
+      <div id="skill-tip" class="skill-tip" role="tooltip" aria-hidden="true">
+        <strong class="st-name"></strong>
+        <span class="st-desc"></span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════
+         STORY
+    ═══════════════════════════ -->
+    <section id="story">
+      <div class="story-left">
+        <span class="eyebrow">Story</span>
+        <h2 class="sec-h2">The road<br><em>so far.</em></h2>
+        <div class="about-copy">
+          <p>I'm Ziyad — a Full Stack Developer based in Madurai. I started writing HTML &amp; CSS in 2023 and immediately fell into the rabbit hole of building things for the web.</p>
+          <p>By early 2024 I'd gone full-stack — Flask backends, MySQL schemas, authentication systems. I obsess over every layer of the stack, from normalised database design to animated UIs.</p>
+          <p>Currently building SafeRoute and actively seeking my first role where I can ship real-world products and grow fast.</p>
         </div>
-      </div>
-      <div class="p-header">
-        <span class="p-num">04 — Currently Building</span>
-        <div class="wip-badge" aria-label="Work in progress">
-          <span class="wip-dot" aria-hidden="true"></span>
-          In Progress
-        </div>
-      </div>
-      <h3 class="p-title">SafeRoute — Women's Safety<br>Check-in &amp; Alert System</h3>
-      <p class="p-desc">A full-stack safety platform that auto-alerts trusted contacts when a user fails to check in after a journey — turning a gap in personal safety tools into a working product. Background scheduling via APScheduler fires SMS alerts through Twilio so no check-in is silently missed. Live GPS tracking feeds a community safety map, giving users crowd-sourced route intelligence, while an admin analytics dashboard surfaces incident patterns across the platform. Built on Flask &amp; MySQL under a glassmorphism UI.</p>
-      <div class="p-tags">
-        <span class="tag">Flask</span><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">Tailwind CSS</span><span class="tag">JavaScript</span>
-      </div>
-      <div class="p-links">
-        <span class="p-link p-link--muted" aria-label="GitHub link coming soon">
-          <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none;width:14px;height:14px"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-          GitHub — coming soon
+        <span class="avail-badge">
+          <span class="avail-dot" aria-hidden="true"></span>
+          Open to opportunities
         </span>
       </div>
-    </div>
 
-  </div>
-  <div class="bento-hint" aria-hidden="true">
-    <span class="active"></span><span></span><span></span><span></span>
-  </div>
-
-</section>
-
-<div class="divider" aria-hidden="true"></div>
-
-<!-- CONTACT -->
-<section id="contact" class="section-wrap contact-section">
-  <p class="section-label reveal-item" style="margin-bottom:24px">Get in Touch</p>
-  <div class="contact-giant reveal-item">Let's<br>Build<br><em>Something.</em></div>
-
-  <div class="contact-email-row reveal-item">
-    <a href="mailto:ziyad-a-tech@gmail.com" class="contact-email">ziyad-a-tech@gmail.com</a>
-    <button class="copy-email-btn" id="copy-email-btn" aria-label="Copy email address" title="Copy email">
-      <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="9" y="9" width="13" height="13" rx="2"/>
-        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-      </svg>
-      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg>
-      <span class="copy-label">Copy</span>
-    </button>
-  </div>
-
-  <div class="contact-form-wrap reveal-item">
-    <div class="contact-form-inner">
-      <div class="form-header">
-        <span class="form-header-label">Send a message</span>
-        <div class="form-header-line"></div>
+      <div class="timeline-right">
+        <div class="tl-item">
+          <div class="tl-year">2023 – 2026</div>
+          <div class="tl-card">
+            <h3>B.Com (Computer Applications)</h3>
+            <p>The American College, Madurai. CGPA 6.8. Built the academic foundation alongside real-world coding.</p>
+            <div class="tl-tags"><span>Education</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2023</div>
+          <div class="tl-card">
+            <h3>First Line of Code</h3>
+            <p>Wrote my first HTML &amp; CSS. Fell in love with building things that live in a browser.</p>
+            <div class="tl-tags"><span>HTML</span><span>CSS</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">Early 2024</div>
+          <div class="tl-card">
+            <h3>Went Full Stack</h3>
+            <p>Picked up Python &amp; Flask, dived into MySQL, built full-stack apps with real auth and role-based access.</p>
+            <div class="tl-tags"><span>Python</span><span>Flask</span><span>MySQL</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">Late 2024</div>
+          <div class="tl-card">
+            <h3>Library Management System</h3>
+            <p>Production-grade system with Flask &amp; MySQL. Most technically complex project to date.</p>
+            <div class="tl-tags"><span>Flask</span><span>MySQL</span></div>
+          </div>
+        </div>
+        <div class="tl-item tl-active">
+          <div class="tl-year">2025 →</div>
+          <div class="tl-card tl-card--active">
+            <h3>Shipping SafeRoute &amp; Growing</h3>
+            <p>Building SafeRoute, deepening system design, API architecture. Actively seeking first role.</p>
+            <div class="tl-tags"><span>In Progress</span><span>Open to Work</span></div>
+          </div>
+        </div>
       </div>
-      <div id="contact-form" class="contact-form">
-        <input
-          type="text"
-          name="_gotcha"
-          style="display:none !important"
-          tabindex="-1"
-          autocomplete="off"
-          aria-hidden="true"
-        >
-        <div class="form-row">
-          <div class="form-field">
-            <label for="cf-name" class="form-label">Name</label>
-            <input type="text" id="cf-name" name="name" class="form-input" placeholder="Your name" autocomplete="name">
-            <span class="form-error" id="cf-name-err" role="alert"></span>
-          </div>
-          <div class="form-field">
-            <label for="cf-email" class="form-label">Email</label>
-            <input type="email" id="cf-email" name="email" class="form-input" placeholder="you@example.com" autocomplete="email">
-            <span class="form-error" id="cf-email-err" role="alert"></span>
-          </div>
+    </section>
+
+    <!-- ═══════════════════════════
+         SIGNAL / CONTACT
+    ═══════════════════════════ -->
+    <section id="signal">
+      <div class="signal-bg-word" aria-hidden="true">BUILD</div>
+      <div class="signal-inner">
+        <span class="eyebrow">Signal</span>
+        <h2 class="sec-h2 signal-h">Got something<br>to <em>build?</em></h2>
+
+        <div class="signal-email-row">
+          <a href="mailto:ziyad-a-tech@gmail.com" class="sig-email" id="sig-email">
+            ziyad-a-tech@gmail.com
+          </a>
+          <button class="sig-copy" id="sig-copy" aria-label="Copy email">
+            <span class="copy-ico" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M2 10V2h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="copy-lbl">Copy</span>
+          </button>
         </div>
-        <div class="form-field">
-          <label for="cf-subject" class="form-label">Subject</label>
-          <input type="text" id="cf-subject" name="subject" class="form-input" placeholder="What's this about?">
-          <span class="form-error" id="cf-subject-err" role="alert"></span>
+
+        <div class="sig-links">
+          <a href="https://github.com/ziyad-a-20" class="sig-soc" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/ziyad-a-tech/" class="sig-soc" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <button class="sig-soc sig-resume-btn" id="sig-resume-btn">Resume ↗</button>
         </div>
-        <div class="form-field">
-          <label for="cf-message" class="form-label">Message</label>
-          <textarea id="cf-message" name="message" class="form-input form-textarea" placeholder="Tell me what you're building..." rows="5" maxlength="500"></textarea>
-          <div class="form-char-row">
-            <span class="form-error" id="cf-message-err" role="alert"></span>
-            <span class="form-char-count" id="cf-char-count" aria-live="polite">0 / 500</span>
-          </div>
-        </div>
-        <button type="button" class="form-submit" id="form-submit-btn">
-          <span class="form-submit-text">Send Message</span>
-          <svg class="form-submit-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12 5 19 12 12 19"/>
-          </svg>
+
+        <button class="form-tog" id="form-tog" aria-expanded="false" aria-controls="contact-form">
+          → Prefer a form?
         </button>
-        <div class="form-success" id="form-success" aria-live="polite" role="status">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-            <polyline points="22 4 12 14.01 9 11.01"/>
-          </svg>
-          <span>Message received — I'll be in touch soon.</span>
+
+        <div id="contact-form" class="c-form-wrap" aria-hidden="true">
+          <div class="c-form">
+            <div class="cf-row">
+              <div class="cf-field">
+                <label for="cf-name" class="cf-label">Name</label>
+                <input type="text" id="cf-name" name="name" class="cf-input" placeholder="Your name" autocomplete="name">
+                <span class="cf-err" id="cf-name-e" role="alert"></span>
+              </div>
+              <div class="cf-field">
+                <label for="cf-email" class="cf-label">Email</label>
+                <input type="email" id="cf-email" name="email" class="cf-input" placeholder="you@example.com" autocomplete="email">
+                <span class="cf-err" id="cf-email-e" role="alert"></span>
+              </div>
+            </div>
+            <div class="cf-field">
+              <label for="cf-msg" class="cf-label">Message</label>
+              <textarea id="cf-msg" name="message" class="cf-input cf-textarea" placeholder="Tell me what you're building..." rows="4" maxlength="500"></textarea>
+              <span class="cf-err" id="cf-msg-e" role="alert"></span>
+            </div>
+            <div class="cf-foot">
+              <button type="button" class="btn-acid cf-send" id="cf-send">Send Message</button>
+              <p class="cf-ok" id="cf-ok" aria-live="polite"></p>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
+
+    <footer id="site-footer">
+  <div class="ft-brand">
+    <span class="ft-logo">ZA</span>
+    <span class="ft-tagline">Full Stack Developer · Open to Work</span>
+  </div>
+
+  <nav class="ft-nav" aria-label="Footer navigation">
+    <a href="#work"   class="ft-link">Work</a>
+    <a href="#craft"  class="ft-link">Craft</a>
+    <a href="#story"  class="ft-link">Story</a>
+    <a href="#signal" class="ft-link">Signal</a>
+  </nav>
+
+  <div class="ft-right">
+    <div class="ft-socials">
+      <a href="https://github.com/ziyad-a-20" class="ft-soc" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
+      <a href="https://www.linkedin.com/in/ziyad-a-tech/" class="ft-soc" target="_blank" rel="noopener" aria-label="LinkedIn">LI</a>
+      <a href="mailto:ziyad-a-tech@gmail.com" class="ft-soc" aria-label="Email">EM</a>
     </div>
+    <span class="ft-year">© <span id="ft-yr"></span> Ziyad A</span>
   </div>
-
-  <div class="socials reveal-item">
-    <a href="https://github.com/ziyad-a-20" class="social-link" target="_blank" rel="noopener" aria-label="Visit GitHub profile">
-      <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-      GitHub
-    </a>
-    <a href="mailto:ziyad-a-tech@gmail.com" class="social-link" aria-label="Send email">
-      <svg class="stroke-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-      Email
-    </a>
-    <button class="social-link" id="footer-resume-btn" aria-label="Preview resume">
-      <svg class="stroke-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9,15 12,18 15,15"/></svg>
-      Resume
-    </button>
-  </div>
-
-  <div class="shortcuts-hint reveal-item">
-    <button class="shortcuts-hint-btn" id="shortcuts-hint-btn" aria-label="Show keyboard shortcuts">
-      <kbd>?</kbd>
-      <span>Keyboard shortcuts</span>
-    </button>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-left">
-    <span class="footer-logo">ZA</span>
-    <span class="footer-text">Full Stack Developer · Open to Work</span>
-  </div>
-  <ul class="footer-links" role="list">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Work</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <span class="footer-text footer-copy">© <span id="footer-year"></span> · Crafted with intent</span>
 </footer>
 
-<script src="js/utils.js" defer></script>
-<script src="js/cursor.js" defer></script>
-<script src="js/nav.js" defer></script>
-<script src="js/loader.js" defer></script>
-<script src="js/hero.js" defer></script>
-<script src="js/about.js" defer></script>
-<script src="js/modals.js" defer></script>
-<script src="js/contact-form.js" defer></script>
-<script src="js/reveal-animations.js" defer></script>
-<script src="js/parallax.js" defer></script>
-<script src="js/bento-swipe.js" defer></script>
-<script src="js/tldr.js" defer></script>
-<script src="js/tab-title.js" defer></script>
-<script src="sw.js" defer></script>
+  </div><!-- /#site -->
+
+  <!-- CDN libs -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <script src="js/utils.js"   defer></script>
+  <script src="js/cursor.js"  defer></script>
+  <script src="js/loader.js"  defer></script>
+  <script src="js/hero.js"    defer></script>
+  <script src="js/nav.js"     defer></script>
+  <script src="js/work.js"    defer></script>
+  <script src="js/craft.js"   defer></script>
+  <script src="js/story.js"   defer></script>
+  <script src="js/contact.js" defer></script>
+  <script src="js/main.js"    defer></script>
 </body>
 </html>

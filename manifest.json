@@ -1,11 +1,11 @@
 {
   "name": "Ziyad A — Portfolio",
   "short_name": "Ziyad.dev",
-  "description": "Jr. Web Developer Portfolio",
+  "description": "Full Stack Developer Portfolio",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#060608",
-  "theme_color": "#060608",
+  "background_color": "#0a0a08",
+  "theme_color": "#0a0a08",
   "icons": [
     {
       "src": "assets/favicons/android-chrome-192x192.png",
