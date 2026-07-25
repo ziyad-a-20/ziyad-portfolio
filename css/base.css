@@ -1,0 +1,301 @@
+/* ============ RESET & BASE ============ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+:root {
+  --c-bg: #faf9f7;
+  --c-ink: #1a1c1b;
+  --c-primary: #000000;
+  --c-on-primary: #ffffff;
+  --c-secondary: #0050cc;
+  --c-secondary-container: #0266ff;
+  --c-secondary-dim: #b3c5ff;
+  --c-outline: #747878;
+  --c-outline-variant: #c4c7c7;
+  --c-muted: #444748;
+  --c-muted-2: #6b6f6f;
+  --c-surface-low: #f4f3f1;
+  --c-tertiary-dim: #c6c6c6;
+  --c-primary-container: #1c1b1b;
+  --c-card-bg: #faf9f7;
+  --c-glass: rgba(255, 255, 255, 0.5);
+  --c-focus-ring: #0050cc;
+  --c-danger: #d63636;
+  --c-success: #1f9d55;
+  --shader-opacity: 0.6;
+  --nav-bg: rgba(250, 249, 247, 0.8);
+  --mnav-bg: rgba(255, 255, 255, 0.85);
+  --footer-bg: #faf9f7;
+
+  /* Border tokens — derived from --c-outline via color-mix so they
+     actually re-theme between light/dark instead of being a fixed gray. */
+  --c-border-015: color-mix(in srgb, var(--c-outline) 15%, transparent);
+  --c-border-02: color-mix(in srgb, var(--c-outline) 20%, transparent);
+  --c-border-025: color-mix(in srgb, var(--c-outline) 25%, transparent);
+  --c-border-03: color-mix(in srgb, var(--c-outline) 30%, transparent);
+
+  /* Fixed white-on-black tokens for the always-dark projects section */
+  --c-border-on-dark-008: rgba(255, 255, 255, 0.08);
+  --c-border-on-dark-015: rgba(255, 255, 255, 0.15);
+  --c-border-on-dark-025: rgba(255, 255, 255, 0.25);
+
+  --gutter: 24px;
+  --section-gap: 160px;
+  --container-max: 1440px;
+
+  --f-display: clamp(2.75rem, 11vw, 10rem);
+  --f-headline-lg: clamp(2rem, 5vw, 4rem);
+  --f-headline-md: clamp(1.375rem, 3vw, 2rem);
+  --f-body-lg: 18px;
+  --f-body-md: 16px;
+  --f-label: 12px;
+
+  color-scheme: light;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+html[data-theme="dark"] {
+  --c-bg: #0d0e0d;
+  --c-ink: #f1f1ef;
+  --c-primary: #000000;
+  --c-on-primary: #ffffff;
+  --c-secondary: #4d8dff;
+  --c-secondary-container: #4d8dff;
+  --c-secondary-dim: #8fb4ff;
+  --c-outline: #8a8f8f;
+  --c-outline-variant: #3a3d3d;
+  --c-muted: #a8adad;
+  --c-muted-2: #8a8f8f;
+  --c-surface-low: #151615;
+  --c-tertiary-dim: #4a4d4d;
+  --c-primary-container: #050505;
+  --c-card-bg: #131413;
+  --c-glass: rgba(255, 255, 255, 0.04);
+  --c-focus-ring: #8fb4ff;
+  --c-danger: #ff6b6b;
+  --c-success: #4ade80;
+  --shader-opacity: 0.28;
+  --nav-bg: rgba(13, 14, 13, 0.75);
+  --mnav-bg: rgba(19, 20, 19, 0.85);
+  --footer-bg: #0a0b0a;
+  color-scheme: dark;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--c-bg);
+}
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--c-ink);
+  overflow-x: hidden;
+}
+body.loading {
+  overflow: hidden;
+  height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+input,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* ============ SKIP LINK ============ */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 10000;
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 18px;
+  transition: top 0.25s ease;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ============ FOCUS STATES (ACCESSIBILITY) ============ */
+a:focus-visible,
+button:focus-visible,
+.mnav-item:focus-visible,
+.case-study-btn:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--c-focus-ring);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.theme-toggle:focus-visible,
+.back-to-top:focus-visible {
+  outline: 2px solid var(--c-focus-ring);
+  outline-offset: 3px;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  width: 100%;
+}
+
+.label-mono {
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--f-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.headline-lg {
+  font-family: "Syne", sans-serif;
+  font-size: var(--f-headline-lg);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.headline-md {
+  font-family: "Syne", sans-serif;
+  font-size: var(--f-headline-md);
+  line-height: 1.25;
+  font-weight: 600;
+}
+.display-xl {
+  font-family: "Syne", sans-serif;
+  font-size: var(--f-display);
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.body-lg {
+  font-size: var(--f-body-lg);
+  line-height: 1.6;
+}
+.body-md {
+  font-size: var(--f-body-md);
+  line-height: 1.6;
+}
+
+.accent {
+  color: var(--c-secondary-container);
+}
+.muted {
+  color: var(--c-muted);
+}
+.light {
+  color: var(--c-on-primary);
+}
+.light-dim {
+  color: var(--c-tertiary-dim);
+}
+.italic {
+  font-style: italic;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings: "FILL" 1;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-ink);
+}
+
+/* ============ GLOBAL OVERFLOW SAFETY ============ */
+section,
+nav,
+footer,
+.container,
+.hero-inner,
+.nav-inner {
+  max-width: 100%;
+}
+
+/* ============ REDUCED MOTION — GLOBAL SAFETY NET ============ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============ SMOOTH SCROLL (moved here from sections.css so project
+   detail pages can share it without loading homepage-only styles) ============ */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ============ SCROLL REVEAL (moved here from sections.css, same reason) ============ */
+.stagger-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.stagger-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .stagger-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

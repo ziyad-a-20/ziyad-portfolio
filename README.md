@@ -5,50 +5,77 @@ A modern, responsive personal portfolio website built with HTML, CSS, and JavaSc
 ## 🚀 Features
 
 - Responsive design for mobile, tablet, and desktop devices
-- Interactive hero section with Canvas-based animation
+- WebGL shader background + Three.js hero visual
 - Custom animated loading screen
-- Smooth scrolling navigation
+- Custom cursor with hover states (desktop only)
+- Command palette (⌘K / Ctrl+K) for quick navigation
+- Resume preview modal with inline PDF viewer
+- Smooth scrolling navigation with scrollspy
 - Scroll-triggered reveal animations
-- Dynamic text scrambling effects
-- Terminal-style typing animation
-- Custom cursor and hover effects
+- Page transition overlay between pages
+- Light/dark theme toggle with system-preference detection
+- Accessible modals with focus trapping and keyboard support
+- Contact form with client-side validation, honeypot, and Formspree integration
 - SEO-friendly configuration with JSON-LD structured data
 - Open Graph & Twitter Card meta tags for rich social previews
-- Progressive Web App (PWA) support
-- Sitemap and robots.txt integration
+- `robots.txt` and `sitemap.xml` for search engine crawling
+- Respects `prefers-reduced-motion` throughout
 
 ## 🛠️ Built With
 
 - HTML5
-- CSS3
-- JavaScript (Vanilla JS, modular architecture)
-- Canvas API
+- CSS3 (custom properties, `clamp()`, `color-mix()`)
+- JavaScript (Vanilla JS, ES modules, modular architecture)
+- WebGL / Canvas API
+- Three.js
+- GSAP
 - Git & GitHub
 - Vercel
 
 ## 📂 Project Structure
 
 ```text
-portfolio/
+Portfolio/
 │
 ├── assets/
 │   ├── favicons/
-│   └── icons/
+│   ├── icons/
+│   ├── project-thumbnails/
+│   └── resume.pdf
+│
+├── css/
+│   ├── base.css
+│   ├── components.css
+│   ├── sections.css
+│   ├── project.css
+│   └── transitions.css
 │
 ├── js/
-│   ├── utils.js
-│   ├── cursor.js
-│   ├── nav.js
-│   ├── loader.js
-│   ├── hero.js
-│   ├── about.js
-│   ├── modals.js
-│   ├── contact-form.js
-│   └── reveal-animations.js
+│   ├── main.js
+│   ├── project-page.js
+│   └── modules/
+│       ├── init-shared.js
+│       ├── theme.js
+│       ├── loader.js
+│       ├── cursor.js
+│       ├── nav-scroll.js
+│       ├── scroll-reveal.js
+│       ├── clock.js
+│       ├── resume-modal.js
+│       ├── command-palette.js
+│       ├── contact-form.js
+│       ├── shader-bg.js
+│       ├── three-scene.js
+│       ├── page-transitions.js
+│       └── focus-trap.js
+│
+├── projects/
+│   ├── library.html
+│   ├── tokyo.html
+│   ├── himalaya.html
+│   └── redline.html
 │
 ├── index.html
-├── style.css
-├── manifest.json
 ├── robots.txt
 ├── sitemap.xml
 └── README.md
@@ -60,10 +87,10 @@ https://ziyad-portfolio-nine.vercel.app/
 
 ## 📸 Highlights
 
-- Modern dark-themed UI
-- Performance-focused, modular frontend architecture
-- Smooth micro-interactions and animations
-- Fully responsive layout
+- Modern, Apple.com-inspired UI with light/dark themes
+- Performance-focused, modular frontend architecture (no framework, no build step)
+- Smooth micro-interactions and animations that respect reduced-motion preferences
+- Fully responsive layout across mobile, tablet, and desktop
 - SEO and accessibility considerations baked in from the start
 
 ## 👨‍💻 Author

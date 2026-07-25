@@ -1,462 +1,651 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ziyad A — Full Stack Developer specialising in Flask, Python, MySQL and JavaScript. Building precise, scalable web applications.">
-  <meta name="author" content="Ziyad A">
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Ziyad A | Full Stack Developer">
-  <meta property="og:description" content="Flask · Python · MySQL · JavaScript — Built with intent.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ziyad-portfolio-nine.vercel.app/">
-  <meta property="og:image" content="https://ziyad-portfolio-nine.vercel.app/assets/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="theme-color" content="#0a0a08">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ziyad A | Full Stack Developer">
-  <meta name="twitter:description" content="Flask · Python · MySQL · JavaScript">
-  <meta name="twitter:image" content="https://ziyad-portfolio-nine.vercel.app/assets/og-image.png">
-  <link rel="canonical" href="https://ziyad-portfolio-nine.vercel.app/">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
-  <link rel="manifest" href="manifest.json">
-  <title>Ziyad A — Full Stack Developer | Flask · Python · MySQL</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Ziyad A",
-    "jobTitle": "Full Stack Developer",
-    "url": "https://ziyad-portfolio-nine.vercel.app/",
-    "email": "ziyad-a-tech@gmail.com",
-    "sameAs": [
-      "https://github.com/ziyad-a-20",
-      "https://www.linkedin.com/in/ziyad-a-tech/"
-    ],
-    "knowsAbout": ["Python","Flask","MySQL","JavaScript","HTML","CSS","Tailwind CSS"]
-  }
-  </script>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ziyad A | Full Stack Developer</title>
+<meta name="description" content="Ziyad A — Full-stack developer building Flask, MySQL, and JavaScript web systems. Portfolio featuring RedLine blood bank platform, library management systems, and more.">
+<meta property="og:title" content="Ziyad A | Full Stack Developer">
+<meta property="og:description" content="Full-stack developer building practical, well-structured web systems from Madurai, India.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:url" content="https://ziyad-portfolio-nine.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ziyad A | Full Stack Developer">
+<meta name="twitter:description" content="Full-stack developer building practical, well-structured web systems from Madurai, India.">
+<link rel="canonical" href="https://ziyad-portfolio-nine.vercel.app/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<!-- Favicons -->
+<link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/transitions.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ziyad A",
+  "jobTitle": "Full Stack Developer",
+  "url": "https://ziyad-portfolio-nine.vercel.app/",
+  "sameAs": [
+    "https://github.com/ziyad-a-20",
+    "https://www.linkedin.com/in/ziyad-a-tech/"
+  ]
+}
+</script>
 </head>
-<body class="is-loading">
+<body class="loading">
 
-  <a href="#hero" class="skip-link">Skip to main content</a>
+<div class="page-transition-overlay" id="page-transition-overlay"></div>
 
-  <noscript>
-    <style>
-      body.is-loading { overflow: visible !important; }
-      #tunnel { display: none !important; }
-      #site { opacity: 1 !important; }
-    </style>
-    <div style="padding:60px 24px;max-width:600px;margin:0 auto;text-align:center;font-family:sans-serif;color:#f2f0e8;background:#0a0a08;min-height:100vh;">
-      <h1 style="font-size:32px;margin-bottom:16px;">Ziyad A — Full Stack Developer</h1>
-      <p style="color:rgba(242,240,232,0.5);">JavaScript required. Email: <a href="mailto:ziyad-a-tech@gmail.com" style="color:#c8ff00;">ziyad-a-tech@gmail.com</a></p>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- ============ SCROLL PROGRESS BAR (desktop/tablet only) ============ -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- ============ LOADER ============ -->
+<div id="loader">
+  <div class="loader-grid">
+    <div class="line-v line-left"></div>
+    <div class="line-v line-center"></div>
+    <div class="line-v line-right"></div>
+    <div class="line-h"></div>
+  </div>
+  <div class="loader-content">
+    <div id="loader-name"><span>ZIYAD</span></div>
+    <div class="loader-info">
+      <div id="loader-percentage">000</div>
+      <div id="loader-status">INITIALIZING PORTFOLIO</div>
     </div>
-  </noscript>
+  </div>
+</div>
 
-  <!-- Custom cursor -->
-  <div id="cur-dot" aria-hidden="true"></div>
-  <div id="cur-ring" aria-hidden="true"></div>
+<!-- ============ CUSTOM CURSOR (desktop only) ============ -->
+<div class="custom-cursor" id="cursor" aria-hidden="true"></div>
+<div class="custom-cursor-follower" id="cursor-follower" aria-hidden="true"></div>
 
-  <!-- Scroll progress top bar -->
-  <div id="scroll-bar" aria-hidden="true"><div id="scroll-fill"></div></div>
+<!-- ============ NOISE OVERLAY ============ -->
+<div class="noise-overlay" aria-hidden="true"></div>
 
-  <!-- ══════════════════════════
-       RESUME MODAL
-  ══════════════════════════ -->
-  <div id="resume-modal" class="r-modal" role="dialog" aria-modal="true" aria-label="Resume preview" aria-hidden="true">
-    <div class="r-modal-inner">
-      <div class="r-modal-header">
-        <span class="r-modal-title">Resume</span>
-        <div class="r-modal-actions">
-          <a href="assets/resume.pdf" class="r-dl-btn" download="Ziyad-A-Resume.pdf" aria-label="Download resume">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M7 2v7M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Download
-          </a>
-          <button class="r-close-btn" id="resume-close" aria-label="Close resume preview">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </div>
+<!-- ============ WEBGL SHADER BACKGROUND ============ -->
+<div class="shader-bg" id="shader-wrap" aria-hidden="true">
+  <canvas id="shader-canvas" width="1920" height="1080"></canvas>
+</div>
+
+<!-- ============ TECHNICAL GRID ============ -->
+<div class="grid-line-v" style="left:8.333%" aria-hidden="true"></div>
+<div class="grid-line-v" style="left:50%" aria-hidden="true"></div>
+<div class="grid-line-v" style="left:91.666%" aria-hidden="true"></div>
+
+<!-- ============ DESKTOP NAV ============ -->
+<nav class="site-nav" id="site-nav">
+  <div class="nav-inner">
+    <a href="#home" class="logo nav-scroll-link">ZIYAD</a>
+    <div class="nav-links">
+      <a href="#work" class="nav-scroll-link">WORK</a>
+      <a href="#stack" class="nav-scroll-link">STACK</a>
+      <a href="#about" class="nav-scroll-link">ABOUT</a>
+      <a href="#contact" class="nav-scroll-link">CONTACT</a>
+      <button class="nav-link-btn" id="resume-preview-trigger" type="button">RESUME</button>
+    </div>
+    <div class="nav-right">
+  <button class="palette-trigger" id="palette-trigger" type="button" aria-label="Open command palette">
+    <span class="material-symbols-outlined" aria-hidden="true">terminal</span>
+    <span class="palette-trigger-kbd">
+      <kbd>⌘</kbd><kbd>K</kbd>
+    </span>
+  </button>
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" type="button">
+    <span class="material-symbols-outlined icon-sun" aria-hidden="true">light_mode</span>
+    <span class="material-symbols-outlined icon-moon" aria-hidden="true">dark_mode</span>
+  </button>
+</div>
+  </div>
+</nav>
+
+<main id="main-content">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-3d" id="threejs-container"></div>
+  <div class="hero-inner">
+    <div class="hero-top stagger-reveal">
+      <div>
+        <span class="label-mono accent">FULL STACK DEVELOPER</span>
+        <h1 class="display-xl">ZIYAD</h1>
       </div>
-      <div class="r-modal-body" id="resume-body"></div>
+      <div class="hero-tagline">
+        <p class="label-mono muted">Python &amp; Flask Developer</p>
+        <p class="body-lg">I build full-stack systems where <span class="accent italic">logic</span> meets a clean interface.</p>
+      </div>
+    </div>
+    <div class="hero-stats stagger-reveal">
+      <div><span class="stat-index">01 / TECH</span><span class="label-mono">PYTHON</span></div>
+      <div><span class="stat-index">02 / FOCUS</span><span class="label-mono">FULL STACK</span></div>
+      <div><span class="stat-index">03 / DOMAIN</span><span class="label-mono">WEB SYSTEMS</span></div>
+      <div><span class="stat-index">04 / BASE</span><span class="label-mono">MADURAI, IN</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT / MARQUEE ============ -->
+<section class="about-section" id="about">
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="animate-marquee">
+      <span class="marquee-item dim">PYTHON</span>
+      <span class="marquee-item">FLASK</span>
+      <span class="marquee-item dim">MYSQL</span>
+      <span class="marquee-item">JAVASCRIPT</span>
+      <span class="marquee-item dim">TAILWIND CSS</span>
+      <span class="marquee-item dim">PYTHON</span>
+      <span class="marquee-item">FLASK</span>
+      <span class="marquee-item dim">MYSQL</span>
+      <span class="marquee-item">JAVASCRIPT</span>
+      <span class="marquee-item dim">TAILWIND CSS</span>
     </div>
   </div>
 
-  <!-- LOADER -->
-  <div id="tunnel" role="status" aria-label="Loading portfolio" aria-live="polite">
-    <canvas id="tunnel-grid" aria-hidden="true"></canvas>
-    <div class="tun-center">
-      <div class="tun-lines" aria-hidden="true">
-        <div class="tun-line" id="tl0"><span class="tl-prompt">❯ </span><span class="tl-text"></span></div>
-        <div class="tun-line" id="tl1"><span class="tl-prompt">❯ </span><span class="tl-text"></span></div>
-        <div class="tun-line" id="tl2"><span class="tl-prompt">❯ </span><span class="tl-text"></span></div>
-        <div class="tun-line" id="tl3"><span class="tl-prompt">❯ </span><span class="tl-text"></span><span class="tl-caret">▋</span></div>
+  <div class="about-grid container">
+    <div class="about-text stagger-reveal">
+      <h2 class="headline-lg">Meticulous code.<br>Practical interfaces.</h2>
+      <p class="body-lg muted">
+        I'm a full-stack developer based in Madurai, India, currently completing a
+        B.Com in Computer Applications at The American College (2023–2026). I build
+        role-based backend systems in Python, Flask, and MySQL, paired with clean,
+        responsive interfaces in JavaScript and Tailwind CSS — turning ideas into
+        working systems, from healthcare platforms to library management tools.
+      </p>
+    </div>
+    <div class="about-card stagger-reveal">
+      <div class="glass-card">
+        <p class="label-mono accent card-title">What I Work On</p>
+        <ul class="expertise-list">
+          <li><span class="material-symbols-outlined" aria-hidden="true">terminal</span> Flask &amp; Python Backends</li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">database</span> MySQL Database Design</li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">admin_panel_settings</span> Role-Based Access Systems</li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">view_quilt</span> Responsive Tailwind Interfaces</li>
+        </ul>
       </div>
-      <div class="tun-logo" id="tun-logo" aria-hidden="true">ZA</div>
     </div>
   </div>
+</section>
 
-  <!-- SITE -->
-  <div id="site">
+<!-- ============ CORE STACK ============ -->
+<section class="stack-section container" id="stack">
+  <div class="stack-header stagger-reveal">
+    <div>
+      <span class="label-mono accent">02 / STACK</span>
+      <h2 class="headline-lg">Core Stack</h2>
+    </div>
+    <p class="label-mono muted stack-note">Technologies I use to build and ship projects.</p>
+  </div>
 
-    <!-- NAV -->
-    <header id="nav-wrap">
-      <nav id="main-nav" aria-label="Main navigation">
-        <a href="#hero" class="nav-logo" aria-label="Ziyad A home">ZA</a>
-        <ul class="nav-list" role="list">
-          <li><a href="#work"   class="nav-a" data-target="work">Work</a></li>
-          <li><a href="#craft"  class="nav-a" data-target="craft">Craft</a></li>
-          <li><a href="#story"  class="nav-a" data-target="story">Story</a></li>
-          <li><a href="#signal" class="nav-a" data-target="signal">Signal</a></li>
-        </ul>
-        <!-- Resume button — opens modal -->
-        <button class="nav-resume" id="nav-resume-btn" aria-label="Preview resume">Resume ↗</button>
-        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mob-menu">
-          <span></span><span></span>
-        </button>
-      </nav>
-    </header>
+  <div class="stack-grid">
+    <div class="stack-card stagger-reveal">
+      <div class="stack-card-top">
+        <span class="label-mono">01</span>
+        <img class="stack-icon" src="assets/icons/python.png" width="28" height="28" alt="Python icon">
+      </div>
+      <div>
+        <h3 class="headline-md">Python</h3>
+        <p class="label-mono stack-sub">Server-Side Logic</p>
+      </div>
+    </div>
+    <div class="stack-card stagger-reveal">
+      <div class="stack-card-top">
+        <span class="label-mono">02</span>
+        <img class="stack-icon" src="assets/icons/flask.png" width="28" height="28" alt="Flask icon">
+      </div>
+      <div>
+        <h3 class="headline-md">Flask</h3>
+        <p class="label-mono stack-sub">Backend Framework</p>
+      </div>
+    </div>
+    <div class="stack-card stagger-reveal">
+      <div class="stack-card-top">
+        <span class="label-mono">03</span>
+        <img class="stack-icon" src="assets/icons/mysql.png" width="28" height="28" alt="MySQL icon">
+      </div>
+      <div>
+        <h3 class="headline-md">MySQL</h3>
+        <p class="label-mono stack-sub">Schema Design / Queries</p>
+      </div>
+    </div>
+    <div class="stack-card stagger-reveal">
+      <div class="stack-card-top">
+        <span class="label-mono">04</span>
+        <img class="stack-icon" src="assets/icons/js.png" width="28" height="28" alt="JavaScript icon">
+      </div>
+      <div>
+        <h3 class="headline-md">JavaScript</h3>
+        <p class="label-mono stack-sub">DOM / Interactivity / Fetch</p>
+      </div>
+    </div>
+    <div class="stack-card stagger-reveal">
+      <div class="stack-card-top">
+        <span class="label-mono">05</span>
+        <img class="stack-icon" src="assets/icons/html.png" width="28" height="28" alt="HTML icon">
+      </div>
+      <div>
+        <h3 class="headline-md">HTML</h3>
+        <p class="label-mono stack-sub">Semantic Structure</p>
+      </div>
+    </div>
+    <div class="stack-card stagger-reveal">
+      <div class="stack-card-top">
+        <span class="label-mono">06</span>
+        <img class="stack-icon" src="assets/icons/css.png" width="28" height="28" alt="CSS icon">
+      </div>
+      <div>
+        <h3 class="headline-md">CSS</h3>
+        <p class="label-mono stack-sub">Layout / Styling</p>
+      </div>
+    </div>
+    <div class="stack-card stagger-reveal">
+      <div class="stack-card-top">
+        <span class="label-mono">07</span>
+        <img class="stack-icon" src="assets/icons/tailwind.png" width="28" height="28" alt="Tailwind CSS icon">
+      </div>
+      <div>
+        <h3 class="headline-md">Tailwind CSS</h3>
+        <p class="label-mono stack-sub">Utility-First Styling</p>
+      </div>
+    </div>
+    <div class="stack-card stagger-reveal">
+      <div class="stack-card-top">
+        <span class="label-mono">08</span>
+        <img class="stack-icon" src="assets/icons/git.png" width="28" height="28" alt="Git icon">
+      </div>
+      <div>
+        <h3 class="headline-md">Git</h3>
+        <p class="label-mono stack-sub">Version Control</p>
+      </div>
+    </div>
+    <div class="stack-card stagger-reveal">
+      <div class="stack-card-top">
+        <span class="label-mono">09</span>
+        <img class="stack-icon" src="assets/icons/github.png" width="28" height="28" alt="GitHub icon">
+      </div>
+      <div>
+        <h3 class="headline-md">GitHub</h3>
+        <p class="label-mono stack-sub">Hosting / Collaboration</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- MOBILE MENU -->
-    <div id="mob-menu" aria-hidden="true">
-      <nav aria-label="Mobile navigation">
-        <ul role="list">
-          <li><a href="#work"   class="mob-a">Work</a></li>
-          <li><a href="#craft"  class="mob-a">Craft</a></li>
-          <li><a href="#story"  class="mob-a">Story</a></li>
-          <li><a href="#signal" class="mob-a">Signal</a></li>
-          <li><button class="mob-a mob-resume-btn" id="mob-resume-btn">Resume ↗</button></li>
-        </ul>
-      </nav>
+<!-- ============ PROJECTS ============ -->
+<section class="projects-section" id="work">
+  <div class="container">
+    <div class="projects-header stagger-reveal">
+      <div>
+        <span class="label-mono light-dim">03 / PROJECTS</span>
+        <h2 class="headline-lg light">Selected Work</h2>
+      </div>
+      <div class="label-mono light-dim scroll-hint">SCROLL TO EXPLORE ↓</div>
     </div>
 
-    <!-- ═══════════════════════════
-         HERO
-    ═══════════════════════════ -->
-    <section id="hero" tabindex="-1">
-      <canvas id="hero-canvas" aria-hidden="true"></canvas>
-      <div class="hero-inner">
-        <div class="hero-top">
-          <span class="hero-tag">Full-Stack Developer</span>
-          <span class="hero-avail">
-            <span class="avail-dot" aria-hidden="true"></span>
-            Available
-          </span>
-        </div>
-        <h1 class="hero-name" id="hero-name" aria-label="Ziyad A">
-          <span class="hn-line">
-            <span class="hn-mask"><em>Ziyad</em></span>
-          </span>
-          <span class="hn-line hn-dim">
-            <span class="hn-mask"><em>A.</em></span>
-          </span>
-        </h1>
-        <p class="hero-sub">
-          <span>Flask</span><span class="sep" aria-hidden="true">·</span>
-          <span>Python</span><span class="sep" aria-hidden="true">·</span>
-          <span>MySQL</span><span class="sep" aria-hidden="true">·</span>
-          <span>JavaScript</span>
+    <!-- Project 1: Library Management System -->
+    <div class="project-row stagger-reveal">
+      <a class="project-visual" href="https://web-production-1e11b.up.railway.app/login" target="_blank" rel="noopener">
+        <span class="project-index">01</span>
+        <img src="assets/project-thumbnails/library.png" alt="Library Management System screenshot" loading="lazy">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <span class="project-overlay">VIEW LIVE <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></span>
+      </a>
+      <div class="project-info">
+        <span class="label-mono accent">01 / WEB APPLICATION</span>
+        <h3 class="project-title">Library Management System</h3>
+        <p class="body-md light-dim">
+          Full-stack app with role-based access for members and librarians. A real-time
+          borrow/return engine with automated fine calculation replaced manual
+          record-keeping entirely.
         </p>
-        <div class="hero-actions">
-          <a href="#work" class="btn-acid">View Work</a>
-          <a href="#signal" class="btn-ghost">Let's Talk</a>
+        <div class="tag-row">
+          <span class="tag">FLASK</span>
+          <span class="tag">MYSQL</span>
+          <span class="tag">PYTHON</span>
         </div>
-      </div>
-      <!-- Scroll hint — centered bottom -->
-      <div class="hero-scroll-hint" aria-hidden="true">
-        <div class="scroll-line"></div>
-        <span>Scroll</span>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════
-         WORK
-    ═══════════════════════════ -->
-    <section id="work">
-      <div class="section-intro">
-        <span class="eyebrow">Selected Work</span>
-        <h2 class="sec-h2">Four builds.<br><em>Real problems.</em></h2>
-      </div>
-
-      <div class="projects-grid">
-
-        <article class="proj-card proj-large" data-idx="0">
-          <div class="proj-bg proj-bg--lib" aria-hidden="true">
-            <!-- Subtle dot grid pattern — no canvas flowchart -->
-            <div class="lib-pattern" aria-hidden="true"></div>
-          </div>
-          <div class="proj-body">
-            <header class="proj-head">
-              <span class="proj-num">01</span>
-              <span class="proj-type">Backend Heavy</span>
-            </header>
-            <h3 class="proj-title">Library Management<br>System</h3>
-            <p class="proj-desc">Full-stack app with role-based access for members and librarians. Normalised 5-table schema. Real-time borrow/return engine with live search. Zero manual record-keeping.</p>
-            <div class="proj-stack">
-              <span>Flask</span><span>Python</span><span>MySQL</span><span>JavaScript</span>
-            </div>
-            <a href="https://web-production-1e11b.up.railway.app/login" class="proj-link" target="_blank" rel="noopener">Live Site ↗</a>
-          </div>
-        </article>
-
-        <article class="proj-card" data-idx="1">
-          <div class="proj-bg proj-bg--him" aria-hidden="true">
-            <div class="orb-him" aria-hidden="true"></div>
-          </div>
-          <div class="proj-body">
-            <header class="proj-head">
-              <span class="proj-num">02</span>
-              <span class="proj-type">Frontend</span>
-            </header>
-            <h3 class="proj-title">Himalaya Lip Balm<br>Showcase</h3>
-            <p class="proj-desc">Conversion-engineered product page. Scroll animations guide to CTA. Interactive cart drawer. Pixel-perfect across all viewports.</p>
-            <div class="proj-stack">
-              <span>HTML</span><span>CSS</span><span>JavaScript</span>
-            </div>
-            <a href="https://himalaya-lipbalm-showcase.vercel.app" class="proj-link" target="_blank" rel="noopener">Live Site ↗</a>
-          </div>
-        </article>
-
-        <article class="proj-card" data-idx="2">
-          <div class="proj-bg proj-bg--tok" aria-hidden="true">
-            <canvas class="proj-canvas" id="pc-tok"></canvas>
-          </div>
-          <div class="proj-body">
-            <header class="proj-head">
-              <span class="proj-num">03</span>
-              <span class="proj-type">Full Stack</span>
-            </header>
-            <h3 class="proj-title">Tokyo Revengers<br>Fan Portal</h3>
-            <p class="proj-desc">Dark cinematic portal at scale. Gang-based filtering, fan submissions to moderated MySQL table, inline episode modals without page reload.</p>
-            <div class="proj-stack">
-              <span>Flask</span><span>MySQL</span><span>HTML</span><span>CSS</span><span>JS</span>
-            </div>
-            <a href="https://github.com/ziyad-a-20/Tokyo-Revengers-Gang-Character-Hub" class="proj-link" target="_blank" rel="noopener">GitHub ↗</a>
-          </div>
-        </article>
-
-        <article class="proj-card proj-large proj-wip" data-idx="3">
-          <div class="proj-bg proj-bg--sr" aria-hidden="true">
-            <div class="sr-rings" aria-hidden="true">
-              <div class="sr-r"></div><div class="sr-r"></div>
-              <div class="sr-r"></div><div class="sr-r"></div>
-            </div>
-          </div>
-          <div class="proj-body">
-            <header class="proj-head">
-              <span class="proj-num">04</span>
-              <span class="wip-badge"><span class="wip-dot" aria-hidden="true"></span>Building now</span>
-            </header>
-            <h3 class="proj-title">SafeRoute — Women's<br>Safety Platform</h3>
-            <p class="proj-desc">Auto-alerts trusted contacts on missed check-ins. APScheduler fires Twilio SMS. Live GPS feeds a community safety map. Admin dashboard surfaces incident patterns. Flask + MySQL + glassmorphism UI.</p>
-            <div class="proj-stack">
-              <span>Flask</span><span>Python</span><span>MySQL</span><span>Tailwind</span><span>JS</span>
-            </div>
-            <span class="proj-link-muted">GitHub — coming soon</span>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════
-         CRAFT
-    ═══════════════════════════ -->
-    <section id="craft">
-      <div class="section-intro">
-        <span class="eyebrow">Craft</span>
-        <h2 class="sec-h2">The stack,<br><em>mapped.</em></h2>
-        <p class="sec-sub">Hover a node to see relationships and usage.</p>
-      </div>
-      <div class="constellation-wrap">
-        <canvas id="craft-canvas" aria-label="Interactive skill constellation"></canvas>
-        <ul class="craft-list-sr" aria-label="Skills">
-          <li>Python</li><li>Flask</li><li>MySQL</li>
-          <li>HTML5</li><li>CSS3</li><li>JavaScript</li>
-          <li>Tailwind CSS</li><li>Git</li><li>GitHub</li>
-          <li>Vercel</li><li>Netlify</li>
-        </ul>
-      </div>
-      <div id="skill-tip" class="skill-tip" role="tooltip" aria-hidden="true">
-        <strong class="st-name"></strong>
-        <span class="st-desc"></span>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════
-         STORY
-    ═══════════════════════════ -->
-    <section id="story">
-      <div class="story-left">
-        <span class="eyebrow">Story</span>
-        <h2 class="sec-h2">The road<br><em>so far.</em></h2>
-        <div class="about-copy">
-          <p>I'm Ziyad — a Full Stack Developer based in Madurai. I started writing HTML &amp; CSS in 2023 and immediately fell into the rabbit hole of building things for the web.</p>
-          <p>By early 2024 I'd gone full-stack — Flask backends, MySQL schemas, authentication systems. I obsess over every layer of the stack, from normalised database design to animated UIs.</p>
-          <p>Currently building SafeRoute and actively seeking my first role where I can ship real-world products and grow fast.</p>
-        </div>
-        <span class="avail-badge">
-          <span class="avail-dot" aria-hidden="true"></span>
-          Open to opportunities
-        </span>
-      </div>
-
-      <div class="timeline-right">
-        <div class="tl-item">
-          <div class="tl-year">2023 – 2026</div>
-          <div class="tl-card">
-            <h3>B.Com (Computer Applications)</h3>
-            <p>The American College, Madurai. CGPA 6.8. Built the academic foundation alongside real-world coding.</p>
-            <div class="tl-tags"><span>Education</span></div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-year">2023</div>
-          <div class="tl-card">
-            <h3>First Line of Code</h3>
-            <p>Wrote my first HTML &amp; CSS. Fell in love with building things that live in a browser.</p>
-            <div class="tl-tags"><span>HTML</span><span>CSS</span></div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-year">Early 2024</div>
-          <div class="tl-card">
-            <h3>Went Full Stack</h3>
-            <p>Picked up Python &amp; Flask, dived into MySQL, built full-stack apps with real auth and role-based access.</p>
-            <div class="tl-tags"><span>Python</span><span>Flask</span><span>MySQL</span></div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-year">Late 2024</div>
-          <div class="tl-card">
-            <h3>Library Management System</h3>
-            <p>Production-grade system with Flask &amp; MySQL. Most technically complex project to date.</p>
-            <div class="tl-tags"><span>Flask</span><span>MySQL</span></div>
-          </div>
-        </div>
-        <div class="tl-item tl-active">
-          <div class="tl-year">2025 →</div>
-          <div class="tl-card tl-card--active">
-            <h3>Shipping SafeRoute &amp; Growing</h3>
-            <p>Building SafeRoute, deepening system design, API architecture. Actively seeking first role.</p>
-            <div class="tl-tags"><span>In Progress</span><span>Open to Work</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════
-         SIGNAL / CONTACT
-    ═══════════════════════════ -->
-    <section id="signal">
-      <div class="signal-bg-word" aria-hidden="true">BUILD</div>
-      <div class="signal-inner">
-        <span class="eyebrow">Signal</span>
-        <h2 class="sec-h2 signal-h">Got something<br>to <em>build?</em></h2>
-
-        <div class="signal-email-row">
-          <a href="mailto:ziyad-a-tech@gmail.com" class="sig-email" id="sig-email">
-            ziyad-a-tech@gmail.com
+        <div class="project-link-row">
+          <a class="project-link" href="https://web-production-1e11b.up.railway.app/login" target="_blank" rel="noopener">
+            VIEW LIVE <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
           </a>
-          <button class="sig-copy" id="sig-copy" aria-label="Copy email">
-            <span class="copy-ico" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.3"/>
-                <path d="M2 10V2h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-              </svg>
-            </span>
-            <span class="copy-lbl">Copy</span>
+          <a class="project-link case-study-btn" href="projects/library.html">
+            CASE STUDY
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2: Tokyo Revengers Fan Portal -->
+    <div class="project-row reverse stagger-reveal">
+       <a class="project-visual" href="https://github.com/ziyad-a-20/Tokyo-Revengers-Gang-Character-Hub" target="_blank" rel="noopener">
+        <span class="project-index">02</span>
+        <img src="assets/project-thumbnails/TR.png" alt="Tokyo Revengers Fan Portal screenshot" loading="lazy">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <span class="project-overlay">VIEW ON GITHUB <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></span>
+      </a>
+      <div class="project-info">
+        <span class="label-mono accent">02 / FAN PORTAL</span>
+        <h3 class="project-title">Tokyo Revengers Fan Portal</h3>
+        <p class="body-md light-dim">
+          Dark cinematic portal with gang-based filtering, moderated fan submissions,
+          and inline episode modals with no page reloads.
+        </p>
+        <div class="tag-row">
+          <span class="tag">FLASK</span>
+          <span class="tag">MYSQL</span>
+          <span class="tag">JAVASCRIPT</span>
+        </div>
+        <div class="project-link-row">
+          <a class="project-link" href="https://github.com/ziyad-a-20/Tokyo-Revengers-Gang-Character-Hub" target="_blank" rel="noopener">
+            VIEW ON GITHUB <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+          </a>
+          <a class="project-link case-study-btn" href="projects/tokyo.html">
+            CASE STUDY
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3: Himalaya Lip Balm Showcase -->
+    <div class="project-row stagger-reveal">
+      <a class="project-visual" href="https://himalaya-lipbalm-showcase.vercel.app" target="_blank" rel="noopener">
+        <span class="project-index">03</span>
+        <img src="assets/project-thumbnails/Himalayas.png" alt="Himalaya Lip Balm Showcase screenshot" loading="lazy">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <span class="project-overlay">VIEW LIVE <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></span>
+      </a>
+      <div class="project-info">
+        <span class="label-mono accent">03 / PRODUCT PAGE</span>
+        <h3 class="project-title">Himalaya Lip Balm Showcase</h3>
+        <p class="body-md light-dim">
+          Conversion-engineered product page built as an installable PWA with offline
+          support, scroll-triggered animations, and an interactive cart drawer.
+        </p>
+        <div class="tag-row">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JAVASCRIPT</span>
+        </div>
+        <div class="project-link-row">
+          <a class="project-link" href="https://himalaya-lipbalm-showcase.vercel.app" target="_blank" rel="noopener">
+            VIEW LIVE <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+          </a>
+          <a class="project-link case-study-btn" href="projects/himalaya.html">
+            CASE STUDY
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 4: RedLine -->
+    <div class="project-row reverse stagger-reveal">
+      <div class="project-visual no-link in-development">
+  <span class="project-index">04</span>
+  <img src="assets/project-thumbnails/redline.png" alt="RedLine Blood Bank &amp; Emergency Donor Network screenshot" loading="lazy">
+  <div class="dev-badge">
+    <span class="material-symbols-outlined" aria-hidden="true">construction</span>
+    <span>IN DEVELOPMENT</span>
+  </div>
+  <span class="corner tl"></span>
+  <span class="corner tr"></span>
+  <span class="corner bl"></span>
+  <span class="corner br"></span>
+</div>
+      <div class="project-info">
+        <span class="label-mono accent">04 / HEALTHCARE PLATFORM</span>
+        <h3 class="project-title">RedLine — Blood Bank &amp; Emergency Donor Network</h3>
+        <p class="body-md light-dim">
+          Full-stack platform connecting donors, hospitals, and recipients through a
+          smart blood-matching engine. Automated eligibility checks and real-time
+          emergency request routing cut manual donor screening down significantly.
+        </p>
+        <div class="tag-row">
+          <span class="tag">FLASK</span>
+          <span class="tag">MYSQL</span>
+          <span class="tag">HTML</span>
+          <span class="tag">TAILWIND CSS</span>
+          <span class="tag">JAVASCRIPT</span>
+        </div>
+        <div class="project-link-row">
+  <span
+    class="project-link link-disabled"
+    role="link"
+    aria-disabled="true"
+    tabindex="0"
+    data-tooltip="Source code will be available after the project is completed."
+  >
+    VIEW ON GITHUB <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+  </span>
+  <a class="project-link case-study-btn" href="projects/redline.html">
+    CASE STUDY
+  </a>
+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-inner stagger-reveal">
+      <h2 class="display-xl contact-heading">Let's build something that <span class="accent italic">should</span> exist.</h2>
+
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="label-mono" for="cf-name">Name</label>
+            <input class="form-input" type="text" id="cf-name" name="name" autocomplete="name" required>
+            <span class="form-error" id="cf-name-error" role="alert"></span>
+          </div>
+          <div class="form-field">
+            <label class="label-mono" for="cf-email">Email</label>
+            <input class="form-input" type="email" id="cf-email" name="email" autocomplete="email" required>
+            <span class="form-error" id="cf-email-error" role="alert"></span>
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="label-mono" for="cf-message">Message</label>
+          <textarea class="form-input form-textarea" id="cf-message" name="message" rows="4" required></textarea>
+          <span class="form-error" id="cf-message-error" role="alert"></span>
+        </div>
+
+        <div class="form-honeypot" aria-hidden="true">
+          <label for="cf-company">Company</label>
+          <input type="text" id="cf-company" name="_gotcha" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form-footer">
+          <button class="form-submit" id="cf-submit" type="submit">
+            <span class="form-submit-label">SEND MESSAGE</span>
+            <span class="form-submit-spinner" aria-hidden="true"></span>
+          </button>
+          <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <div class="contact-actions">
+        <a class="email-btn" href="mailto:ziyad-a-tech@gmail.com">
+          <span>ziyad-a-tech@gmail.com</span>
+        </a>
+        <div class="social-links">
+          <a href="https://github.com/ziyad-a-20" target="_blank" rel="noopener">GITHUB</a>
+          <a href="https://www.linkedin.com/in/ziyad-a-tech/" target="_blank" rel="noopener">LINKEDIN</a>
+          <button class="social-link-btn" id="resume-preview-trigger-contact" type="button">VIEW RESUME</button>
+          <a href="assets/resume.pdf" target="_blank" rel="noopener" download>DOWNLOAD RESUME</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-meta left">LOC / MADURAI, IN [GMT +5:30]</div>
+  <div class="contact-meta right">SYSTEMS / ONLINE</div>
+</section>
+
+</main>
+
+<!-- ============ RESUME PREVIEW MODAL ============ -->
+<div class="resume-modal" id="resume-modal" aria-hidden="true">
+  <div class="resume-modal-backdrop" id="resume-modal-backdrop"></div>
+  <div class="resume-modal-panel" role="dialog" aria-modal="true" aria-labelledby="resume-modal-title">
+    <div class="resume-modal-chrome">
+      <div class="resume-modal-chrome-left">
+  <span class="resume-dots" aria-hidden="true">
+    <span class="resume-dot resume-dot-red"></span>
+    <span class="resume-dot resume-dot-yellow"></span>
+    <span class="resume-dot resume-dot-green"></span>
+  </span>
+  <span class="label-mono" id="resume-modal-title">RESUME.PDF</span>
+</div>
+      <div class="resume-modal-chrome-right">
+        <a class="resume-modal-download" href="assets/resume.pdf" download>
+          <span class="material-symbols-outlined" aria-hidden="true">download</span>
+          <span>DOWNLOAD</span>
+        </a>
+        <button class="resume-modal-close" id="resume-modal-close" aria-label="Close resume preview" type="button">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+      </div>
+    </div>
+    <div class="resume-modal-body">
+      <iframe id="resume-modal-frame" title="Resume preview" src="" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ============ COMMAND PALETTE ============ -->
+<div class="command-palette" id="command-palette" aria-hidden="true">
+  <div class="command-palette-backdrop" id="command-palette-backdrop"></div>
+  <div class="command-palette-panel" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="command-palette-input-row">
+      <span class="material-symbols-outlined" aria-hidden="true">search</span>
+      <input
+        type="text"
+        id="command-palette-input"
+        class="command-palette-input"
+        placeholder="Type a command or search…"
+        autocomplete="off"
+        role="combobox"
+        aria-expanded="true"
+        aria-controls="command-palette-list"
+      >
+      <kbd class="command-palette-esc">ESC</kbd>
+    </div>
+    <ul class="command-palette-list" id="command-palette-list" role="listbox"></ul>
+    <div class="command-palette-footer">
+      <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+      <span><kbd>↵</kbd> select</span>
+      <span><kbd>esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer" id="site-footer">
+  <div class="footer-inner container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">ZIYAD</div>
+        <p class="body-md muted footer-tagline">
+          Full-stack developer building practical, well-structured web systems from Madurai, India.
+        </p>
+        <div class="footer-badge">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="label-mono">OPEN TO INTERNSHIPS</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <p class="label-mono footer-col-title">Navigate</p>
+        <div class="footer-link-group">
+          <a href="#home" class="nav-scroll-link">Home</a>
+          <a href="#about" class="nav-scroll-link">About</a>
+          <a href="#stack" class="nav-scroll-link">Stack</a>
+          <a href="#work" class="nav-scroll-link">Work</a>
+          <a href="#contact" class="nav-scroll-link">Contact</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <p class="label-mono footer-col-title">Stack</p>
+        <div class="footer-link-group">
+          <span class="label-mono muted footer-stack-line">Python · Flask · MySQL</span>
+          <span class="label-mono muted footer-stack-line">JavaScript · HTML · CSS</span>
+          <span class="label-mono muted footer-stack-line">Tailwind CSS · Git · GitHub</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <p class="label-mono footer-col-title">Connect</p>
+        <div class="footer-link-group footer-link-group-icons">
+          <a class="footer-icon-link" href="https://github.com/ziyad-a-20" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.9 5.34.9 11.6c0 4.99 3.24 9.22 7.73 10.71.56.1.77-.24.77-.54v-1.9c-3.14.68-3.8-1.35-3.8-1.35-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.16-3.04-.12-.29-.5-1.45.11-3.02 0 0 .95-.3 3.11 1.16a10.7 10.7 0 0 1 5.66 0c2.16-1.46 3.1-1.16 3.1-1.16.62 1.57.23 2.73.12 3.02.72.79 1.16 1.8 1.16 3.04 0 4.36-2.65 5.3-5.17 5.58.4.35.76 1.04.76 2.1v3.11c0 .3.2.65.78.54 4.48-1.5 7.72-5.72 7.72-10.71C23.1 5.34 18.27.5 12 .5z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a class="footer-icon-link" href="https://www.linkedin.com/in/ziyad-a-tech/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a class="footer-icon-link" href="mailto:ziyad-a-tech@gmail.com">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M3 6l9 7 9-7"/></svg>
+            <span>Email</span>
+          </a>
+          <button class="footer-icon-link footer-icon-btn" id="resume-preview-trigger-footer" type="button">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            <span>Resume</span>
           </button>
         </div>
-
-        <div class="sig-links">
-          <a href="https://github.com/ziyad-a-20" class="sig-soc" target="_blank" rel="noopener">GitHub ↗</a>
-          <a href="https://www.linkedin.com/in/ziyad-a-tech/" class="sig-soc" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <button class="sig-soc sig-resume-btn" id="sig-resume-btn">Resume ↗</button>
-        </div>
-
-        <button class="form-tog" id="form-tog" aria-expanded="false" aria-controls="contact-form">
-          → Prefer a form?
-        </button>
-
-        <div id="contact-form" class="c-form-wrap" aria-hidden="true">
-          <div class="c-form">
-            <div class="cf-row">
-              <div class="cf-field">
-                <label for="cf-name" class="cf-label">Name</label>
-                <input type="text" id="cf-name" name="name" class="cf-input" placeholder="Your name" autocomplete="name">
-                <span class="cf-err" id="cf-name-e" role="alert"></span>
-              </div>
-              <div class="cf-field">
-                <label for="cf-email" class="cf-label">Email</label>
-                <input type="email" id="cf-email" name="email" class="cf-input" placeholder="you@example.com" autocomplete="email">
-                <span class="cf-err" id="cf-email-e" role="alert"></span>
-              </div>
-            </div>
-            <div class="cf-field">
-              <label for="cf-msg" class="cf-label">Message</label>
-              <textarea id="cf-msg" name="message" class="cf-input cf-textarea" placeholder="Tell me what you're building..." rows="4" maxlength="500"></textarea>
-              <span class="cf-err" id="cf-msg-e" role="alert"></span>
-            </div>
-            <div class="cf-foot">
-              <button type="button" class="btn-acid cf-send" id="cf-send">Send Message</button>
-              <p class="cf-ok" id="cf-ok" aria-live="polite"></p>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
-
-    <footer id="site-footer">
-  <div class="ft-brand">
-    <span class="ft-logo">ZA</span>
-    <span class="ft-tagline">Full Stack Developer · Open to Work</span>
-  </div>
-
-  <nav class="ft-nav" aria-label="Footer navigation">
-    <a href="#work"   class="ft-link">Work</a>
-    <a href="#craft"  class="ft-link">Craft</a>
-    <a href="#story"  class="ft-link">Story</a>
-    <a href="#signal" class="ft-link">Signal</a>
-  </nav>
-
-  <div class="ft-right">
-    <div class="ft-socials">
-      <a href="https://github.com/ziyad-a-20" class="ft-soc" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
-      <a href="https://www.linkedin.com/in/ziyad-a-tech/" class="ft-soc" target="_blank" rel="noopener" aria-label="LinkedIn">LI</a>
-      <a href="mailto:ziyad-a-tech@gmail.com" class="ft-soc" aria-label="Email">EM</a>
     </div>
-    <span class="ft-year">© <span id="ft-yr"></span> Ziyad A</span>
+
+    <div class="footer-bottom">
+      <p class="label-mono muted">© 2026 ZIYAD A.</p>
+      <p class="label-mono muted" id="local-time"></p>
+      <button class="back-to-top" id="back-to-top" aria-label="Back to top" type="button">
+        <span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>
+      </button>
+    </div>
   </div>
 </footer>
 
-  </div><!-- /#site -->
+<!-- ============ MOBILE BOTTOM NAV ============ -->
+<nav class="mobile-nav">
+  <a href="#home" class="mnav-item active nav-scroll-link" data-section="home">
+    <span class="mnav-dot"></span>
+    <span class="material-symbols-outlined" aria-hidden="true">home</span>
+    <span class="mnav-label">Home</span>
+  </a>
+  <a href="#about" class="mnav-item nav-scroll-link" data-section="about">
+    <span class="mnav-dot"></span>
+    <span class="material-symbols-outlined" aria-hidden="true">person</span>
+    <span class="mnav-label">About</span>
+  </a>
+  <a href="#stack" class="mnav-item nav-scroll-link" data-section="stack">
+    <span class="mnav-dot"></span>
+    <span class="material-symbols-outlined" aria-hidden="true">layers</span>
+    <span class="mnav-label">Stack</span>
+  </a>
+  <a href="#work" class="mnav-item nav-scroll-link" data-section="work">
+    <span class="mnav-dot"></span>
+    <span class="material-symbols-outlined" aria-hidden="true">work</span>
+    <span class="mnav-label">Work</span>
+  </a>
+  <a href="#contact" class="mnav-item nav-scroll-link" data-section="contact">
+    <span class="mnav-dot"></span>
+    <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+    <span class="mnav-label">Contact</span>
+  </a>
+</nav>
 
-  <!-- CDN libs -->
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-
-  <script src="js/utils.js"   defer></script>
-  <script src="js/cursor.js"  defer></script>
-  <script src="js/loader.js"  defer></script>
-  <script src="js/hero.js"    defer></script>
-  <script src="js/nav.js"     defer></script>
-  <script src="js/work.js"    defer></script>
-  <script src="js/craft.js"   defer></script>
-  <script src="js/story.js"   defer></script>
-  <script src="js/contact.js" defer></script>
-  <script src="js/main.js"    defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>

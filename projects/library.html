@@ -1,0 +1,312 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Library Management System | Ziyad A</title>
+  <meta name="description" content="Case study: a full-stack Flask + MySQL library management system with role-based access, automated fine calculation, and a real-time borrow/return engine.">
+  <link rel="canonical" href="https://ziyad-portfolio.example.com/projects/library.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="icon" href="../assets/favicons/favicon.ico">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/project.css">
+  <link rel="stylesheet" href="../css/transitions.css">
+  </head>
+  <body>
+
+  <div class="page-transition-overlay" id="page-transition-overlay"></div>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <div class="custom-cursor" id="cursor" aria-hidden="true"></div>
+  <div class="custom-cursor-follower" id="cursor-follower" aria-hidden="true"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="shader-bg" id="shader-wrap" aria-hidden="true">
+    <canvas id="shader-canvas" width="1920" height="1080"></canvas>
+  </div>
+  <div class="grid-line-v" style="left:8.333%" aria-hidden="true"></div>
+  <div class="grid-line-v" style="left:50%" aria-hidden="true"></div>
+  <div class="grid-line-v" style="left:91.666%" aria-hidden="true"></div>
+
+  <nav class="site-nav" id="site-nav">
+    <div class="nav-inner">
+      <a href="../index.html#home" class="logo">ZIYAD</a>
+      <div class="nav-links">
+        <a href="../index.html#work">WORK</a>
+        <a href="../index.html#stack">STACK</a>
+        <a href="../index.html#about">ABOUT</a>
+        <a href="../index.html#contact">CONTACT</a>
+        <button class="nav-link-btn" id="resume-preview-trigger" type="button">RESUME</button>
+      </div>
+      <div class="nav-right">
+    <button class="palette-trigger" id="palette-trigger" type="button" aria-label="Open command palette">
+      <span class="material-symbols-outlined" aria-hidden="true">terminal</span>
+      <span class="palette-trigger-kbd">
+        <kbd>⌘</kbd><kbd>K</kbd>
+      </span>
+    </button>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" type="button">
+      <span class="material-symbols-outlined icon-sun" aria-hidden="true">light_mode</span>
+      <span class="material-symbols-outlined icon-moon" aria-hidden="true">dark_mode</span>
+    </button>
+  </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <div class="container">
+      <div class="project-breadcrumb label-mono stagger-reveal">
+        <a href="../index.html#work">WORK</a>
+        <span>/</span>
+        <span>01 — LIBRARY MANAGEMENT SYSTEM</span>
+      </div>
+
+      <section class="project-hero">
+        <div class="stagger-reveal">
+          <span class="label-mono accent">01 / WEB APPLICATION</span>
+          <h1 class="headline-lg project-hero-title">Library Management System</h1>
+          <p class="body-lg muted project-hero-tagline">
+            A full-stack Flask and MySQL application that replaced a college library's manual
+            borrow/return tracking with a live, role-based system for members and librarians.
+          </p>
+          <div class="project-hero-meta">
+            <span class="tag">FLASK</span>
+            <span class="tag">MYSQL</span>
+            <span class="tag">PYTHON</span>
+          </div>
+          <div class="project-hero-links">
+            <a class="project-hero-link primary" href="https://web-production-1e11b.up.railway.app/login" target="_blank" rel="noopener">
+              VIEW LIVE <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+            </a>
+            <a class="project-hero-link" href="https://github.com/ziyad-a-20/Lendwise" target="_blank" rel="noopener">
+              VIEW ON GITHUB <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+            </a>
+          </div>
+        </div>
+        <div class="project-cover stagger-reveal">
+          <img src="../assets/project-thumbnails/library.png" alt="Library Management System screenshot" loading="lazy">
+        </div>
+      </section>
+
+      <section class="project-section stagger-reveal">
+        <div class="project-section-header">
+          <span class="label-mono accent">OVERVIEW</span>
+          <h2 class="headline-md">Replacing manual record-keeping with a live system</h2>
+        </div>
+        <p class="body-md muted" style="max-width:720px;">
+          Members and librarians previously relied on paper logs and manual fine calculation.
+          This system introduces role-based accounts, a real-time borrow/return engine, automated
+          overdue fine calculation, and email-based reminders — turning a manual process into
+          something the library can run day-to-day without a spreadsheet.
+        </p>
+      </section>
+
+      <section class="project-section stagger-reveal">
+        <div class="project-section-header">
+          <span class="label-mono accent">SYSTEM DESIGN</span>
+          <h2 class="headline-md">How it's built</h2>
+        </div>
+        <div class="project-system-grid">
+          <div class="project-system-card">
+            <span class="label-mono">01 / SCHEMA</span>
+            <p class="body-md">
+              A normalized MySQL schema separates active loans from return history, keeping
+              overdue and fine-calculation logic simple instead of querying one large mixed table.
+            </p>
+          </div>
+          <div class="project-system-card">
+            <span class="label-mono">02 / ACCESS CONTROL</span>
+            <p class="body-md">
+              Role-based sessions distinguish members from librarians at the route level, so
+              administrative actions like adding books or waiving fines are gated server-side.
+            </p>
+          </div>
+          <div class="project-system-card">
+            <span class="label-mono">03 / INTEGRATIONS</span>
+            <p class="body-md">
+              Gmail SMTP handles reminders and verification emails, ReportLab generates PDF
+              reports, and a MySQL connection pool keeps queries efficient under load.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="project-section stagger-reveal">
+        <div class="project-section-header">
+          <span class="label-mono accent">NEXT STEPS</span>
+          <h2 class="headline-md">What I'd do with more time</h2>
+        </div>
+        <div class="project-outcome">
+          <div class="project-outcome-item">
+            <span class="material-symbols-outlined" aria-hidden="true">account_tree</span>
+            <p class="body-md muted">Refactor the route structure into Flask Blueprints as the module count grows.</p>
+          </div>
+          <div class="project-outcome-item">
+            <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+            <p class="body-md muted">Add automated testing around the fine-calculation and borrow/return logic.</p>
+          </div>
+        </div>
+      </section>
+
+      <nav class="project-pager stagger-reveal" aria-label="Other projects">
+        <a class="project-pager-link" href="redline.html">
+          <span class="label-mono muted">← PREVIOUS</span>
+          <span class="headline-md">RedLine — Blood Bank Network</span>
+        </a>
+        <a class="project-pager-link next" href="tokyo.html">
+          <span class="label-mono muted">NEXT →</span>
+          <span class="headline-md">Tokyo Revengers Fan Portal</span>
+        </a>
+      </nav>
+
+      <a class="project-back-home label-mono stagger-reveal" href="../index.html#work">
+        <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+        BACK TO ALL WORK
+      </a>
+    </div>
+  </main>
+
+  <div class="resume-modal" id="resume-modal" aria-hidden="true">
+    <div class="resume-modal-backdrop" id="resume-modal-backdrop"></div>
+    <div class="resume-modal-panel" role="dialog" aria-modal="true" aria-labelledby="resume-modal-title">
+      <div class="resume-modal-chrome">
+        <div class="resume-modal-chrome-left">
+    <span class="resume-dots" aria-hidden="true">
+      <span class="resume-dot resume-dot-red"></span>
+      <span class="resume-dot resume-dot-yellow"></span>
+      <span class="resume-dot resume-dot-green"></span>
+    </span>
+    <span class="label-mono" id="resume-modal-title">RESUME.PDF</span>
+  </div>
+        <div class="resume-modal-chrome-right">
+          <a class="resume-modal-download" href="../assets/resume.pdf" download>
+            <span class="material-symbols-outlined" aria-hidden="true">download</span>
+            <span>DOWNLOAD</span>
+          </a>
+          <button class="resume-modal-close" id="resume-modal-close" aria-label="Close resume preview" type="button">
+            <span class="material-symbols-outlined" aria-hidden="true">close</span>
+          </button>
+        </div>
+      </div>
+      <div class="resume-modal-body">
+        <iframe id="resume-modal-frame" title="Resume preview" src="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="command-palette" id="command-palette" aria-hidden="true">
+    <div class="command-palette-backdrop" id="command-palette-backdrop"></div>
+    <div class="command-palette-panel" role="dialog" aria-modal="true" aria-label="Command palette">
+      <div class="command-palette-input-row">
+        <span class="material-symbols-outlined" aria-hidden="true">search</span>
+        <input type="text" id="command-palette-input" class="command-palette-input" placeholder="Type a command or search…" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="command-palette-list">
+        <kbd class="command-palette-esc">ESC</kbd>
+      </div>
+      <ul class="command-palette-list" id="command-palette-list" role="listbox"></ul>
+      <div class="command-palette-footer">
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> select</span>
+        <span><kbd>esc</kbd> close</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-inner container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">ZIYAD</div>
+          <p class="body-md muted footer-tagline">
+            Full-stack developer building practical, well-structured web systems from Madurai, India.
+          </p>
+          <div class="footer-badge">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="label-mono">OPEN TO INTERNSHIPS</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <p class="label-mono footer-col-title">Navigate</p>
+          <div class="footer-link-group">
+            <a href="../index.html#home">Home</a>
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#stack">Stack</a>
+            <a href="../index.html#work">Work</a>
+            <a href="../index.html#contact">Contact</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <p class="label-mono footer-col-title">Stack</p>
+          <div class="footer-link-group">
+            <span class="label-mono muted footer-stack-line">Python · Flask · MySQL</span>
+            <span class="label-mono muted footer-stack-line">JavaScript · HTML · CSS</span>
+            <span class="label-mono muted footer-stack-line">Tailwind CSS · Git · GitHub</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <p class="label-mono footer-col-title">Connect</p>
+          <div class="footer-link-group footer-link-group-icons">
+            <a class="footer-icon-link" href="https://github.com/ziyad-a-20" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.9 5.34.9 11.6c0 4.99 3.24 9.22 7.73 10.71.56.1.77-.24.77-.54v-1.9c-3.14.68-3.8-1.35-3.8-1.35-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.16-3.04-.12-.29-.5-1.45.11-3.02 0 0 .95-.3 3.11 1.16a10.7 10.7 0 0 1 5.66 0c2.16-1.46 3.1-1.16 3.1-1.16.62 1.57.23 2.73.12 3.02.72.79 1.16 1.8 1.16 3.04 0 4.36-2.65 5.3-5.17 5.58.4.35.76 1.04.76 2.1v3.11c0 .3.2.65.78.54 4.48-1.5 7.72-5.72 7.72-10.71C23.1 5.34 18.27.5 12 .5z"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a class="footer-icon-link" href="https://www.linkedin.com/in/ziyad-a-tech/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a class="footer-icon-link" href="mailto:ziyad-a-tech@gmail.com">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M3 6l9 7 9-7"/></svg>
+              <span>Email</span>
+            </a>
+            <button class="footer-icon-link footer-icon-btn" id="resume-preview-trigger-footer" type="button">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              <span>Resume</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="label-mono muted">© 2026 ZIYAD A.</p>
+        <p class="label-mono muted" id="local-time"></p>
+        <button class="back-to-top" id="back-to-top" aria-label="Back to top" type="button">
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="mobile-nav">
+    <a href="../index.html#home" class="mnav-item">
+      <span class="mnav-dot"></span>
+      <span class="material-symbols-outlined" aria-hidden="true">home</span>
+      <span class="mnav-label">Home</span>
+    </a>
+    <a href="../index.html#about" class="mnav-item">
+      <span class="mnav-dot"></span>
+      <span class="material-symbols-outlined" aria-hidden="true">person</span>
+      <span class="mnav-label">About</span>
+    </a>
+    <a href="../index.html#stack" class="mnav-item">
+      <span class="mnav-dot"></span>
+      <span class="material-symbols-outlined" aria-hidden="true">layers</span>
+      <span class="mnav-label">Stack</span>
+    </a>
+    <a href="../index.html#work" class="mnav-item active">
+      <span class="mnav-dot"></span>
+      <span class="material-symbols-outlined" aria-hidden="true">work</span>
+      <span class="mnav-label">Work</span>
+    </a>
+    <a href="../index.html#contact" class="mnav-item">
+      <span class="mnav-dot"></span>
+      <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+      <span class="mnav-label">Contact</span>
+    </a>
+  </nav>
+
+  <script type="module" src="../js/project-page.js"></script>
+  </body>
+  </html>
