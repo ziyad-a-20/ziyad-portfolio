@@ -5,11 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>RedLine — Blood Bank &amp; Emergency Donor Network | Ziyad A</title>
 <meta name="description" content="Case study: a Flask + MySQL healthcare platform connecting donors, hospitals, and recipients through a smart blood-matching engine.">
-<link rel="canonical" href="https://ziyad-portfolio.example.com/projects/redline.html">
+<link rel="canonical" href="https://ziyad-portfolio-nine.vercel.app/projects/redline.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<link rel="icon" href="../assets/favicons/favicon.ico">
+<link rel="icon" type="image/x-icon" href="../assets/favicons/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/components.css">
 <link rel="stylesheet" href="../css/project.css">
@@ -92,7 +95,13 @@
 </div>
       </div>
       <div class="project-cover stagger-reveal in-development">
-  <img src="../assets/project-thumbnails/redline.png" alt="RedLine Blood Bank &amp; Emergency Donor Network screenshot" loading="lazy">
+  <picture>
+    <source
+      type="image/webp"
+      srcset="../assets/project-thumbnails/redline-640.webp 640w, ../assets/project-thumbnails/redline-1200.webp 1200w"
+      sizes="(max-width: 900px) 100vw, 900px">
+    <img src="../assets/project-thumbnails/redline.png" alt="RedLine Blood Bank &amp; Emergency Donor Network screenshot" width="1376" height="768" loading="lazy">
+  </picture>
   <div class="dev-badge">
     <span class="material-symbols-outlined" aria-hidden="true">construction</span>
     <span>IN DEVELOPMENT</span>
