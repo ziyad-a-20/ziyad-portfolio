@@ -129,6 +129,22 @@
   }
 }
 
+/* Premium loader exit: fades + lifts the grid lines apart instead of a
+   flat opacity cut, so it reads as "unlocking" rather than "disappearing" */
+#loader {
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+#loader.loader-done {
+  opacity: 0;
+  pointer-events: none;
+}
+#loader.loader-done .loader-grid .line-v {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+#loader.loader-done .line-left { transform: translateX(-40px); }
+#loader.loader-done .line-right { transform: translateX(40px); }
+#loader.loader-done .line-center { transform: scaleY(0.3); }
+
 /* ============ CURSOR & OVERLAYS ============ */
 .custom-cursor {
   width: 12px;

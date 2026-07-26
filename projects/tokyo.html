@@ -76,6 +76,7 @@
           character, gang, and episode relationships.
         </p>
         <div class="project-hero-meta">
+          <span class="tag">PYTHON</span>
           <span class="tag">FLASK</span>
           <span class="tag">MYSQL</span>
           <span class="tag">HTML</span>
@@ -105,10 +106,11 @@
         <h2 class="headline-md">A fan hub built around relationships, not just pages</h2>
       </div>
       <p class="body-md muted" style="max-width:720px;">
-        Rather than a flat list of characters, the portal models the actual relationships
-        between characters, gangs, and episodes — so filtering by gang, browsing character
-        arcs, and moderating fan-submitted content all share the same underlying schema.
-      </p>
+  Rather than a flat list of characters, the portal models the actual relationships
+  between characters, gangs, and episodes through 4 normalized junction tables —
+  so filtering by gang, browsing character arcs, and moderating fan-submitted
+  content all resolve in 3 queries instead of 12+ separate N+1 lookups.
+</p>
     </section>
 
     <section class="project-section stagger-reveal">

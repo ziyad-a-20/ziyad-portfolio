@@ -1,56 +1,69 @@
+// Premium boot-sequence loader: cycles through real status lines tied to
+// your actual stack instead of a single generic message, with a slower,
+// more deliberate easing curve on the fill so it reads as "engineered"
+// rather than "waiting."
+
+const STATUS_LINES = [
+  "INITIALIZING PORTFOLIO",
+  "MOUNTING RENDER LAYER",
+  "LOADING TYPE SYSTEM",
+  "COMPILING SHADERS",
+  "SYNCING PROJECT DATA",
+  "READY",
+];
+
 export function initLoader(prefersReducedMotion) {
   const loader = document.getElementById("loader");
-  const percentageText = document.getElementById("loader-percentage");
-  const statusText = document.getElementById("loader-status");
-  const loaderName = document.querySelector("#loader-name span");
+  const percentageEl = document.getElementById("loader-percentage");
+  const statusEl = document.getElementById("loader-status");
+  if (!loader || !percentageEl || !statusEl) return;
 
-  const hasVisited = sessionStorage.getItem("hasVisited");
-  const skipLoaderAnim = prefersReducedMotion || hasVisited;
-
-  const statuses = [
-    "INITIALIZING PORTFOLIO",
-    "LOADING CORE",
-    "PREPARING EXPERIENCE",
-    "RENDERING INTERFACE",
-  ];
-
-  function finishLoader() {
-    if (loader) loader.style.display = "none";
+  if (prefersReducedMotion) {
+    loader.style.display = "none";
     document.body.classList.remove("loading");
+    return;
   }
 
-  if (skipLoaderAnim) {
-    if (percentageText) percentageText.innerText = "100";
-    if (statusText) statusText.innerText = statuses[statuses.length - 1];
-    finishLoader();
-  } else {
-    const loadData = { val: 0 };
-    const timeline = gsap.timeline({ onComplete: finishLoader });
+  let progress = 0;
+  let statusIndex = 0;
+  statusEl.textContent = STATUS_LINES[0];
 
-    timeline.to(loadData, {
-      val: 100,
-      duration: 3,
-      ease: "power2.inOut",
-      onUpdate: () => {
-        const percentage = Math.floor(loadData.val);
-        percentageText.innerText = percentage.toString().padStart(3, "0");
-        const statusIndex = Math.floor((percentage / 100) * statuses.length);
-        if (statusIndex < statuses.length)
-          statusText.innerText = statuses[statusIndex];
-      },
-    });
+  const duration = 1800; // total loader duration in ms
+  const start = performance.now();
 
-    timeline.to(
-      loaderName,
-      { scale: 1.5, opacity: 0, duration: 0.8, ease: "expo.inOut" },
-      "-=0.2",
-    );
-
-    timeline.to(
-      loader,
-      { clipPath: "inset(0 0 100% 0)", duration: 1.2, ease: "expo.inOut" },
-      "-=0.4",
-    );
+  function easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
   }
-  sessionStorage.setItem("hasVisited", "true");
+
+  function tick(now) {
+    const elapsed = now - start;
+    const t = Math.min(elapsed / duration, 1);
+    progress = Math.round(easeOutExpo(t) * 100);
+    percentageEl.textContent = String(progress).padStart(3, "0");
+
+    const nextStatusIndex = Math.min(
+      Math.floor(t * STATUS_LINES.length),
+      STATUS_LINES.length - 1,
+    );
+    if (nextStatusIndex !== statusIndex) {
+      statusIndex = nextStatusIndex;
+      statusEl.textContent = STATUS_LINES[statusIndex];
+    }
+
+    if (t < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      finish();
+    }
+  }
+
+  function finish() {
+    loader.classList.add("loader-done");
+    document.body.classList.remove("loading");
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 700); // matches the CSS transition duration below
+  }
+
+  requestAnimationFrame(tick);
 }
