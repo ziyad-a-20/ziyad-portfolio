@@ -27,11 +27,11 @@ export function initThree(prefersReducedMotion) {
   function themeColors(dark) {
     return {
       sphereColor: dark ? 0x5c8dff : 0x1a1a1a,
-      sphereOpacity: dark ? 0.45 : 0.18, // was 0.32 — a bit stronger
-      sphereEmissive: dark ? 0x5c8dff : 0x000000, // NEW — self-glow, dark mode only
-      sphereEmissiveIntensity: dark ? 0.5 : 0, // NEW
-      sphereMetalness: dark ? 0.3 : 0.9, // NEW — was fixed at 0.9 for both
-      sphereRoughness: dark ? 0.6 : 0.1, // NEW — was fixed at 0.1 for both
+      sphereOpacity: dark ? 0.3 : 0.18, // was 0.45 — more subtle
+      sphereEmissive: dark ? 0x5c8dff : 0x000000,
+      sphereEmissiveIntensity: dark ? 0.28 : 0, // was 0.5 — softer glow
+      sphereMetalness: dark ? 0.3 : 0.9,
+      sphereRoughness: dark ? 0.6 : 0.1,
       particleColor: dark ? 0x6ea0ff : 0x0066ff,
       ambientIntensity: dark ? 0.9 : 0.6,
       pointIntensity: dark ? 2.4 : 2,
