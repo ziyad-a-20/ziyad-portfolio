@@ -27,7 +27,11 @@ export function initThree(prefersReducedMotion) {
   function themeColors(dark) {
     return {
       sphereColor: dark ? 0x5c8dff : 0x1a1a1a,
-      sphereOpacity: dark ? 0.32 : 0.18,
+      sphereOpacity: dark ? 0.45 : 0.18, // was 0.32 — a bit stronger
+      sphereEmissive: dark ? 0x5c8dff : 0x000000, // NEW — self-glow, dark mode only
+      sphereEmissiveIntensity: dark ? 0.5 : 0, // NEW
+      sphereMetalness: dark ? 0.3 : 0.9, // NEW — was fixed at 0.9 for both
+      sphereRoughness: dark ? 0.6 : 0.1, // NEW — was fixed at 0.1 for both
       particleColor: dark ? 0x6ea0ff : 0x0066ff,
       ambientIntensity: dark ? 0.9 : 0.6,
       pointIntensity: dark ? 2.4 : 2,
@@ -44,8 +48,10 @@ export function initThree(prefersReducedMotion) {
     wireframe: true,
     transparent: true,
     opacity: c0.sphereOpacity,
-    metalness: 0.9,
-    roughness: 0.1,
+    metalness: c0.sphereMetalness,
+    roughness: c0.sphereRoughness,
+    emissive: c0.sphereEmissive,
+    emissiveIntensity: c0.sphereEmissiveIntensity,
   });
   const sphere = new THREE.Mesh(geometry, material);
   scene.add(sphere);
@@ -97,6 +103,10 @@ export function initThree(prefersReducedMotion) {
     const c = themeColors(e.detail.dark);
     material.color.setHex(c.sphereColor);
     material.opacity = c.sphereOpacity;
+    material.metalness = c.sphereMetalness;
+    material.roughness = c.sphereRoughness;
+    material.emissive.setHex(c.sphereEmissive);
+    material.emissiveIntensity = c.sphereEmissiveIntensity;
     particlesMaterial.color.setHex(c.particleColor);
     ambientLight.intensity = c.ambientIntensity;
     pointLight.intensity = c.pointIntensity;
