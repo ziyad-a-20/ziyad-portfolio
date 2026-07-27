@@ -2,8 +2,13 @@
 // (nav-scrolled state, scroll-progress bar, mobile scrollspy) into a
 // single rAF-batched handler, and gives desktop nav links the same
 // smooth-scroll behavior the mobile nav already had.
+//
+// lenis is optional: when present (Lenis loaded, no reduced-motion),
+// anchor clicks and back-to-top route through lenis.scrollTo() for a
+// consistent eased feel; otherwise this falls back to native
+// scrollIntoView/scrollTo exactly as before.
 
-export function initNavScroll(prefersReducedMotion) {
+export function initNavScroll(prefersReducedMotion, lenis) {
   const siteNav = document.getElementById("site-nav");
   const scrollProgress = document.getElementById("scroll-progress");
   const mnavItems = document.querySelectorAll(".mnav-item");
@@ -73,9 +78,13 @@ export function initNavScroll(prefersReducedMotion) {
       const target = document.querySelector(targetId);
       if (!target) return;
       e.preventDefault();
-      target.scrollIntoView({
-        behavior: prefersReducedMotion ? "auto" : "smooth",
-      });
+      if (lenis) {
+        lenis.scrollTo(target, { duration: 1.1 });
+      } else {
+        target.scrollIntoView({
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+        });
+      }
     });
   });
 
@@ -83,10 +92,14 @@ export function initNavScroll(prefersReducedMotion) {
   const backToTop = document.getElementById("back-to-top");
   if (backToTop) {
     backToTop.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: prefersReducedMotion ? "auto" : "smooth",
-      });
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.1 });
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+        });
+      }
     });
   }
 }

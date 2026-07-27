@@ -7,6 +7,7 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.25/dist/lenis.css">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
@@ -16,6 +17,12 @@
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/transitions.css">
 <style>
+  .shader-bg {
+    --shader-opacity: 0.85;
+  }
+  html[data-theme="dark"] .shader-bg {
+    --shader-opacity: 0.55;
+  }
   .error-page {
     min-height: 100vh;
     display: flex;
@@ -27,17 +34,28 @@
     position: relative;
     z-index: 1;
   }
+  .error-nav {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 5;
+  }
   .error-code {
     font-family: "JetBrains Mono", monospace;
     font-size: clamp(5rem, 22vw, 11rem);
     font-weight: 700;
     line-height: 1;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
+    display: flex;
+    gap: 0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .error-code .digit {
+    display: inline-block;
     background: linear-gradient(180deg, var(--c-ink) 0%, color-mix(in srgb, var(--c-ink) 20%, transparent) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 0.5rem;
   }
   .error-title {
     font-family: "Syne", sans-serif;
@@ -45,30 +63,57 @@
     font-size: clamp(1.25rem, 4vw, 2rem);
     letter-spacing: -0.01em;
     margin-bottom: 0.75rem;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: error-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.55s;
   }
   .error-message {
     font-family: "Inter", sans-serif;
     color: var(--c-secondary);
     max-width: 440px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.75rem;
     line-height: 1.6;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: error-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.65s;
   }
   .error-path {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     letter-spacing: 0.05em;
     color: color-mix(in srgb, var(--c-secondary) 70%, transparent);
-    margin-bottom: 2.5rem;
+    margin-bottom: 1rem;
     padding: 0.5rem 1rem;
     border: 1px solid var(--c-border-03);
     border-radius: 6px;
     background: color-mix(in srgb, var(--c-ink) 4%, transparent);
+    opacity: 0;
+    transform: translateY(16px);
+    animation: error-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.75s;
+  }
+  .error-timer {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: color-mix(in srgb, var(--c-secondary) 55%, transparent);
+    margin-bottom: 2.25rem;
+    opacity: 0;
+    animation: error-fade 0.7s ease forwards;
+    animation-delay: 0.9s;
   }
   .error-actions {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
     justify-content: center;
+    margin-bottom: 1.25rem;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: error-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.85s;
   }
   .error-btn {
     font-family: "JetBrains Mono", monospace;
@@ -81,68 +126,96 @@
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease, box-shadow 0.3s ease;
     cursor: pointer;
     border: none;
   }
-  .error-btn:hover { transform: translateY(-2px); }
+  .error-btn:hover {
+    transform: translateY(-3px);
+  }
   .error-btn.primary {
     background: var(--c-ink);
     color: var(--c-bg);
+  }
+  .error-btn.primary:hover {
+    box-shadow: 0 12px 24px -8px color-mix(in srgb, var(--c-ink) 40%, transparent);
   }
   .error-btn.secondary {
     background: transparent;
     color: var(--c-ink);
     border: 1px solid var(--c-border-03);
   }
-  .error-orbit {
-    position: absolute;
-    inset: 0;
+  .error-kbd-hint {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: color-mix(in srgb, var(--c-secondary) 50%, transparent);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    opacity: 0.5;
-    z-index: -1;
+    gap: 16px;
+    opacity: 0;
+    animation: error-fade 0.7s ease forwards;
+    animation-delay: 1.05s;
   }
-  .error-orbit svg { width: min(80vw, 640px); height: auto; }
-  .error-node {
-    animation: error-pulse 3s ease-in-out infinite;
+  .error-kbd-hint kbd {
+    font-family: inherit;
+    border: 1px solid var(--c-border-03);
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin-right: 4px;
   }
-  @keyframes error-pulse {
-    0%, 100% { opacity: 0.35; }
-    50% { opacity: 0.9; }
+  @keyframes error-rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes error-fade {
+    to { opacity: 1; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .error-node { animation: none; }
+    .error-title,
+    .error-message,
+    .error-path,
+    .error-actions,
+    .error-timer,
+    .error-kbd-hint {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (max-width: 640px) {
+    .error-kbd-hint { display: none; }
   }
 </style>
 </head>
 <body>
 
+<div class="custom-cursor" id="cursor" aria-hidden="true"></div>
+<div class="custom-cursor-follower" id="cursor-follower" aria-hidden="true"></div>
 <div class="noise-overlay" aria-hidden="true"></div>
+<div class="shader-bg" id="shader-wrap" aria-hidden="true">
+  <canvas id="shader-canvas" width="1920" height="1080"></canvas>
+</div>
 <div class="grid-line-v" style="left:8.333%" aria-hidden="true"></div>
 <div class="grid-line-v" style="left:50%" aria-hidden="true"></div>
 <div class="grid-line-v" style="left:91.666%" aria-hidden="true"></div>
 
-<div class="error-orbit" aria-hidden="true">
-  <svg viewBox="0 0 400 400" fill="none">
-    <circle cx="200" cy="200" r="120" stroke="var(--c-border-03)" stroke-width="1"/>
-    <circle cx="200" cy="200" r="160" stroke="var(--c-border-03)" stroke-width="1"/>
-    <circle class="error-node" cx="320" cy="200" r="4" fill="#5c8dff"/>
-    <circle class="error-node" cx="200" cy="80" r="3" fill="#5c8dff" style="animation-delay:1s"/>
-    <circle class="error-node" cx="80" cy="240" r="3.5" fill="#5c8dff" style="animation-delay:2s"/>
-  </svg>
+<div class="error-nav">
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" type="button">
+    <span class="material-symbols-outlined icon-sun" aria-hidden="true">light_mode</span>
+    <span class="material-symbols-outlined icon-moon" aria-hidden="true">dark_mode</span>
+  </button>
 </div>
 
 <main class="error-page" id="main-content">
-  <div class="error-code">404</div>
+  <div class="error-code" id="error-digits" aria-label="404">
+    <span class="digit" data-final="4">4</span><span class="digit" data-final="0">0</span><span class="digit" data-final="4">4</span>
+  </div>
   <h1 class="error-title">This route doesn't resolve.</h1>
   <p class="error-message">
     The page you're looking for was moved, renamed, or never existed —
     like a query against a table that isn't in the schema.
   </p>
   <p class="error-path" id="error-path"></p>
+  <p class="error-timer" id="error-timer">TIME LOST: 00:00</p>
   <div class="error-actions">
     <a class="error-btn primary" href="/">
       <span class="material-symbols-outlined" aria-hidden="true" style="font-size:1rem;">home</span>
@@ -150,10 +223,72 @@
     </a>
     <a class="error-btn secondary" href="/#work">VIEW PROJECTS</a>
   </div>
+  <p class="error-kbd-hint">
+    <span><kbd>H</kbd>home</span>
+    <span><kbd>ESC</kbd>home</span>
+  </p>
 </main>
 
-<script>
+<script src="https://unpkg.com/lenis@1.3.25/dist/lenis.min.js"></script>
+<script type="module">
+  import { initTheme } from "./js/modules/theme.js";
+  import { initCursor } from "./js/modules/cursor.js";
+  import { initShader } from "./js/modules/shader-bg.js";
+  import { initSmoothScroll } from "./js/modules/smooth-scroll.js";
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
   document.getElementById("error-path").textContent = window.location.pathname;
+
+  // Digit scramble-in
+  const digitEls = document.querySelectorAll("#error-digits .digit");
+  const scrambleChars = "0123456789!@#$%&";
+
+  if (prefersReducedMotion) {
+    digitEls.forEach((el) => (el.textContent = el.dataset.final));
+  } else {
+    digitEls.forEach((el, i) => {
+      const finalChar = el.dataset.final;
+      let ticks = 0;
+      const maxTicks = 10 + i * 4;
+      const interval = setInterval(() => {
+        ticks++;
+        if (ticks >= maxTicks) {
+          el.textContent = finalChar;
+          clearInterval(interval);
+        } else {
+          el.textContent =
+            scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+        }
+      }, 40);
+    });
+  }
+
+  // Live "time lost" counter
+  let seconds = 0;
+  const timerEl = document.getElementById("error-timer");
+  setInterval(() => {
+    seconds++;
+    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const s = String(seconds % 60).padStart(2, "0");
+    timerEl.textContent = `TIME LOST: ${m}:${s}`;
+  }, 1000);
+
+  // Keyboard shortcuts
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" || e.key.toLowerCase() === "h") {
+      window.location.href = "/";
+    }
+  });
+
+  // Page-wide behavior
+  initTheme();
+  initCursor();
+  initShader(prefersReducedMotion);
+  initSmoothScroll(prefersReducedMotion);
 </script>
+<script src="https://unpkg.com/lenis@1.3.25/dist/lenis.min.js"></script>
 </body>
 </html>

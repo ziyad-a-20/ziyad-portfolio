@@ -11,6 +11,7 @@ export function initCommandPalette({
   onToggleTheme,
   homeUrl = "./",
   resumePath = "assets/resume.pdf",
+  lenis,
 } = {}) {
   const palette = document.getElementById("command-palette");
   const backdrop = document.getElementById("command-palette-backdrop");
@@ -26,12 +27,16 @@ export function initCommandPalette({
   function scrollToSection(id) {
     const target = document.getElementById(id);
     if (target) {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-      target.scrollIntoView({
-        behavior: prefersReducedMotion ? "auto" : "smooth",
-      });
+      if (lenis) {
+        lenis.scrollTo(target, { duration: 1.1 });
+      } else {
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        target.scrollIntoView({
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+        });
+      }
       return;
     }
     window.location.href = `${homeUrl}#${id}`;
@@ -163,11 +168,6 @@ export function initCommandPalette({
     },
   ];
 
-  // Full rebuild — only called when the list's CONTENT actually changes
-  // (opening the palette, typing a filter). Never called from a hover
-  // handler, which is what caused the original click bug: rebuilding
-  // the DOM mid-hover could swap out the node the user was about to
-  // click, breaking the browser's mousedown→mouseup→click contract.
   function renderList() {
     list.replaceChildren();
 
@@ -207,9 +207,6 @@ export function initCommandPalette({
     if (activeEl) activeEl.scrollIntoView({ block: "nearest" });
   }
 
-  // Cheap update — just moves the .active class between existing
-  // nodes. No DOM teardown, so it's safe to call from mouseover/hover
-  // without risking the click-breaking bug above.
   function setActiveIndex(idx) {
     if (idx === activeIndex || idx < 0 || idx >= filtered.length) return;
     const prevEl = list.querySelector(".command-palette-item.active");
@@ -241,12 +238,6 @@ export function initCommandPalette({
     runCommandAt(activeIndex);
   }
 
-  // ============ EVENT DELEGATION ============
-  // One listener each on the (never-destroyed) <ul>, instead of a
-  // listener per <li> that gets rebuilt. This is the actual fix: it's
-  // impossible for a hover-triggered rebuild to orphan a click handler
-  // when the handler lives on the stable parent, not the child nodes.
-
   list.addEventListener("mouseover", (e) => {
     const item = e.target.closest(".command-palette-item");
     if (!item || !list.contains(item)) return;
@@ -255,8 +246,6 @@ export function initCommandPalette({
   });
 
   list.addEventListener("mousedown", (e) => {
-    // Keep focus on the text input rather than shifting it to the
-    // list item; doesn't affect whether the click event itself fires.
     const item = e.target.closest(".command-palette-item");
     if (item) e.preventDefault();
   });

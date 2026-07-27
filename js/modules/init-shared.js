@@ -7,6 +7,7 @@ import { initResumeModal } from "./resume-modal.js";
 import { initCommandPalette } from "./command-palette.js";
 import { initShader } from "./shader-bg.js";
 import { initPageTransitions } from "./page-transitions.js";
+import { initSmoothScroll } from "./smooth-scroll.js";
 
 // Initialization shared by every page on the site (the home page and all
 // four project case studies). Only main.js layers extra setup on top of
@@ -19,11 +20,13 @@ import { initPageTransitions } from "./page-transitions.js";
 export function initShared({ basePath = "./", prefersReducedMotion } = {}) {
   initPageTransitions(prefersReducedMotion);
 
+  const lenis = initSmoothScroll(prefersReducedMotion);
+
   const themeApi = initTheme();
 
   initShader(prefersReducedMotion);
   initCursor();
-  initNavScroll(prefersReducedMotion);
+  initNavScroll(prefersReducedMotion, lenis);
   initScrollReveal(prefersReducedMotion);
   initClock();
 
@@ -35,7 +38,8 @@ export function initShared({ basePath = "./", prefersReducedMotion } = {}) {
     onToggleTheme: () => themeApi.toggle(),
     homeUrl: basePath,
     resumePath,
+    lenis,
   });
 
-  return { themeApi, resumeModal };
+  return { themeApi, resumeModal, lenis };
 }
