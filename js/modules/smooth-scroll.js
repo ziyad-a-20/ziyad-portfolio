@@ -4,6 +4,12 @@
 // position: fixed element on the site (nav, mobile nav, custom
 // cursor, resume modal, command palette) keeps working exactly as
 // before, with zero HTML restructuring required.
+//
+// syncTouch is enabled so the eased feel is consistent on phones and
+// tablets, not just desktop mouse-wheel scrolling. Touch scrolling is
+// tuned with a shorter lerp/inertia so it still feels responsive to a
+// finger drag rather than laggy — the most common complaint people
+// have with synced-touch smooth scroll libraries.
 export function initSmoothScroll(prefersReducedMotion) {
   if (prefersReducedMotion) return null;
   if (typeof Lenis === "undefined") {
@@ -17,14 +23,10 @@ export function initSmoothScroll(prefersReducedMotion) {
     duration: 1.1,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
-    // Touch scrolling is left native — smoothing touch input tends to
-    // fight the momentum scrolling mobile users already expect, and
-    // most mobile browsers already scroll acceptably smoothly.
-    syncTouch: false,
-    // nav-scroll.js and command-palette.js already handle anchor
-    // clicks explicitly (with their own reduced-motion checks), so
-    // Lenis doesn't need to intercept anchor clicks a second time.
-    anchors: false,
+    syncTouch: true,
+    syncTouchLerp: 0.075, // lower = snappier response to the finger, less "floaty"
+    touchInertiaMultiplier: 25, // shorter momentum coast than the default, keeps it feeling controlled
+    anchors: false, // nav-scroll.js / command-palette.js already handle anchor clicks explicitly
   });
 
   function raf(time) {
