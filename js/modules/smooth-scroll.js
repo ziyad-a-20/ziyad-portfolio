@@ -29,11 +29,34 @@ export function initSmoothScroll(prefersReducedMotion) {
     anchors: false, // nav-scroll.js / command-palette.js already handle anchor clicks explicitly
   });
 
+  // Single shared raf loop for Lenis. Paused on visibilitychange so this
+  // loop doesn't keep ticking (and waking the tab) while it's backgrounded —
+  // matching the same pause behavior already used by three-scene.js and
+  // shader-bg.js, so all three animation loops now follow one convention.
+  let rafId = null;
+
   function raf(time) {
     lenis.raf(time);
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
   }
-  requestAnimationFrame(raf);
+
+  function start() {
+    if (rafId === null) rafId = requestAnimationFrame(raf);
+  }
+
+  function stop() {
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  start();
 
   return lenis;
 }

@@ -35,6 +35,18 @@
   --mnav-bg: rgba(255, 255, 255, 0.85);
   --footer-bg: #faf9f7;
 
+  /* Fixed-appearance tokens: intentionally the same in both themes
+     because each one only ever appears against its own fixed-dark
+     background (project cards, dev badge, tooltips) rather than
+     against the page background, so it doesn't need to re-theme. */
+  --c-warning: #f5b800;
+  --c-status-live: #22c55e;
+  --c-danger-soft: #ffb3b8;
+  --c-danger-strong: #ff3d4d;
+  --c-tooltip-bg: rgba(16, 16, 16, 0.98);
+  --c-project-grad-1: #141414;
+  --c-project-grad-2: #000000;
+
   /* Border tokens — derived from --c-outline via color-mix so they
      actually re-theme between light/dark instead of being a fixed gray. */
   --c-border-015: color-mix(in srgb, var(--c-outline) 15%, transparent);

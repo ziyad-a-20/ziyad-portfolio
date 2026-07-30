@@ -204,7 +204,12 @@ export function initCommandPalette({
     });
 
     const activeEl = list.querySelector(".command-palette-item.active");
-    if (activeEl) activeEl.scrollIntoView({ block: "nearest" });
+    if (activeEl) {
+      activeEl.scrollIntoView({ block: "nearest" });
+      input.setAttribute("aria-activedescendant", activeEl.id);
+    } else {
+      input.removeAttribute("aria-activedescendant");
+    }
   }
 
   function setActiveIndex(idx) {
@@ -215,7 +220,10 @@ export function initCommandPalette({
     const nextEl = list.querySelector(
       `.command-palette-item[data-index="${idx}"]`,
     );
-    if (nextEl) nextEl.classList.add("active");
+    if (nextEl) {
+      nextEl.classList.add("active");
+      input.setAttribute("aria-activedescendant", nextEl.id);
+    }
   }
 
   function filterCommands(query) {

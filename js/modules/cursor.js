@@ -11,10 +11,23 @@ export function initCursor() {
     follower.style.transform = followerHovering ? `${base} scale(1.6)` : base;
   }
 
+  // mousemove can fire dozens of times per frame on a fast pointer. The
+  // handler itself only writes a transform (cheap, GPU-composited), but
+  // writing it multiple times within a single frame is still wasted work —
+  // the browser only paints the last one anyway. rafPending batches every
+  // mousemove between two frames down to a single style write per frame,
+  // matching the rAF-batching already used in nav-scroll.js.
+  let rafPending = false;
+
   document.addEventListener("mousemove", (e) => {
     lastMouse = { x: e.clientX, y: e.clientY };
-    cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
-    renderFollowerTransform(e.clientX, e.clientY);
+    if (rafPending) return;
+    rafPending = true;
+    requestAnimationFrame(() => {
+      rafPending = false;
+      cursor.style.transform = `translate(${lastMouse.x - 6}px, ${lastMouse.y - 6}px)`;
+      renderFollowerTransform(lastMouse.x, lastMouse.y);
+    });
   });
 
   // Event delegation instead of querySelectorAll("a, button").forEach(...).

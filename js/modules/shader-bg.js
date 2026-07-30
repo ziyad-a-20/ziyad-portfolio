@@ -139,10 +139,37 @@ export function initShader(prefersReducedMotion) {
     }
   });
 
-  document.addEventListener("visibilitychange", () => {
-    isVisible = !document.hidden;
+  // Two independent gates, both must be true for the loop to run:
+  // tab visibility (visibilitychange) and viewport visibility
+  // (IntersectionObserver). The canvas is a fixed full-viewport layer,
+  // so on any page with sections taller than one screen, the user is
+  // very often scrolled "past" it while it keeps rendering underneath
+  // everything — this stops that, the same way three-scene.js already
+  // stops the Three.js hero loop once its container leaves the viewport.
+  let tabVisible = !document.hidden;
+  let inViewport = true;
+
+  function syncVisibility() {
+    const shouldRun = tabVisible && inViewport;
+    if (shouldRun === isVisible) return;
+    isVisible = shouldRun;
     if (isVisible && rafId === null) render(performance.now());
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    tabVisible = !document.hidden;
+    syncVisibility();
   });
+
+  if (typeof IntersectionObserver !== "undefined") {
+    new IntersectionObserver(
+      (entries) => {
+        inViewport = entries[0].isIntersecting;
+        syncVisibility();
+      },
+      { threshold: 0 },
+    ).observe(wrap);
+  }
 
   function render(t) {
     if (!isVisible) {

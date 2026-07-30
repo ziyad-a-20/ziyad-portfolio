@@ -1,8 +1,9 @@
 /* ============ HIDE NATIVE CURSOR — DESKTOP ONLY ============
    Only suppress the native cursor where the custom cursor actually
-   renders (matches the existing custom-cursor breakpoint), so touch
-   devices and narrow viewports keep normal cursor behavior. */
-@media (min-width: 769px) {
+   renders (matches the custom-cursor breakpoint below: 900px, the
+   same breakpoint used sitewide for "desktop"), so touch devices and
+   narrow viewports keep normal cursor behavior. */
+@media (min-width: 900px) {
   html,
   body,
   a,
@@ -10,7 +11,7 @@
   input,
   textarea,
   * {
-    cursor: none !important;
+    cursor: none !important; /* must beat every other cursor rule on * */
   }
 }
 
@@ -141,9 +142,15 @@
 #loader.loader-done .loader-grid .line-v {
   transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
-#loader.loader-done .line-left { transform: translateX(-40px); }
-#loader.loader-done .line-right { transform: translateX(40px); }
-#loader.loader-done .line-center { transform: scaleY(0.3); }
+#loader.loader-done .line-left {
+  transform: translateX(-40px);
+}
+#loader.loader-done .line-right {
+  transform: translateX(40px);
+}
+#loader.loader-done .line-center {
+  transform: scaleY(0.3);
+}
 
 /* ============ CURSOR & OVERLAYS ============ */
 .custom-cursor {
@@ -169,7 +176,7 @@
   transition: transform 0.3s ease-out;
   display: none;
 }
-@media (min-width: 769px) {
+@media (min-width: 900px) {
   .custom-cursor,
   .custom-cursor-follower {
     display: block;
@@ -1260,19 +1267,33 @@ html:not([data-theme="dark"]) .command-palette-panel {
 }
 /* Custom-cursor breakpoint: 769px → 900px (both blocks) */
 @media (min-width: 900px) {
-  html, body, a, button, input, textarea, * {
+  html,
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  * {
     cursor: none !important; /* legitimate: must beat every other cursor rule on * */
   }
 }
 /* ...scroll-progress stays at 900px, unchanged... */
 @media (min-width: 900px) {
-  .custom-cursor, .custom-cursor-follower { display: block; }
+  .custom-cursor,
+  .custom-cursor-follower {
+    display: block;
+  }
 }
 
 /* Loader breakpoint: 600px → 640px */
 @media (max-width: 640px) {
-  #loader-percentage { font-size: 36px; }
-  #loader-status { font-size: 10px; letter-spacing: 0.2em; }
+  #loader-percentage {
+    font-size: 36px;
+  }
+  #loader-status {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+  }
 }
 
 /* New: keeps <picture> wrappers from disturbing existing img sizing rules */
