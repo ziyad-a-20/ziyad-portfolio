@@ -217,6 +217,28 @@
         );
       }
 
+      /* ============ MOBILE DOT GRID TUNING ============ */
+@media (max-width: 640px) {
+  .dot-grid {
+    /* Slightly denser grid for small screens */
+    background-size: 32px 32px;
+
+    /* Keep the spotlight centered around the 404 instead of
+       letting it shrink with the viewport */
+    mask-image: radial-gradient(
+      ellipse 240px 220px at 50% 38vh,
+      black 0%,
+      transparent 70%
+    );
+
+    -webkit-mask-image: radial-gradient(
+      ellipse 240px 220px at 50% 38vh,
+      black 0%,
+      transparent 70%
+    );
+  }
+}
+
       /* ============ FLOATING MOTES ============ */
       .mote {
         position: fixed;
